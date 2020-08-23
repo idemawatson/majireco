@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-majireco-dev-104317-authRole",
+            "UnauthRoleArn": "arn:aws:iam::132028633744:role/amplify-majireco-dev-104317-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::132028633744:role/amplify-majireco-dev-104317-authRole",
+            "Region": "ap-northeast-1",
+            "DeploymentBucketName": "amplify-majireco-dev-104317-deployment",
+            "UnauthRoleName": "amplify-majireco-dev-104317-unauthRole",
+            "StackName": "amplify-majireco-dev-104317",
+            "StackId": "arn:aws:cloudformation:ap-northeast-1:132028633744:stack/amplify-majireco-dev-104317/10509600-e4e2-11ea-bd26-0a7eeed766b8",
+            "AmplifyAppId": "d1hzldc5tucilw"
+        }
+    }
+}
