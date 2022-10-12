@@ -9,16 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.9.2",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/material": "^5.10.8",
+    "@supabase/supabase-js": "^1.35.7",
+    "@types/jsonwebtoken": "^8.5.9",
+    "axios": "^0.26.1",
+    "jsonwebtoken": "^8.5.1",
     "next": "12.3.1",
+    "next-pwa": "^5.6.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "swr": "^1.2.2"
   },
   "devDependencies": {
+    "@prisma/client": "^4.4.0",
     "@types/node": "18.7.23",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "eslint": "8.24.0",
     "eslint-config-next": "12.3.1",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.6.1",
+    "prisma": "^4.4.0",
     "typescript": "4.8.4"
   }
 }
