@@ -14,7 +14,7 @@ export type RhfSelectFieldProps<T extends FieldValues> = SelectFieldProps & UseC
  * react-hook-formラッパー
  */
 export const RhfSelectField = <T extends FieldValues>(props: RhfSelectFieldProps<T>) => {
-  const { name, control, placeholder, label, className, children } = props
+  const { name, control, placeholder, label, defaultValue, className, children } = props
   const {
     field: { ref, ...rest },
     formState: { errors },
@@ -26,6 +26,7 @@ export const RhfSelectField = <T extends FieldValues>(props: RhfSelectFieldProps
       className={className}
       placeholder={placeholder}
       label={label}
+      defaultValue={defaultValue}
       {...rest}
       error={errors[name] && `${(errors[name] as DeepMap<FieldValues, FieldError>).message}`}
     >

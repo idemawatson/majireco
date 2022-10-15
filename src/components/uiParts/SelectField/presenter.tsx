@@ -10,6 +10,7 @@ export type SelectFieldProps = {
   className?: string
   placeholder?: string
   label?: string
+  defaultValue?: string
   children: ReactNode
 }
 
@@ -26,6 +27,7 @@ export const SelectField = (
       <MUISelectField
         select
         placeholder={props.placeholder}
+        defaultValue={props.defaultValue}
         label={props.label}
         className={props.className}
         inputRef={props.inputRef}

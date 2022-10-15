@@ -9,10 +9,12 @@ import {
   ListItemText,
   Paper,
 } from '@mui/material'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import Player from '@/types/Player'
 import PlayerSelectMenu from '@/components/uiParts/PlayerSelectMenu'
+import CreateGameForm from '@/components/templates/game/CreateGameForm'
 import { usePlayers } from './hooks'
+import { GAME_RULES } from '@/libs/const'
 
 type Props = {
   allPlayers: Player[]
@@ -20,6 +22,7 @@ type Props = {
 
 const Presenter: FC<Props> = ({ allPlayers }) => {
   const { players, addPlayer } = usePlayers()
+  const [gameRule, setGameRule] = useState(GAME_RULES[0])
   const selectedPlayers = players.map((player) => (
     <ListItem key={player.name}>
       <ListItemText>{player.name}</ListItemText>
@@ -41,16 +44,16 @@ const Presenter: FC<Props> = ({ allPlayers }) => {
               {selectedPlayers}
             </List>
             <Grid container justifyContent='flex-end'>
-              <PlayerSelectMenu
-                players={allPlayers}
-                disabled={players.length == 4}
-                handleOnSelectPlayer={addPlayer}
-              />
-            </Grid>
-            <Grid container justifyContent='flex-end'>
-              <Button variant='contained' disableElevation color='primary'>
-                対局を開始する
-              </Button>
+              <Grid xs={12}>
+                <PlayerSelectMenu
+                  players={allPlayers}
+                  disabled={players.length == 4}
+                  handleOnSelectPlayer={addPlayer}
+                />
+              </Grid>
+              <Grid xs={12}>
+                <CreateGameForm />
+              </Grid>
             </Grid>
           </CardContent>
         </Card>

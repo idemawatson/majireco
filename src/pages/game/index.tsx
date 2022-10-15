@@ -3,7 +3,6 @@
 import { MainLayout } from '@/components/layout/MainLayout'
 import { withPageAuthRequired, WithPageAuthRequiredProps } from '@auth0/nextjs-auth0'
 import { FC } from 'react'
-import { usePlayers } from './hooks'
 import Presenter from './presenter'
 
 const Page: FC = () => {
