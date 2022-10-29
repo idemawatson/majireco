@@ -18,6 +18,7 @@
     "@supabase/supabase-js": "^1.35.7",
     "@types/jsonwebtoken": "^8.5.9",
     "axios": "^0.26.1",
+    "dayjs": "^1.11.6",
     "jsonwebtoken": "^8.5.1",
     "next": "12.3.1",
     "next-pwa": "^5.6.0",
