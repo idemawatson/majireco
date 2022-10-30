@@ -7,29 +7,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Game {
-  id             String           @id @unique @default(uuid())
-  playedAt       DateTime
-  rule           GameRule
-  rate           GameRate
-  GamesOnPlayers GamesOnPlayers[]
-}
-
 model Player {
   id    String @id @unique @default(uuid())
   name  String
   email String
-  GamesOnPlayers GamesOnPlayers[]
+  attendingGames  PlayerOnGame[]
 }
 
-model GamesOnPlayers {
-  player    Player @relation(fields: [playerId], references: [id])
-  playerId  String
-  game      Game @relation(fields: [gameId], references: [id])
-  gameId    String
-  rank      Int
-  score     Int
-  @@id([playerId, gameId])
+model Game {
+  id                String           @id @unique @default(uuid())
+  playedAt          DateTime         @default(now())
+  rule              GameRule
+  rate              GameRate
+  belongingPlayers  PlayerOnGame[]
+}
+
+model PlayerOnGame {
+  id            String       @id @unique @default(uuid())
+  player        Player       @relation(fields: [playerId], references: [id])
+  playerId      String
+  game          Game         @relation(fields: [gameId], references: [id])
+  gameId        String
+  roundRecords  RoundRecord[]
+}
+
+model RoundRecord {
+  id              String        @id @unique @default(uuid())
+  createdAt       DateTime      @default(now())
+  playerOnGame    PlayerOnGame  @relation(fields: [playerOnGameId], references: [id])
+  playerOnGameId  String
+  rank            Int
+  score           Int
 }
 
 enum GameRule {

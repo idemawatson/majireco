@@ -1,22 +1,22 @@
 // import Presenter from '@/pages/home/presenter'
 // import { useUserInfoSwr } from '@/pages/home/hooks'
 import { MainLayout } from '@/components/layout/MainLayout'
+import { useLoading } from '@/components/uiParts/TheLoading/hooks'
 import restClient from '@/libs/restClient'
-import { Form } from '@/types/forms/CreateGameForm'
+import { CreateGameFormResponse, Form } from '@/types/forms/CreateGameForm'
 import { withPageAuthRequired, WithPageAuthRequiredProps } from '@auth0/nextjs-auth0'
+import { useRouter } from 'next/router'
 import { FC } from 'react'
 import Presenter from './presenter'
 
-type CreateGameFormResponse = {
-  id: string
-}
-
 const Page: FC = () => {
+  const { showLoading, hideLoading } = useLoading()
+  const router = useRouter()
   const submitForm = async (data: Form) => {
-    const response = await restClient
-      .put<Form, CreateGameFormResponse>('/game', data)
-      .catch((error) => console.error(error))
-    console.log(response)
+    showLoading()
+    const response = await restClient.put<Form, CreateGameFormResponse>('/game', data)
+    hideLoading()
+    router.push(`game/${response.data.id}`)
   }
   return (
     <>

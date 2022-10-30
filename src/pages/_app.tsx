@@ -6,6 +6,7 @@ import { CssBaseline } from '@mui/material'
 import { NextPage } from 'next'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ReactNode } from 'react'
+import { TheLoading } from '@/components/uiParts/TheLoading'
 
 type NextPageWithLayout = NextPage & {
   layout?: typeof MainLayout
@@ -60,6 +61,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <CssBaseline>
         <UserProvider>
           <Layout>
+            <TheLoading />
             <Component {...pageProps} />
           </Layout>
         </UserProvider>

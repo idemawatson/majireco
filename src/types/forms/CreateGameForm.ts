@@ -12,3 +12,7 @@ export const schema: yup.SchemaOf<GameCreateModel> = yup.object().shape({
 })
 
 export type Form = yup.InferType<typeof schema>
+
+export type CreateGameFormResponse = {
+  id: string
+}
