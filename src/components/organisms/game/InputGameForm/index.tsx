@@ -30,17 +30,23 @@ const component: FC<Props> = ({ submitForm, game }) => {
     ),
   )
 
-  const playerList = (game.belongingPlayers || []).map((bp) => (
-    <ListItem>
-      <ListItemText primary={bp.player.name}></ListItemText>
-    </ListItem>
-  ))
+  const playerList = Array.from(Array(4).keys()).map((i) => {
+    const pg =
+      game?.belongingPlayers && game?.belongingPlayers[i] ? game?.belongingPlayers[i] : null
+    return (
+      <ListItem sx={{ py: 0 }}>
+        <ListItemText primary={pg ? pg.player.name : '未参加'}></ListItemText>
+      </ListItem>
+    )
+  })
 
   const formMethods = useForm<ICreateGameForm>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: { rule: GAME_RULES[0], rate: 'NO_RATE' },
   })
+
+  const isEnoughMember = game.belongingPlayers?.length === 4
 
   return (
     <FormProvider {...formMethods}>
@@ -67,13 +73,24 @@ const component: FC<Props> = ({ submitForm, game }) => {
             </RhfSelectField>
           </Grid>
           <Grid xs={12} sx={{ my: 2 }} item>
-            <Typography variant='h6' color='initial'>
+            <Typography variant='subtitle1' color='initial'>
               参加プレイヤー
             </Typography>
+            {isEnoughMember || (
+              <Typography variant='caption' color='error' fontSize={'14px'}>
+                メンバーが不足しています
+              </Typography>
+            )}
             <List>{playerList}</List>
           </Grid>
-          <Grid justifyContent='flex-end' sx={{ my: 2 }} item>
-            <Button variant='contained' disableElevation color='primary' type='submit'>
+          <Grid xs={12} sx={{ my: 2, textAlign: 'right' }} item>
+            <Button
+              variant='contained'
+              disableElevation
+              color='primary'
+              type='submit'
+              disabled={!isEnoughMember}
+            >
               ゲームを開始する
             </Button>
           </Grid>

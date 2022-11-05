@@ -21,4 +21,29 @@ export class GameRepo {
 
     return game
   }
+
+  static async updateGame(input: {
+    id: string
+    rule: GameRule
+    rate: GameRate
+    started: boolean
+    belongingPlayers: PlayerOnGame[]
+  }) {
+    const data = {
+      rule: input.rule,
+      rate: input.rate,
+      started: input.started,
+      belongingPlayers: input.belongingPlayers,
+    }
+    console.log(`START UPDATE GAME.`)
+    const game = await prisma.game.update({
+      where: {
+        id: input.id,
+      },
+      data,
+    })
+    console.log(`END UPDATE GAME: ${JSON.stringify(game)}`)
+
+    return game
+  }
 }

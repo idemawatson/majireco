@@ -30,6 +30,7 @@ export const SelectField = (
         defaultValue={props.defaultValue}
         label={props.label}
         className={props.className}
+        fullWidth={true}
         inputRef={props.inputRef}
         value={props.value}
         onChange={props.onChange}

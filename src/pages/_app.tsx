@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { UserProvider } from '@auth0/nextjs-auth0'
-import { CssBaseline } from '@mui/material'
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
 import { NextPage } from 'next'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ReactNode } from 'react'
@@ -16,11 +16,24 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
+const theme = createTheme({
+  typography: {
+    fontFamily: "'Noto Sans JP', 'sans-serif'",
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+  },
+})
+
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const Layout = Component.layout || (({ children }: { children: ReactNode }) => <>{children}</>)
   return (
     <>
       <Head>
+        <link
+          href='https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap'
+          rel='stylesheet'
+        ></link>
         <meta name='application-name' content='PWA App' />
         <meta name='apple-mobile-web-app-capable' content='yes' />
         <meta name='apple-mobile-web-app-status-bar-style' content='default' />
@@ -58,14 +71,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <meta property='og:url' content='https://yourdomain.com' />
         <meta property='og:image' content='https://yourdomain.com/icons/apple-touch-icon.png' />
       </Head>
-      <CssBaseline>
-        <UserProvider>
-          <Layout>
-            <TheLoading />
-            <Component {...pageProps} />
-          </Layout>
-        </UserProvider>
-      </CssBaseline>
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+          <UserProvider>
+            <Layout>
+              <TheLoading />
+              <Component {...pageProps} />
+            </Layout>
+          </UserProvider>
+        </CssBaseline>
+      </ThemeProvider>
     </>
   )
 }
