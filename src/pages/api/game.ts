@@ -2,19 +2,13 @@ import type { NextApiHandler } from 'next'
 import prisma from '@/libs/prisma'
 import dayjs from 'dayjs'
 import { withApiAuthRequired } from '@auth0/nextjs-auth0'
-import { CreateGameFormResponse } from '@/types/forms/CreateGameForm'
+import { GameRepo } from '@/repositories/gameRepo'
 
 const handler: NextApiHandler = async (req, res) => {
   try {
     console.log(req.body)
     if (req.method === 'PUT') {
-      const game: CreateGameFormResponse = await prisma.game.create({
-        data: {
-          playedAt: dayjs().toISOString(),
-          rule: req.body.gameRule,
-          rate: req.body.gameRate,
-        },
-      })
+      const game = await GameRepo.createGame(req.body)
       res.json(game)
       return
     } else if (req.method === 'GET') {
@@ -27,7 +21,11 @@ const handler: NextApiHandler = async (req, res) => {
           id: req.query.game_id,
         },
         include: {
-          GamesOnPlayers: true,
+          belongingPlayers: {
+            include: {
+              player: true,
+            },
+          },
         },
       })
       res.json(game)

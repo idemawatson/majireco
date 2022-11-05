@@ -5,14 +5,14 @@ import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } fr
 
 import { Button, Grid, MenuItem } from '@mui/material'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
-import { Form, schema } from '@/types/forms/CreateGameForm'
+import { ICreateGameForm, schema } from '@/types/forms/CreateGameForm'
 
 type Props = {
-  submitForm: (data: Form) => void
+  submitForm: (data: ICreateGameForm) => void
 }
 
 const component: FC<Props> = ({ submitForm }) => {
-  const gameRuleSelections = GAME_RULE_SELECTIONS.map(
+  const ruleSelections = GAME_RULE_SELECTIONS.map(
     ({ text, value }: { text: string; value: string }) => (
       <MenuItem key={value} value={value}>
         {text}
@@ -20,7 +20,7 @@ const component: FC<Props> = ({ submitForm }) => {
     ),
   )
 
-  const gameRateSelections = GAME_RATE_SELECTIONS.map(
+  const rateSelections = GAME_RATE_SELECTIONS.map(
     ({ text, value }: { text: string; value: string }) => (
       <MenuItem key={value} value={value}>
         {text}
@@ -28,10 +28,10 @@ const component: FC<Props> = ({ submitForm }) => {
     ),
   )
 
-  const formMethods = useForm<Form>({
+  const formMethods = useForm<ICreateGameForm>({
     mode: 'onChange',
     resolver: yupResolver(schema),
-    defaultValues: { gameRule: GAME_RULES[0], gameRate: 'NO_RATE' },
+    defaultValues: { rule: GAME_RULES[0], rate: 'NO_RATE' },
   })
 
   return (
@@ -41,21 +41,21 @@ const component: FC<Props> = ({ submitForm }) => {
           <Grid xs={12} sx={{ my: 2 }} item>
             <RhfSelectField
               label='配点ルール'
-              name='gameRule'
+              name='rule'
               defaultValue={GAME_RULES[0]}
               control={formMethods.control}
             >
-              {gameRuleSelections}
+              {ruleSelections}
             </RhfSelectField>
           </Grid>
           <Grid xs={12} sx={{ my: 2 }} item>
             <RhfSelectField
               label='レート'
-              name='gameRate'
+              name='rate'
               defaultValue={GAME_RATES[0]}
               control={formMethods.control}
             >
-              {gameRateSelections}
+              {rateSelections}
             </RhfSelectField>
           </Grid>
           <Grid justifyContent='flex-end' sx={{ my: 2 }} item>

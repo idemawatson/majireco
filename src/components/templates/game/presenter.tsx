@@ -1,14 +1,17 @@
 import { Card, CardContent, CardHeader, Grid, Paper } from '@mui/material'
 import { FC } from 'react'
-import InputGameForm from '@/components/templates/game/InputGameForm'
-import { Form } from '@/types/forms/CreateGameForm'
+import InputGameForm from '@/components/organisms/game/InputGameForm'
+import { getGame } from '@/hooks/getGame'
+import { ICreateGameForm } from '@/types/forms/CreateGameForm'
+import { useRouter } from 'next/router'
 
 type Props = {
-  submitForm: (data: Form) => void
+  submitForm: (data: ICreateGameForm) => void
 }
 
 const Presenter: FC<Props> = ({ submitForm }) => {
-  const players = [{ name: 'p1' }, { name: 'p2' }]
+  const router = useRouter()
+  const { data, error } = getGame(router.query.gameId as string)
   return (
     <>
       <Paper
@@ -22,7 +25,7 @@ const Presenter: FC<Props> = ({ submitForm }) => {
           <CardContent>
             <Grid container justifyContent='flex-end'>
               <Grid item xs={12}>
-                <InputGameForm players={players} submitForm={submitForm} />
+                {data && <InputGameForm game={data} submitForm={submitForm} />}
               </Grid>
             </Grid>
           </CardContent>

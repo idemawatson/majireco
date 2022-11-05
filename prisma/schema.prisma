@@ -19,6 +19,7 @@ model Game {
   playedAt          DateTime         @default(now())
   rule              GameRule
   rate              GameRate
+  started           Boolean          @default(false)
   belongingPlayers  PlayerOnGame[]
 }
 

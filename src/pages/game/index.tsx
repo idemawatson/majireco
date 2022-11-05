@@ -1,26 +1,37 @@
 // import Presenter from '@/pages/home/presenter'
 // import { useUserInfoSwr } from '@/pages/home/hooks'
 import { MainLayout } from '@/components/layout/MainLayout'
-import { useLoading } from '@/components/uiParts/TheLoading/hooks'
-import restClient from '@/libs/restClient'
-import { CreateGameFormResponse, Form } from '@/types/forms/CreateGameForm'
 import { withPageAuthRequired, WithPageAuthRequiredProps } from '@auth0/nextjs-auth0'
-import { useRouter } from 'next/router'
 import { FC } from 'react'
-import Presenter from './presenter'
+import { Card, CardContent, CardHeader, Grid, Paper } from '@mui/material'
+import CreateGameForm from '@/components/organisms/game/CreateGameForm'
+import { createGame } from '@/hooks/createGame'
+import { ICreateGameForm } from '@/types/forms/CreateGameForm'
 
 const Page: FC = () => {
-  const { showLoading, hideLoading } = useLoading()
-  const router = useRouter()
-  const submitForm = async (data: Form) => {
-    showLoading()
-    const response = await restClient.put<Form, CreateGameFormResponse>('/game', data)
-    hideLoading()
-    router.push(`game/${response.data.id}`)
+  const { handleCreateGame } = createGame()
+  const submitForm = async (data: ICreateGameForm) => {
+    await handleCreateGame(data)
   }
   return (
     <>
-      <Presenter submitForm={submitForm}></Presenter>
+      <Paper
+        sx={{
+          margin: 2,
+        }}
+        elevation={0}
+      >
+        <Card elevation={0}>
+          <CardHeader title='対局を作成する' />
+          <CardContent>
+            <Grid container justifyContent='flex-end'>
+              <Grid item xs={12}>
+                <CreateGameForm submitForm={submitForm} />
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Paper>
     </>
   )
 }

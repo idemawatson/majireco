@@ -3,18 +3,18 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } from '@/libs/const'
 
-import { Button, Grid, MenuItem, List, ListItem, ListItemText } from '@mui/material'
+import { Button, Grid, MenuItem, List, ListItem, ListItemText, Typography } from '@mui/material'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
-import { Form, schema } from '@/types/forms/CreateGameForm'
-import Player from '@/types/Player'
+import { ICreateGameForm, schema } from '@/types/forms/CreateGameForm'
+import { Game } from '@/domains/Game'
 
 type Props = {
-  submitForm: (data: Form) => void
-  players: Player[]
+  submitForm: (data: ICreateGameForm) => void
+  game: Game
 }
 
-const component: FC<Props> = ({ submitForm, players }) => {
-  const gameRuleSelections = GAME_RULE_SELECTIONS.map(
+const component: FC<Props> = ({ submitForm, game }) => {
+  const ruleSelections = GAME_RULE_SELECTIONS.map(
     ({ text, value }: { text: string; value: string }) => (
       <MenuItem key={value} value={value}>
         {text}
@@ -22,7 +22,7 @@ const component: FC<Props> = ({ submitForm, players }) => {
     ),
   )
 
-  const gameRateSelections = GAME_RATE_SELECTIONS.map(
+  const rateSelections = GAME_RATE_SELECTIONS.map(
     ({ text, value }: { text: string; value: string }) => (
       <MenuItem key={value} value={value}>
         {text}
@@ -30,16 +30,16 @@ const component: FC<Props> = ({ submitForm, players }) => {
     ),
   )
 
-  const playerList = players.map((player) => (
+  const playerList = (game.belongingPlayers || []).map((bp) => (
     <ListItem>
-      <ListItemText primary={player.name}></ListItemText>
+      <ListItemText primary={bp.player.name}></ListItemText>
     </ListItem>
   ))
 
-  const formMethods = useForm<Form>({
+  const formMethods = useForm<ICreateGameForm>({
     mode: 'onChange',
     resolver: yupResolver(schema),
-    defaultValues: { gameRule: GAME_RULES[0], gameRate: 'NO_RATE' },
+    defaultValues: { rule: GAME_RULES[0], rate: 'NO_RATE' },
   })
 
   return (
@@ -49,24 +49,27 @@ const component: FC<Props> = ({ submitForm, players }) => {
           <Grid xs={12} sx={{ my: 2 }} item>
             <RhfSelectField
               label='配点ルール'
-              name='gameRule'
-              defaultValue={GAME_RULES[0]}
+              name='rule'
+              defaultValue={game.rule}
               control={formMethods.control}
             >
-              {gameRuleSelections}
+              {ruleSelections}
             </RhfSelectField>
           </Grid>
           <Grid xs={12} sx={{ my: 2 }} item>
             <RhfSelectField
               label='レート'
-              name='gameRate'
-              defaultValue={GAME_RATES[0]}
+              name='rate'
+              defaultValue={game.rate}
               control={formMethods.control}
             >
-              {gameRateSelections}
+              {rateSelections}
             </RhfSelectField>
           </Grid>
           <Grid xs={12} sx={{ my: 2 }} item>
+            <Typography variant='h6' color='initial'>
+              参加プレイヤー
+            </Typography>
             <List>{playerList}</List>
           </Grid>
           <Grid justifyContent='flex-end' sx={{ my: 2 }} item>
