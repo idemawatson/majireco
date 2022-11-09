@@ -16,6 +16,9 @@ class RestClient {
   async post<T, U>(path: string, body: T): Promise<AxiosResponse<U>> {
     return await this._client.post(path, body)
   }
+  async patch<T, U>(path: string, body: T): Promise<AxiosResponse<U>> {
+    return await this._client.patch(path, body)
+  }
   async put<T, U>(path: string, body: T): Promise<AxiosResponse<U>> {
     return await this._client.put(path, body)
   }

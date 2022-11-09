@@ -8,37 +8,39 @@ datasource db {
 }
 
 model Player {
-  id    String @id @unique @default(uuid())
-  name  String
-  email String
-  attendingGames  PlayerOnGame[]
+  id             String         @id @unique @default(uuid())
+  name           String
+  email          String
+  attendingGames PlayerOnGame[]
 }
 
 model Game {
-  id                String           @id @unique @default(uuid())
-  playedAt          DateTime         @default(now())
-  rule              GameRule
-  rate              GameRate
-  started           Boolean          @default(false)
-  belongingPlayers  PlayerOnGame[]
+  id               String         @id @unique @default(uuid())
+  playedAt         DateTime       @default(now())
+  rule             GameRule
+  rate             GameRate
+  started          Boolean        @default(false)
+  belongingPlayers PlayerOnGame[]
 }
 
 model PlayerOnGame {
-  id            String       @id @unique @default(uuid())
-  player        Player       @relation(fields: [playerId], references: [id])
-  playerId      String
-  game          Game         @relation(fields: [gameId], references: [id])
-  gameId        String
-  roundRecords  RoundRecord[]
+  player       Player        @relation(fields: [playerId], references: [id])
+  playerId     String
+  game         Game          @relation(fields: [gameId], references: [id])
+  gameId       String
+  roundRecords RoundRecord[]
+
+  @@id([playerId, gameId])
 }
 
 model RoundRecord {
-  id              String        @id @unique @default(uuid())
-  createdAt       DateTime      @default(now())
-  playerOnGame    PlayerOnGame  @relation(fields: [playerOnGameId], references: [id])
-  playerOnGameId  String
-  rank            Int
-  score           Int
+  id                   String       @id @unique @default(uuid())
+  createdAt            DateTime     @default(now())
+  playerOnGame         PlayerOnGame @relation(references: [playerId, gameId], fields: [playerOnGamePlayerId, playerOnGameGameId])
+  rank                 Int
+  score                Int
+  playerOnGamePlayerId String
+  playerOnGameGameId   String
 }
 
 enum GameRule {

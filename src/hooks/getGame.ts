@@ -1,4 +1,4 @@
-import { Game } from '@/domains/Game'
+import { Game } from '@/domains/entity/Game'
 import restClient from '@/libs/restClient'
 import useSWR from 'swr'
 

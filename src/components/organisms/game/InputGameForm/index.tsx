@@ -6,7 +6,7 @@ import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } fr
 import { Button, Grid, MenuItem, List, ListItem, ListItemText, Typography } from '@mui/material'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { ICreateGameForm, schema } from '@/types/forms/CreateGameForm'
-import { Game } from '@/domains/Game'
+import { Game } from '@/domains/entity/Game'
 
 type Props = {
   submitForm: (data: ICreateGameForm) => void

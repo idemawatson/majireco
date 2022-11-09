@@ -1,14 +1,14 @@
 import type { NextApiHandler } from 'next'
-import prisma from '@/libs/prisma'
-import dayjs from 'dayjs'
 import { withApiAuthRequired } from '@auth0/nextjs-auth0'
-import { GameRepo } from '@/repositories/gameRepo'
+import CreateGameUseCase from '@/usecase/CreateGameUseCase'
+import GetGameUseCase from '@/usecase/GetGameUseCase'
 
 const handler: NextApiHandler = async (req, res) => {
   try {
     console.log(req.body)
     if (req.method === 'PUT') {
-      const game = await GameRepo.createGame(req.body)
+      const createGameUseCase = new CreateGameUseCase()
+      const game = await createGameUseCase.exec(req.body)
       res.json(game)
       return
     } else if (req.method === 'GET') {
@@ -16,18 +16,8 @@ const handler: NextApiHandler = async (req, res) => {
         res.status(500).json({ ok: false, error: 'Invalid Query Parameter' })
         return
       }
-      const game = await prisma.game.findUnique({
-        where: {
-          id: req.query.game_id,
-        },
-        include: {
-          belongingPlayers: {
-            include: {
-              player: true,
-            },
-          },
-        },
-      })
+      const getGameUseCase = new GetGameUseCase()
+      const game = await getGameUseCase.exec({ gameId: req.query.game_id })
       res.json(game)
     } else {
       res.status(404).json({ ok: false, error: 'Invalid Request Method' })

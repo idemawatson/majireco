@@ -1,8 +1,28 @@
 import { GameRate, GameRule, PlayerOnGame } from '@prisma/client'
 import prisma from '@/libs/prisma'
 import dayjs from 'dayjs'
+import GameFactory from '@/domains/factory/GameFactory'
 
 export class GameRepo {
+  static async getGame(gameId: string) {
+    const game = await prisma.game.findUnique({
+      where: {
+        id: gameId,
+      },
+      include: {
+        belongingPlayers: {
+          include: {
+            player: true,
+            roundRecords: true,
+          },
+        },
+      },
+    })
+    const factory = new GameFactory()
+    if (!game) return null
+    return factory.fromRaw(game)
+  }
+
   static async createGame(input: {
     rule: GameRule
     rate: GameRate
@@ -15,19 +35,17 @@ export class GameRepo {
       started: false,
       belongingPlayers: input.belongingPlayers || undefined,
     }
-    console.log(`START CREATE GAME.`)
     const game = await prisma.game.create({ data })
-    console.log(`END CREATE GAME: ${JSON.stringify(game)}`)
-
-    return game
+    const factory = new GameFactory()
+    return factory.fromRaw(game)
   }
 
   static async updateGame(input: {
     id: string
-    rule: GameRule
-    rate: GameRate
-    started: boolean
-    belongingPlayers: PlayerOnGame[]
+    rule?: GameRule
+    rate?: GameRate
+    started?: boolean
+    belongingPlayers?: PlayerOnGame[]
   }) {
     const data = {
       rule: input.rule,
@@ -35,15 +53,21 @@ export class GameRepo {
       started: input.started,
       belongingPlayers: input.belongingPlayers,
     }
-    console.log(`START UPDATE GAME.`)
     const game = await prisma.game.update({
       where: {
         id: input.id,
       },
       data,
     })
-    console.log(`END UPDATE GAME: ${JSON.stringify(game)}`)
+    const factory = new GameFactory()
+    return factory.fromRaw(game)
+  }
 
-    return game
+  static async deleteGame(input: { id: string }) {
+    await prisma.game.delete({
+      where: {
+        id: input.id,
+      },
+    })
   }
 }
