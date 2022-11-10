@@ -6,11 +6,11 @@ import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } fr
 import { Button, Grid, MenuItem, List, ListItem, ListItemText, Typography } from '@mui/material'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { ICreateGameForm, schema } from '@/types/forms/CreateGameForm'
-import { Game } from '@/domains/entity/Game'
+import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 
 type Props = {
   submitForm: (data: ICreateGameForm) => void
-  game: Game
+  game: GetGameResponseDTO
 }
 
 const component: FC<Props> = ({ submitForm, game }) => {
@@ -35,7 +35,7 @@ const component: FC<Props> = ({ submitForm, game }) => {
       game?.belongingPlayers && game?.belongingPlayers[i] ? game?.belongingPlayers[i] : null
     return (
       <ListItem sx={{ py: 0 }}>
-        <ListItemText primary={pg ? pg.player.name : '未参加'}></ListItemText>
+        <ListItemText primary={pg ? pg.playerId : '未参加'}></ListItemText>
       </ListItem>
     )
   })
@@ -43,7 +43,7 @@ const component: FC<Props> = ({ submitForm, game }) => {
   const formMethods = useForm<ICreateGameForm>({
     mode: 'onChange',
     resolver: yupResolver(schema),
-    defaultValues: { rule: GAME_RULES[0], rate: 'NO_RATE' },
+    defaultValues: { rule: GAME_RULES[0], rate: GAME_RATES[0] },
   })
 
   const isEnoughMember = game.belongingPlayers?.length === 4

@@ -45,7 +45,7 @@ export class Game extends ValueObject<GameProps> {
     return this._value.started._value
   }
   get belongingPlayers() {
-    return this._value.belongingPlayers
+    return this._value.belongingPlayers?.map((player) => player)
   }
   getPlayerOnGames(playerId: string) {
     return this._value.belongingPlayers?.find((bp) => playerId === bp.playerId)
@@ -55,18 +55,14 @@ export class Game extends ValueObject<GameProps> {
   }
 }
 
-export class GameRule extends PrimitiveValueObject<string> {
-  constructor(readonly _value: string) {
-    if (!(Object.values(PrismaGameRule) as string[]).includes(_value))
-      throw new Error('GameRule is invalid.')
+export class GameRule extends PrimitiveValueObject<PrismaGameRule> {
+  constructor(readonly _value: PrismaGameRule) {
     super(_value)
   }
 }
 
-export class GameRate extends PrimitiveValueObject<string> {
-  constructor(readonly _value: string) {
-    if (!(Object.values(PrismaGameRate) as string[]).includes(_value))
-      throw new Error('GameRate is invalid.')
+export class GameRate extends PrimitiveValueObject<PrismaGameRate> {
+  constructor(readonly _value: PrismaGameRate) {
     super(_value)
   }
 }

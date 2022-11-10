@@ -1,7 +1,7 @@
 import { GameRate, GameRule, PlayerOnGame } from '@prisma/client'
 import prisma from '@/libs/prisma'
-import dayjs from 'dayjs'
-import GameFactory from '@/domains/factory/GameFactory'
+import GameMapper from '@/domains/mapper/GameMapper'
+import { Game } from '@/domains/entity/Game'
 
 export class GameRepo {
   static async getGame(gameId: string) {
@@ -18,26 +18,13 @@ export class GameRepo {
         },
       },
     })
-    const factory = new GameFactory()
     if (!game) return null
-    return factory.fromRaw(game)
+    return GameMapper.toDomain(game)
   }
 
-  static async createGame(input: {
-    rule: GameRule
-    rate: GameRate
-    belongingPlayers?: PlayerOnGame[]
-  }) {
-    const data = {
-      playedAt: dayjs().toISOString(),
-      rule: input.rule,
-      rate: input.rate,
-      started: false,
-      belongingPlayers: input.belongingPlayers || undefined,
-    }
-    const game = await prisma.game.create({ data })
-    const factory = new GameFactory()
-    return factory.fromRaw(game)
+  static async createGame(game: Game) {
+    const data = GameMapper.toPersistent(game)
+    await prisma.game.create({ data: data })
   }
 
   static async updateGame(input: {
@@ -59,8 +46,7 @@ export class GameRepo {
       },
       data,
     })
-    const factory = new GameFactory()
-    return factory.fromRaw(game)
+    return GameMapper.toDomain(game)
   }
 
   static async deleteGame(input: { id: string }) {

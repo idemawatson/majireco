@@ -11,13 +11,13 @@ export class EntityId extends PrimitiveValueObject<string> {
   }
 }
 
-export class DateValue extends PrimitiveValueObject<string> {
-  constructor(readonly _value: string, keyName: string) {
+export class DateValue extends PrimitiveValueObject<Date> {
+  constructor(readonly _value: Date, keyName: string) {
     if (!dayjs(_value).isValid()) throw new Error(`${keyName} is invalid.`)
     super(_value)
   }
   static current(keyName: string) {
-    return new DateValue(dayjs().toISOString(), keyName)
+    return new DateValue(dayjs().toDate(), keyName)
   }
 }
 

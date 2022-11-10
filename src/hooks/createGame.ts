@@ -1,7 +1,7 @@
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
-import { Game } from '@/domains/entity/Game'
 import restClient from '@/libs/restClient'
 import { ICreateGameForm } from '@/types/forms/CreateGameForm'
+import { CreateGameResponseDTO } from '@/usecases/CreateGame/CreateGameDto'
 import { useRouter } from 'next/router'
 
 export const createGame = () => {
@@ -9,10 +9,15 @@ export const createGame = () => {
   const router = useRouter()
 
   const handleCreateGame = async (data: ICreateGameForm) => {
-    showLoading()
-    const response = await restClient.put<ICreateGameForm, Game>('/game', data)
-    hideLoading()
-    router.push(`game/${response.data.id}`)
+    try {
+      showLoading()
+      const response = await restClient.put<ICreateGameForm, CreateGameResponseDTO>('/game', data)
+      router.push(`game/${response.data.id}`)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      hideLoading()
+    }
   }
 
   return { handleCreateGame }

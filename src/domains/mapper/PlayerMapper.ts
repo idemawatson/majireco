@@ -1,9 +1,14 @@
-import { Player as PrismaPlayer } from '@prisma/client'
 import { Player, PlayerName } from '../entity/Player'
 import { EmailValue, EntityId } from '../entity/valueObjects/CommonValueObjects'
 
-export default class PlayerFactory {
-  static fromRaw(values: PrismaPlayer) {
+export type PlayerRawProps = {
+  id: string
+  email: string
+  name: string
+}
+
+export default class PlayerMapper {
+  static toDomain(values: PlayerRawProps) {
     const { id, email, name } = values
     return new Player({
       id: new EntityId(id),
