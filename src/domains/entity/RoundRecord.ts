@@ -1,3 +1,4 @@
+import { ValidationError } from '@/errors/error'
 import { PrimitiveValueObject, ValueObject } from './valueObjects/BaseValueObjects'
 import { DateValue, EntityId } from './valueObjects/CommonValueObjects'
 
@@ -33,14 +34,15 @@ export class RoundRecord extends ValueObject<RoundRecordProps> {
 
 export class RoundRecordRankValue extends PrimitiveValueObject<number> {
   constructor(readonly _value: number) {
-    if ([1, 2, 3, 4].includes(_value)) throw new Error(`RoundRecordRankValue is invalid.`)
+    if ([1, 2, 3, 4].includes(_value)) throw new ValidationError(`RoundRecordRankValue is invalid.`)
     super(_value)
   }
 }
 
 export class RoundRecordScoreValue extends PrimitiveValueObject<number> {
   constructor(readonly _value: number) {
-    if (_value < -1000000 || _value > 1000000) throw new Error(`RoundRecordScoreValue is invalid.`)
+    if (_value < -1000000 || _value > 1000000)
+      throw new ValidationError(`RoundRecordScoreValue is invalid.`)
     super(_value)
   }
 }

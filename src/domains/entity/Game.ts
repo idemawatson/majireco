@@ -1,3 +1,4 @@
+import { ValidationError } from '@/errors/error'
 import { GameRate as PrismaGameRate, GameRule as PrismaGameRule } from '@prisma/client'
 import { Player } from './Player'
 import { PlayerOnGame } from './PlayerOnGame'
@@ -19,7 +20,7 @@ export type PlayerOnGameProps = Player & { roundRecords: RoundRecord[] }[]
 export class Game extends ValueObject<GameProps> {
   constructor(props: GameProps) {
     if (props.belongingPlayers && props.belongingPlayers.length > 4)
-      throw new Error('belongingPlayers is invalid.')
+      throw new ValidationError('belongingPlayers is invalid.')
     super({
       id: new EntityId(props.id.value),
       playedAt: new DateValue(props.playedAt.value, 'playedAt'),
@@ -57,12 +58,16 @@ export class Game extends ValueObject<GameProps> {
 
 export class GameRule extends PrimitiveValueObject<PrismaGameRule> {
   constructor(readonly _value: PrismaGameRule) {
+    if (!(Object.values(PrismaGameRule) as string[]).includes(_value))
+      throw new ValidationError('GameRule is invalid.')
     super(_value)
   }
 }
 
 export class GameRate extends PrimitiveValueObject<PrismaGameRate> {
   constructor(readonly _value: PrismaGameRate) {
+    if (!(Object.values(PrismaGameRate) as string[]).includes(_value))
+      throw new ValidationError('GameRate is invalid.')
     super(_value)
   }
 }

@@ -1,3 +1,4 @@
+import { ValidationError } from '@/errors/error'
 import { PrimitiveValueObject, ValueObject } from './valueObjects/BaseValueObjects'
 import { EmailValue, EntityId } from './valueObjects/CommonValueObjects'
 
@@ -28,7 +29,7 @@ export class Player extends ValueObject<PlayerProps> {
 
 export class PlayerName extends PrimitiveValueObject<string> {
   constructor(readonly _value: string) {
-    if (_value.length > 100) throw new Error('PlayerName is invalid.')
+    if (_value.length > 100) throw new ValidationError('PlayerName is invalid.')
     super(_value)
   }
 }

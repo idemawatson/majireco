@@ -7,6 +7,8 @@ import { NextPage } from 'next'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ReactNode } from 'react'
 import { TheLoading } from '@/components/uiParts/TheLoading'
+import { ErrorBoundary } from 'react-error-boundary'
+import { ErrorFallback } from '@/components/uiParts/TheErrorBoundary'
 
 type NextPageWithLayout = NextPage & {
   layout?: typeof MainLayout
@@ -76,7 +78,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <UserProvider>
             <Layout>
               <TheLoading />
-              <Component {...pageProps} />
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Component {...pageProps} />
+              </ErrorBoundary>
             </Layout>
           </UserProvider>
         </CssBaseline>

@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import { PrimitiveValueObject } from './BaseValueObjects'
 import { uuid } from 'uuidv4'
+import { ValidationError } from 'yup'
 
 export class EntityId extends PrimitiveValueObject<string> {
   constructor(readonly _value: string) {
@@ -13,7 +14,7 @@ export class EntityId extends PrimitiveValueObject<string> {
 
 export class DateValue extends PrimitiveValueObject<Date> {
   constructor(readonly _value: Date, keyName: string) {
-    if (!dayjs(_value).isValid()) throw new Error(`${keyName} is invalid.`)
+    if (!dayjs(_value).isValid()) throw new ValidationError(`${keyName} is invalid.`)
     super(_value)
   }
   static current(keyName: string) {

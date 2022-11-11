@@ -11,7 +11,7 @@ type Props = {
 
 const Presenter: FC<Props> = ({ submitForm }) => {
   const router = useRouter()
-  const { data, error } = getGame(router.query.gameId as string)
+  const { data } = getGame(router.query.gameId as string)
   return (
     <>
       <Paper
