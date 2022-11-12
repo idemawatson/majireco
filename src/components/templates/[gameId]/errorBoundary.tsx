@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material'
-import { FallbackProps } from 'react-error-boundary'
 import axios from 'axios'
+// eslint-disable-next-line
+import { FallbackProps } from 'react-error-boundary'
 
 export const ErrorFallback: React.FC<FallbackProps> = ({ error }) => {
   if (axios.isAxiosError(error)) {

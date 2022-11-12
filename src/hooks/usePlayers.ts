@@ -1,5 +1,5 @@
-import Player from '@/types/Player'
 import useSWR from 'swr'
+import Player from '@/types/Player'
 
 const usePlayersSWR = (
   key: string,

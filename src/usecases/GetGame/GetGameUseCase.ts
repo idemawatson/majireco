@@ -1,6 +1,6 @@
+import { GetGameRequestDTO, GetGameResponseDTO } from './GetGameDto'
 import { NotFoundError } from '@/errors/error'
 import { GameRepo } from '@/repositories/gameRepo'
-import { GetGameRequestDTO, GetGameResponseDTO } from './GetGameDto'
 
 export default class GetGameUseCase {
   async execute(input: GetGameRequestDTO): Promise<GetGameResponseDTO> {

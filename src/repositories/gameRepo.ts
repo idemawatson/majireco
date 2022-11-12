@@ -1,7 +1,7 @@
 import { GameRate, GameRule, PlayerOnGame } from '@prisma/client'
-import prisma from '@/libs/prisma'
-import GameMapper from '@/domains/mapper/GameMapper'
 import { Game } from '@/domains/entity/Game'
+import GameMapper from '@/domains/mapper/GameMapper'
+import prisma from '@/libs/prisma'
 
 export class GameRepo {
   static async getGame(gameId: string) {

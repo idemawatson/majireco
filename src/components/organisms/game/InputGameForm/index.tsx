@@ -1,10 +1,10 @@
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, Grid, MenuItem, List, ListItem, ListItemText, Typography } from '@mui/material'
 import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } from '@/libs/const'
 
-import { Button, Grid, MenuItem, List, ListItem, ListItemText, Typography } from '@mui/material'
-import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { ICreateGameForm, schema } from '@/types/forms/CreateGameForm'
 import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 
@@ -13,7 +13,7 @@ type Props = {
   game: GetGameResponseDTO
 }
 
-const component: FC<Props> = ({ submitForm, game }) => {
+const InputGameForm: FC<Props> = ({ submitForm, game }) => {
   const ruleSelections = GAME_RULE_SELECTIONS.map(
     ({ text, value }: { text: string; value: string }) => (
       <MenuItem key={value} value={value}>
@@ -34,7 +34,7 @@ const component: FC<Props> = ({ submitForm, game }) => {
     const pg =
       game?.belongingPlayers && game?.belongingPlayers[i] ? game?.belongingPlayers[i] : null
     return (
-      <ListItem sx={{ py: 0 }}>
+      <ListItem sx={{ py: 0 }} key={i}>
         <ListItemText primary={pg ? pg.playerId : '未参加'}></ListItemText>
       </ListItem>
     )
@@ -100,4 +100,4 @@ const component: FC<Props> = ({ submitForm, game }) => {
   )
 }
 
-export default component
+export default InputGameForm

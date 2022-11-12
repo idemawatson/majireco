@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { Card, CardContent, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { Card, CardContent, IconButton } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { FC } from "react";
 
 export const AdditionBtn: FC<{ onClick: () => void }> = ({ onClick }) => {
   return (

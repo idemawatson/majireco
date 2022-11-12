@@ -1,10 +1,10 @@
-import BottomNavigation from '@mui/material/BottomNavigation'
-import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import RestoreIcon from '@mui/icons-material/Restore'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import { useEffect, useState, FC } from 'react'
+import RestoreIcon from '@mui/icons-material/Restore'
 import { Paper } from '@mui/material'
+import BottomNavigation from '@mui/material/BottomNavigation'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import { useEffect, useState, FC } from 'react'
 
 type Props = {
   value: string
@@ -15,7 +15,7 @@ const LabelBottomNavigation: FC<Props> = ({ value, handleChange }) => {
   const [routeName, setRouteName] = useState('/home')
   useEffect(() => {
     setRouteName(value.split('/')[1])
-  })
+  }, [value])
   return (
     <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={2}>
       <BottomNavigation sx={{ width: '100%' }} value={routeName} onChange={handleChange}>

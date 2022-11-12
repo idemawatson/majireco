@@ -1,17 +1,17 @@
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, Grid, MenuItem } from '@mui/material'
 import { FC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } from '@/libs/const'
 
-import { Button, Grid, MenuItem } from '@mui/material'
-import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { ICreateGameForm, schema } from '@/types/forms/CreateGameForm'
 
 type Props = {
   submitForm: (data: ICreateGameForm) => void
 }
 
-const component: FC<Props> = ({ submitForm }) => {
+const CreateGameForm: FC<Props> = ({ submitForm }) => {
   const ruleSelections = GAME_RULE_SELECTIONS.map(
     ({ text, value }: { text: string; value: string }) => (
       <MenuItem key={value} value={value}>
@@ -69,4 +69,4 @@ const component: FC<Props> = ({ submitForm }) => {
   )
 }
 
-export default component
+export default CreateGameForm

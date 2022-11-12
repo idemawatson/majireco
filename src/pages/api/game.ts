@@ -1,5 +1,5 @@
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0'
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { CreateGameController } from '@/controllers/CreateGameController'
 import { GetGameController } from '@/controllers/GetGameController'

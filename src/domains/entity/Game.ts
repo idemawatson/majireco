@@ -1,10 +1,10 @@
-import { ValidationError } from '@/errors/error'
 import { GameRate as PrismaGameRate, GameRule as PrismaGameRule } from '@prisma/client'
 import { Player } from './Player'
 import { PlayerOnGame } from './PlayerOnGame'
 import { RoundRecord } from './RoundRecord'
 import { PrimitiveValueObject, ValueObject } from './valueObjects/BaseValueObjects'
 import { BoolValue, DateValue, EntityId } from './valueObjects/CommonValueObjects'
+import { ValidationError } from '@/errors/error'
 
 export type GameProps = {
   id: EntityId

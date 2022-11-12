@@ -1,15 +1,15 @@
 // import Presenter from '@/pages/home/presenter'
 // import { useUserInfoSwr } from '@/pages/home/hooks'
-import { MainLayout } from '@/components/layout/MainLayout'
 import { withPageAuthRequired, WithPageAuthRequiredProps } from '@auth0/nextjs-auth0'
-import { FC } from 'react'
 import { Card, CardContent, CardHeader, Grid, Paper } from '@mui/material'
+import { FC } from 'react'
+import { MainLayout } from '@/components/layout/MainLayout'
 import CreateGameForm from '@/components/organisms/game/CreateGameForm'
-import { createGame } from '@/hooks/createGame'
+import { useCreateGame } from '@/hooks/useCreateGame'
 import { ICreateGameForm } from '@/types/forms/CreateGameForm'
 
 const Page: FC = () => {
-  const { handleCreateGame } = createGame()
+  const { handleCreateGame } = useCreateGame()
   const submitForm = async (data: ICreateGameForm) => {
     await handleCreateGame(data)
   }

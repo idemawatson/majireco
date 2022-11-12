@@ -1,6 +1,6 @@
-import { ValidationError } from '@/errors/error'
 import { PrimitiveValueObject, ValueObject } from './valueObjects/BaseValueObjects'
 import { DateValue, EntityId } from './valueObjects/CommonValueObjects'
+import { ValidationError } from '@/errors/error'
 
 export type RoundRecordProps = {
   id: EntityId

@@ -1,5 +1,5 @@
-import { GAME_RATES, GAME_RATES_TYPE, GAME_RULES, GAME_RULES_TYPE } from '@/libs/const'
 import * as yup from 'yup'
+import { GAME_RATES, GAME_RATES_TYPE, GAME_RULES, GAME_RULES_TYPE } from '@/libs/const'
 
 type GameUpdateModel = {
   rule: GAME_RULES_TYPE

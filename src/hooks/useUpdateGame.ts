@@ -3,7 +3,7 @@ import { Game } from '@/domains/entity/Game'
 import restClient from '@/libs/restClient'
 import { IUpdateGameForm } from '@/types/forms/UpdateGameForm'
 
-export const updateGame = () => {
+export const useUpdateGame = () => {
   const { showLoading, hideLoading } = useLoading()
 
   const handleStartGame = async (data: IUpdateGameForm) => {

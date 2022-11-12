@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, Grid, Paper } from '@mui/material'
+import { useRouter } from 'next/router'
 import { FC } from 'react'
 import InputGameForm from '@/components/organisms/game/InputGameForm'
-import { getGame } from '@/hooks/getGame'
+import { useGetGame } from '@/hooks/useGetGame'
 import { ICreateGameForm } from '@/types/forms/CreateGameForm'
-import { useRouter } from 'next/router'
 
 type Props = {
   submitForm: (data: ICreateGameForm) => void
@@ -11,7 +11,7 @@ type Props = {
 
 const Presenter: FC<Props> = ({ submitForm }) => {
   const router = useRouter()
-  const { data } = getGame(router.query.gameId as string)
+  const { data } = useGetGame(router.query.gameId as string)
   return (
     <>
       <Paper

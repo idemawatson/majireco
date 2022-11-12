@@ -1,5 +1,5 @@
-import Presenter from "@/components/uiParts/TheBottomNavigation/presenter";
 import { useRouter } from "next/router";
+import Presenter from "@/components/uiParts/TheBottomNavigation/presenter";
 
 export const TheBottomNavigation: React.FC = () => {
   const router = useRouter();

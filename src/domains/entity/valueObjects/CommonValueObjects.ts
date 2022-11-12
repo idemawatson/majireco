@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
-import { PrimitiveValueObject } from './BaseValueObjects'
 import { uuid } from 'uuidv4'
 import { ValidationError } from 'yup'
+import { PrimitiveValueObject } from './BaseValueObjects'
 
 export class EntityId extends PrimitiveValueObject<string> {
   constructor(readonly _value: string) {

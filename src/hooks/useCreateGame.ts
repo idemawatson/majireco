@@ -1,10 +1,10 @@
+import { useRouter } from 'next/router'
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
 import restClient from '@/libs/restClient'
 import { ICreateGameForm } from '@/types/forms/CreateGameForm'
 import { CreateGameResponseDTO } from '@/usecases/CreateGame/CreateGameDto'
-import { useRouter } from 'next/router'
 
-export const createGame = () => {
+export const useCreateGame = () => {
   const { showLoading, hideLoading } = useLoading()
   const router = useRouter()
 

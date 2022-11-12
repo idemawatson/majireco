@@ -1,5 +1,5 @@
-import { NotFoundError, ValidationError } from '@/errors/error'
 import { NextApiResponse } from 'next'
+import { NotFoundError, ValidationError } from '@/errors/error'
 
 export const errorHandler = (error: any, res: NextApiResponse) => {
   console.error(error)

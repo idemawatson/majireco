@@ -1,9 +1,9 @@
+import { Button } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
-import { Button } from '@mui/material'
 
 const Presenter: FC<{ handleLogout: () => void }> = ({ handleLogout }) => {
   return (
