@@ -7,7 +7,7 @@ export const errorHandler = (error: any, res: NextApiResponse) => {
     return res.status(400).json({ message: error.message, statusCode: 400 })
   }
   if (error instanceof NotFoundError) {
-    return res.status(404).json({ message: error.message, statusCode: 404 })
+    return res.status(404).json({ message: error.message, statusCode: 502 })
   }
 
   // その他予期してないエラーに対する処理

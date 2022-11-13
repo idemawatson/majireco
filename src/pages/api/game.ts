@@ -3,6 +3,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { CreateGameController } from '@/controllers/CreateGameController'
 import { GetGameController } from '@/controllers/GetGameController'
+import { JoinPlayerToGameController } from '@/controllers/JoinPlayerToGameController'
 import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -18,7 +19,14 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.json(game)
 }
 
+const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const controller = new JoinPlayerToGameController()
+  const dto = await controller.joinPlayerToGame(req.body)
+  res.json(dto)
+}
+
 export default apiHandler({
   GET: withApiAuthRequired(getHandler),
   PUT: withApiAuthRequired(putHandler),
+  PATCH: withApiAuthRequired(patchHandler),
 })

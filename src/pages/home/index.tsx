@@ -10,10 +10,10 @@ const Page: FC = () => {
   return (
     <>
       <Paper>
-        <Typography variant='h1' color='initial'>
+        <Typography variant='h6' color='initial'>
           {`Welcome ${user?.given_name!}`}
         </Typography>
-        <Typography>{`name: ${user?.nickname}!`}</Typography>
+        <Typography variant='body1'>{`name: ${user?.nickname}!`}</Typography>
       </Paper>
     </>
   )

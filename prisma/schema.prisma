@@ -11,6 +11,7 @@ model Player {
   id             String         @id @unique @default(uuid())
   name           String
   email          String
+  ownGames       Game[]
   attendingGames PlayerOnGame[]
 }
 
@@ -20,6 +21,8 @@ model Game {
   rule             GameRule
   rate             GameRate
   started          Boolean        @default(false)
+  owner            Player         @relation(fields:[ownerId], references: [id])
+  ownerId          String         
   belongingPlayers PlayerOnGame[]
 }
 

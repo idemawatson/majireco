@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/templates/[gameId]/CreateGameForm"
+    "src/components/templates/game/[gameId]/CreateGameForm"
   ],
   "exclude": ["node_modules"]
 }

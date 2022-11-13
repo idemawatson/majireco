@@ -3,7 +3,7 @@ import { Player } from './Player'
 import { PlayerOnGame } from './PlayerOnGame'
 import { RoundRecord } from './RoundRecord'
 import { PrimitiveValueObject, ValueObject } from './valueObjects/BaseValueObjects'
-import { BoolValue, DateValue, EntityId } from './valueObjects/CommonValueObjects'
+import { BoolValue, DateValue, EmailValue, EntityId } from './valueObjects/CommonValueObjects'
 import { ValidationError } from '@/errors/error'
 
 export type GameProps = {
@@ -12,6 +12,8 @@ export type GameProps = {
   rule: GameRule
   rate: GameRate
   started: BoolValue
+  ownerId: EmailValue
+  owner?: Player
   belongingPlayers?: PlayerOnGame[]
 }
 
@@ -27,6 +29,8 @@ export class Game extends ValueObject<GameProps> {
       rule: new GameRule(props.rule.value),
       rate: new GameRate(props.rate.value),
       started: new BoolValue(props.started.value),
+      ownerId: new EmailValue(props.ownerId.value),
+      owner: props.owner,
       belongingPlayers: props.belongingPlayers,
     })
   }
@@ -44,6 +48,12 @@ export class Game extends ValueObject<GameProps> {
   }
   get started() {
     return this._value.started._value
+  }
+  get ownerId() {
+    return this._value.ownerId._value
+  }
+  get owner() {
+    return this._value.owner
   }
   get belongingPlayers() {
     return this._value.belongingPlayers?.map((player) => player)

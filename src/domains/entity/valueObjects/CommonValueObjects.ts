@@ -31,7 +31,7 @@ export class BoolValue extends PrimitiveValueObject<boolean> {
 export class EmailValue extends PrimitiveValueObject<string> {
   static EMAIL_REGEX = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/
   constructor(readonly _value: string) {
-    if (EmailValue.EMAIL_REGEX.test(_value)) throw new Error(`email is invalid.`)
+    if (!EmailValue.EMAIL_REGEX.test(_value)) throw new Error(`email is invalid.`)
     super(_value)
   }
 }

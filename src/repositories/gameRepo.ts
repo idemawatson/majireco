@@ -10,6 +10,7 @@ export class GameRepo {
         id: gameId,
       },
       include: {
+        owner: true,
         belongingPlayers: {
           include: {
             player: true,
@@ -32,13 +33,11 @@ export class GameRepo {
     rule?: GameRule
     rate?: GameRate
     started?: boolean
-    belongingPlayers?: PlayerOnGame[]
   }) {
     const data = {
       rule: input.rule,
       rate: input.rate,
       started: input.started,
-      belongingPlayers: input.belongingPlayers,
     }
     const game = await prisma.game.update({
       where: {
