@@ -55,7 +55,7 @@ const Presenter: FC = () => {
                 <Button
                   variant='contained'
                   disableElevation
-                  color='primary'
+                  color='secondary'
                   type='submit'
                   onClick={joinGame}
                 >

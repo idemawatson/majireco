@@ -14,16 +14,22 @@ const Error404: React.FC = () => {
         alignItems: 'center',
         flexDirection: 'column',
         minHeight: '100vh',
-        backgroundColor: 'blue',
+        backgroundColor: 'primary.main',
       }}
     >
-      <Typography variant='h1' style={{ color: 'white' }} sx={{ my: 1 }}>
+      <Typography variant='h1' sx={{ my: 1, color: 'white' }}>
         404
       </Typography>
-      <Typography variant='h6' style={{ color: 'white' }} sx={{ my: 1 }}>
+      <Typography variant='h6' sx={{ my: 1, color: 'white' }}>
         ページが存在しません
       </Typography>
-      <Button variant='contained' disableElevation sx={{ my: 1 }} onClick={toHome}>
+      <Button
+        variant='contained'
+        disableElevation
+        sx={{ my: 1 }}
+        color='secondary'
+        onClick={toHome}
+      >
         ホームに戻る
       </Button>
     </Box>

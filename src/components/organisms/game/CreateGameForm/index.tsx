@@ -59,7 +59,7 @@ const CreateGameForm: FC<Props> = ({ submitForm }) => {
             </RhfSelectField>
           </Grid>
           <Grid justifyContent='flex-end' sx={{ my: 2 }} item>
-            <Button variant='contained' disableElevation color='primary' type='submit'>
+            <Button variant='contained' disableElevation color='secondary' type='submit'>
               ゲームを作成する
             </Button>
           </Grid>

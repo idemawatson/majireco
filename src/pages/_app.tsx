@@ -3,7 +3,7 @@ import { UserProvider } from '@auth0/nextjs-auth0'
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { ReactNode, useEffect } from 'react'
+import { ReactNode } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ErrorFallback } from '@/components/uiParts/TheErrorBoundary'
@@ -23,6 +23,16 @@ const theme = createTheme({
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
+  },
+  palette: {
+    primary: {
+      main: '#00171f',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#c6ae6f',
+      contrastText: '#fff',
+    },
   },
 })
 
