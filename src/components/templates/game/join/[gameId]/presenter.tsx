@@ -14,12 +14,13 @@ import { useGetGame } from '@/hooks/useGetGame'
 import { GAME_RATE_SELECTIONS, GAME_RULE_SELECTIONS } from '@/libs/const'
 import dayjs from 'dayjs'
 
-const Presenter: FC = () => {
+type Props = {
+  joinGame: () => {}
+}
+
+const Presenter: FC<Props> = ({ joinGame }) => {
   const router = useRouter()
   const { data } = useGetGame(router.query.gameId as string)
-  const joinGame = () => {
-    console.log('joined!')
-  }
   const ruleText = GAME_RULE_SELECTIONS.find((rule) => data?.rule === rule.value)?.text
   const rateText = GAME_RATE_SELECTIONS.find((rate) => data?.rate === rate.value)?.text
   const playedAtText = dayjs(data?.playedAt).format('YYYY/MM/DD HH:mm:ss')

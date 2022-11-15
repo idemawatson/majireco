@@ -20,8 +20,12 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const session = getSession(req, res)
   const controller = new JoinPlayerToGameController()
-  const dto = await controller.joinPlayerToGame(req.body)
+  const dto = await controller.joinPlayerToGame({
+    gameId: req.body.gameId,
+    playerId: session?.user.email,
+  })
   res.json(dto)
 }
 

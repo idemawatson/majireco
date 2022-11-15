@@ -8,6 +8,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ErrorFallback } from '@/components/uiParts/TheErrorBoundary'
 import { TheLoading } from '@/components/uiParts/TheLoading'
+import { TheNotificationToast } from '@/components/uiParts/TheNotificationToast'
 
 type NextPageWithLayout = NextPage & {
   layout?: typeof MainLayout
@@ -45,6 +46,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <UserProvider>
             <Layout>
               <TheLoading />
+              <TheNotificationToast />
               <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Component {...pageProps} />
               </ErrorBoundary>
