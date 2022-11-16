@@ -1,21 +1,24 @@
 import { RoundRecord as PrismaRoundRecord } from '@prisma/client'
 import { PlayerOnGame } from '../entity/PlayerOnGame'
 import { EntityId } from '../entity/valueObjects/CommonValueObjects'
-import RoundRecordFactory from './RoundRecordFactory'
+import PlayerMapper, { PlayerRawProps } from './PlayerMapper'
+import RoundRecordMapper from './RoundRecordMapper'
 
 export type PlayerOnGameRawProps = {
   playerId: string
   gameId: string
+  player?: PlayerRawProps
   roundRecords: PrismaRoundRecord[]
 }
 
 export default class PlayerOnGameMapper {
   static toDomain(values: PlayerOnGameRawProps) {
-    const { playerId, gameId, roundRecords } = values
+    const { playerId, gameId, player, roundRecords } = values
     return new PlayerOnGame({
       playerId: new EntityId(playerId),
       gameId: new EntityId(gameId),
-      roundRecords: roundRecords.map((rr) => RoundRecordFactory.toDomain(rr)),
+      player: player ? PlayerMapper.toDomain(player) : undefined,
+      roundRecords: roundRecords.map((rr) => RoundRecordMapper.toDomain(rr)),
     })
   }
   static toPersistent(entity: PlayerOnGame) {

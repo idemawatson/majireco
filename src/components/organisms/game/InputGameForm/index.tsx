@@ -35,7 +35,7 @@ const InputGameForm: FC<Props> = ({ submitForm, game }) => {
       game?.belongingPlayers && game?.belongingPlayers[i] ? game?.belongingPlayers[i] : null
     return (
       <ListItem sx={{ py: 0 }} key={i}>
-        <ListItemText primary={`${i + 1}. ${pg ? pg.playerId : '未参加'}`}></ListItemText>
+        <ListItemText primary={`${i + 1}. ${pg ? pg.playerName : '未参加'}`}></ListItemText>
       </ListItem>
     )
   })

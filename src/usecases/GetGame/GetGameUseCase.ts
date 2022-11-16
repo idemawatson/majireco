@@ -21,8 +21,8 @@ export default class GetGameUseCase {
         id: game.owner.id,
         name: game.owner.name,
       },
-      belongingPlayers: game.belongingPlayers?.map((player) => {
-        return { playerId: player.playerId, gameId: player.gameId }
+      belongingPlayers: game.belongingPlayers?.map((bg) => {
+        return { playerId: bg.playerId, playerName: bg.player?.name || '', gameId: bg.gameId }
       }),
     }
   }

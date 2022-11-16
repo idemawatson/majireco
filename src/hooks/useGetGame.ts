@@ -7,7 +7,7 @@ export const useGetGame = (gameId: string) => {
     const response = await restClient.get(url)
     return response.data as GetGameResponseDTO
   }
-  const { data } = useSWR(`game?game_id=${gameId}`, fetcher, {
+  const { data, mutate } = useSWR(`game?game_id=${gameId}`, fetcher, {
     suspense: true,
     revalidateOnFocus: false,
     revalidateIfStale: false,
@@ -15,5 +15,6 @@ export const useGetGame = (gameId: string) => {
 
   return {
     data,
+    mutate,
   }
 }

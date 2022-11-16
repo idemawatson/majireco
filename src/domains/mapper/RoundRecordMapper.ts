@@ -11,7 +11,7 @@ export type RoundRecordRawProps = {
   playerOnGameGameId: string
 }
 
-export default class RoundRecordFactory {
+export default class RoundRecordMapper {
   static toDomain(values: PrismaRoundRecord) {
     const { id, createdAt, rank, score } = values
     return new RoundRecord({

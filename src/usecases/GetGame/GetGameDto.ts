@@ -14,5 +14,5 @@ export interface GetGameResponseDTO {
     id: string
     name: string
   }
-  belongingPlayers?: PlayerOnGame[]
+  belongingPlayers?: { playerId: string; gameId: string; playerName: string }[]
 }

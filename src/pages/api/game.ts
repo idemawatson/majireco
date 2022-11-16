@@ -9,7 +9,7 @@ import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = getSession(req, res)
   const controller = new CreateGameController()
-  const game = await controller.createGame(req.body, session?.user.email)
+  const game = await controller.createGame(req.body, session?.user.sub)
   res.json(game)
 }
 
@@ -24,7 +24,7 @@ const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const controller = new JoinPlayerToGameController()
   const dto = await controller.joinPlayerToGame({
     gameId: req.body.gameId,
-    playerId: session?.user.email,
+    playerId: session?.user.sub,
   })
   res.json(dto)
 }
