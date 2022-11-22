@@ -1,17 +1,9 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Paper,
-  styled,
-  Typography,
-} from '@mui/material'
+import { Button, Card, CardContent, CardHeader, Grid, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { useGetGame } from '@/hooks/useGetGame'
-import { GAME_RATE_SELECTIONS, GAME_RULE_SELECTIONS } from '@/libs/const'
+import gameRule from '@/libs/gameRule'
+import gameRate from '@/libs/gameRate'
 import dayjs from 'dayjs'
 
 type Props = {
@@ -21,8 +13,8 @@ type Props = {
 const Presenter: FC<Props> = ({ joinGame }) => {
   const router = useRouter()
   const { data } = useGetGame(router.query.gameId as string)
-  const ruleText = GAME_RULE_SELECTIONS.find((rule) => data?.rule === rule.value)?.text
-  const rateText = GAME_RATE_SELECTIONS.find((rate) => data?.rate === rate.value)?.text
+  const ruleText = data ? gameRule.getRuleText(data.rule) : ''
+  const rateText = data ? gameRate.getRateText(data.rate) : ''
   const playedAtText = dayjs(data?.playedAt).format('YYYY/MM/DD HH:mm:ss')
 
   const Caption = ({ title, value }: { title: string; value: string | undefined }) => (

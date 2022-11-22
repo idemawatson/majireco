@@ -23,6 +23,24 @@ export class GameRepo {
     return GameMapper.toDomain(game)
   }
 
+  static async listGame(playerId: string) {
+    const games = await prisma.game.findMany({
+      where: {
+        belongingPlayers: {
+          some: { playerId },
+        },
+      },
+      include: {
+        owner: true,
+        belongingPlayers: {
+          include: {
+            player: true,
+          },
+        },
+      },
+    })
+    return games.map((game) => GameMapper.toDomain(game))
+  }
   static async createGame(game: Game) {
     const data = GameMapper.toPersistent(game)
     await prisma.game.create({ data: data })

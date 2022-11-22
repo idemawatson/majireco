@@ -8,7 +8,7 @@ export type PlayerOnGameRawProps = {
   playerId: string
   gameId: string
   player?: PlayerRawProps
-  roundRecords: PrismaRoundRecord[]
+  roundRecords?: PrismaRoundRecord[]
 }
 
 export default class PlayerOnGameMapper {
@@ -18,7 +18,7 @@ export default class PlayerOnGameMapper {
       playerId: new EntityId(playerId),
       gameId: new EntityId(gameId),
       player: player ? PlayerMapper.toDomain(player) : undefined,
-      roundRecords: roundRecords.map((rr) => RoundRecordMapper.toDomain(rr)),
+      roundRecords: roundRecords ? roundRecords.map((rr) => RoundRecordMapper.toDomain(rr)) : [],
     })
   }
   static toPersistent(entity: PlayerOnGame) {
