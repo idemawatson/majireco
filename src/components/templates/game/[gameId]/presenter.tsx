@@ -4,10 +4,10 @@ import { useRouter } from 'next/router'
 import { FC } from 'react'
 import InputGameForm from '@/components/organisms/game/InputGameForm'
 import { useGetGame } from '@/hooks/useGetGame'
-import { ICreateGameForm } from '@/types/forms/CreateGameForm'
+import { IUpdateGameForm } from '@/types/forms/UpdateGameForm'
 
 type Props = {
-  submitForm: (data: ICreateGameForm) => void
+  submitForm: (data: IUpdateGameForm) => void
 }
 
 const Presenter: FC<Props> = ({ submitForm }) => {
@@ -21,23 +21,27 @@ const Presenter: FC<Props> = ({ submitForm }) => {
         }}
         elevation={0}
       >
-        <Card elevation={0}>
-          <CardHeader
-            title='対局'
-            action={
-              <Button variant='contained' disableElevation onClick={() => mutate()}>
-                <ReplayIcon sx={{ color: 'white' }} />
-              </Button>
-            }
-          />
-          <CardContent>
-            <Grid container justifyContent='flex-end'>
-              <Grid item xs={12}>
-                {data && <InputGameForm game={data} submitForm={submitForm} />}
+        {!data?.started ? (
+          <Card elevation={0}>
+            <CardHeader
+              title='対局'
+              action={
+                <Button variant='contained' disableElevation onClick={() => mutate()}>
+                  <ReplayIcon sx={{ color: 'white' }} />
+                </Button>
+              }
+            />
+            <CardContent>
+              <Grid container justifyContent='flex-end'>
+                <Grid item xs={12}>
+                  {data && <InputGameForm game={data} submitForm={submitForm} />}
+                </Grid>
               </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        ) : (
+          <div>ゲームは開始済みです</div>
+        )}
       </Paper>
     </>
   )

@@ -5,11 +5,11 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } from '@/libs/const'
 
-import { ICreateGameForm, schema } from '@/types/forms/CreateGameForm'
 import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
+import { IUpdateGameForm, schema } from '@/types/forms/UpdateGameForm'
 
 type Props = {
-  submitForm: (data: ICreateGameForm) => void
+  submitForm: (data: IUpdateGameForm) => void
   game: GetGameResponseDTO
 }
 
@@ -40,10 +40,9 @@ const InputGameForm: FC<Props> = ({ submitForm, game }) => {
     )
   })
 
-  const formMethods = useForm<ICreateGameForm>({
+  const formMethods = useForm<IUpdateGameForm>({
     mode: 'onChange',
     resolver: yupResolver(schema),
-    defaultValues: { rule: GAME_RULES[0], rate: GAME_RATES[0] },
   })
 
   const isEnoughMember = game.belongingPlayers?.length === 4

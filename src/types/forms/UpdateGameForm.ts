@@ -12,6 +12,5 @@ export const schema: yup.SchemaOf<GameUpdateModel> = yup.object().shape({
 })
 
 export type IUpdateGameForm = yup.InferType<typeof schema> & {
-  belongingPlayers: String[]
   started: boolean
 }
