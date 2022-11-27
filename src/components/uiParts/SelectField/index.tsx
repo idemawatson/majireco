@@ -8,29 +8,26 @@ import {
 
 import { SelectField, SelectFieldProps } from '@/components/uiParts/SelectField/presenter'
 
-export type RhfSelectFieldProps<T extends FieldValues> = SelectFieldProps & UseControllerProps<T>
+export type RhfSelectFieldProps<T extends FieldValues> = Omit<SelectFieldProps, 'selectedValue'> &
+  UseControllerProps<T>
 
 /**
  * react-hook-formラッパー
  */
 export const RhfSelectField = <T extends FieldValues>(props: RhfSelectFieldProps<T>) => {
-  const { name, control, placeholder, label, defaultValue, className, children } = props
+  const { name, control } = props
   const {
-    field: { ref, ...rest },
+    field: { ref, value: selectedValue, ...rest },
     formState: { errors },
   } = useController<T>({ name, control })
 
   return (
     <SelectField
       inputRef={ref}
-      className={className}
-      placeholder={placeholder}
-      label={label}
-      defaultValue={defaultValue}
+      {...props}
       {...rest}
-      error={errors[name] && `${(errors[name] as DeepMap<FieldValues, FieldError>).message}`}
-    >
-      {children}
-    </SelectField>
+      selectedValue={selectedValue}
+      errorMessage={errors[name] && `${(errors[name] as DeepMap<FieldValues, FieldError>).message}`}
+    ></SelectField>
   )
 }

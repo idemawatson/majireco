@@ -3,7 +3,7 @@ import { UserProvider } from '@auth0/nextjs-auth0'
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { ReactNode } from 'react'
+import { FC, ReactNode } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ErrorFallback } from '@/components/uiParts/TheErrorBoundary'
@@ -37,7 +37,7 @@ const theme = createTheme({
   },
 })
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+const MyApp: FC<AppPropsWithLayout> = ({ Component, pageProps }: AppPropsWithLayout) => {
   const Layout = Component.layout || (({ children }: { children: ReactNode }) => <>{children}</>)
   return (
     <>

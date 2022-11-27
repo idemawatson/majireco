@@ -1,45 +1,43 @@
-import {
-  FormHelperText,
-  TextField as MUISelectField,
-  // eslint-disable-next-line
-  TextFieldProps as MUISelectFieldProps,
-} from '@mui/material'
-import type { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react'
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select, styled } from '@mui/material'
+import type { SelectProps as MUISelectProps } from '@mui/material'
 
-export type SelectFieldProps = {
-  error?: string
-  className?: string
-  placeholder?: string
-  label?: string
-  defaultValue?: string
-  children: ReactNode
+type SelectProps = {
+  text: string
+  value: string
 }
 
-export const SelectField = (
-  props: SelectFieldProps & {
-    inputRef: MUISelectFieldProps['inputRef']
-    value: string
-    onChange: ChangeEventHandler<HTMLTextAreaElement>
-    onBlur: FocusEventHandler<HTMLTextAreaElement>
-  },
-) => {
+export type SelectFieldProps = MUISelectProps & {
+  inputRef?: MUISelectProps['ref']
+  errorMessage?: string
+  selectPropsList: SelectProps[]
+  selectedValue: string
+}
+
+const StyledFormControl = styled(FormControl)({
+  width: '100%',
+})
+
+export const SelectField: React.FC<SelectFieldProps> = ({
+  inputRef,
+  errorMessage,
+  selectPropsList,
+  selectedValue,
+  label,
+  ...rest
+}) => {
   return (
-    <>
-      <MUISelectField
-        select
-        placeholder={props.placeholder}
-        defaultValue={props.defaultValue}
-        label={props.label}
-        className={props.className}
-        fullWidth={true}
-        inputRef={props.inputRef}
-        value={props.value}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
-      >
-        {props.children}
-      </MUISelectField>
-      {!!props.error && <FormHelperText error>{props.error}</FormHelperText>}
-    </>
+    <div>
+      <StyledFormControl>
+        <InputLabel>{label}</InputLabel>
+        <Select ref={inputRef} value={selectedValue} label={label} {...rest}>
+          {selectPropsList.map((props) => (
+            <MenuItem key={props.value} value={props.value}>
+              {props.text}
+            </MenuItem>
+          ))}
+        </Select>
+      </StyledFormControl>
+      {!!errorMessage && <FormHelperText error>{errorMessage}</FormHelperText>}
+    </div>
   )
 }

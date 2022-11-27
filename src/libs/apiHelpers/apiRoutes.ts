@@ -16,7 +16,7 @@ type Handlers = {
 export const apiHandler = (handlers: Handlers) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
     const { method } = req
-    console.log(req.body)
+    console.debug(`REQUEST BODY: ${JSON.stringify(req.body)}`)
 
     if (!method || !isHttpMethod(method)) {
       return res.status(405).json({
@@ -38,7 +38,6 @@ export const apiHandler = (handlers: Handlers) => {
       })
     }
 
-    // 共通でなにかやりたいことがあればここでやることもできる（Next v12 であれば _middleware でもできそうだけど...）
     try {
       await handler(req, res)
     } catch (err) {

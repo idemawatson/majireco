@@ -21,7 +21,10 @@ const Page: FC = () => {
     if (!data) return
     try {
       showLoading()
-      await restClient.post<IUpdateGameForm, UpdateGameResponseDto>('/game', form)
+      await restClient.post<IUpdateGameForm & { gameId: string }, UpdateGameResponseDto>('/game', {
+        ...form,
+        gameId: router.query.gameId as string,
+      })
       mutate({ ...data, started: true }, false)
     } catch (e) {
       showError('ゲームを開始できませんでした')

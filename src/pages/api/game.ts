@@ -34,7 +34,7 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = getSession(req, res)
   const controller = new StartGameController()
   const dto = await controller.startGame({
-    gameId: req.body.gameId,
+    ...req.body,
     playerId: session?.user.sub,
   })
   res.json(dto)

@@ -24,6 +24,7 @@ const Page: FC = () => {
         gameId: router.query.gameId as string,
       })
       showSuccess('ゲームに参加しました！')
+      router.push('/games')
     } catch (err) {
       console.error(err)
       showError('エラー: ゲーム参加に失敗しました')
