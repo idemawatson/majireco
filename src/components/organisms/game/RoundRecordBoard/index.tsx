@@ -1,13 +1,6 @@
-import { Grid, Paper, styled, Typography } from '@mui/material'
-
-const NumberColumn = ({ children }: { children: string }) => {
-  const slicedString = children.length <= 3 ? children : `${children.slice(0, 3)}...`
-  return (
-    <Paper variant='outlined' square elevation={0} sx={{ textAlign: 'center' }}>
-      {slicedString}
-    </Paper>
-  )
-}
+import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
+import { Grid, Paper, styled } from '@mui/material'
+import { FC } from 'react'
 
 const Header = () => {
   const names = ['井手拓海', 'テスト太郎', 'テスト次郎', 'テスト三郎']
@@ -24,19 +17,21 @@ const Header = () => {
   )
 }
 
-const Row = () => {
-  const points = ['+53', '+8', '-17', '-44']
-  const PlusPoint = styled('div')({ color: 'green' })
-  const MinusPoint = styled('div')({ color: 'red' })
+type Props = Pick<GetGameResponseDTO, 'belongingPlayers' | 'roundRecords'>
+
+const Row: FC<{ records: { playerId: string; rank: Number; score: Number }[] }> = ({ records }) => {
+  // const points = ['+53', '+8', '-17', '-44']
+  const PlusScore = styled('div')({ color: 'green' })
+  const MinusScore = styled('div')({ color: 'red' })
   return (
     <>
-      {points.map((point, index) => (
-        <Grid item xs={3} key={index}>
+      {records.map((record) => (
+        <Grid item xs={3} key={record.playerId}>
           <Paper variant='outlined' square elevation={0} sx={{ textAlign: 'center' }}>
-            {point.startsWith('-') ? (
-              <MinusPoint>{point}</MinusPoint>
+            {record.score < 0 ? (
+              <MinusScore>{`${record.score}`}</MinusScore>
             ) : (
-              <PlusPoint>{point}</PlusPoint>
+              <PlusScore>{`+${record.score}`}</PlusScore>
             )}
           </Paper>
         </Grid>
@@ -45,12 +40,14 @@ const Row = () => {
   )
 }
 
-const RoundRecordBoard = () => {
+const RoundRecordBoard: FC<Props> = ({ belongingPlayers, roundRecords }) => {
   return (
     <>
       <Grid container>
         <Header />
-        <Row></Row>
+        {Object.values(roundRecords).map((record) => (
+          <Row records={record} />
+        ))}
       </Grid>
     </>
   )

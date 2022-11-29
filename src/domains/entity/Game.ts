@@ -61,9 +61,6 @@ export class Game extends ValueObject<GameProps> {
   getPlayerOnGames(playerId: string) {
     return this._value.belongingPlayers?.find((bp) => playerId === bp.playerId)
   }
-  addPlayerOnGame(player: PlayerOnGame) {
-    this._value.belongingPlayers?.push(player)
-  }
 }
 
 export class GameRule extends PrimitiveValueObject<PrismaGameRule> {

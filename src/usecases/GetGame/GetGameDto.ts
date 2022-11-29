@@ -14,5 +14,15 @@ export interface GetGameResponseDTO {
     id: string
     name: string
   }
-  belongingPlayers?: { playerId: string; gameId: string; playerName: string }[]
+  belongingPlayers: {
+    playerId: string
+    playerName: string
+  }[]
+  roundRecords: {
+    [gameId: string]: {
+      playerId: string
+      rank: Number
+      score: Number
+    }[]
+  }
 }

@@ -38,6 +38,7 @@ model PlayerOnGame {
 
 model RoundRecord {
   id                   String       @id @unique @default(uuid())
+  roundId              String
   createdAt            DateTime     @default(now())
   playerOnGame         PlayerOnGame @relation(references: [playerId, gameId], fields: [playerOnGamePlayerId, playerOnGameGameId])
   rank                 Int

@@ -14,6 +14,7 @@ const Presenter: FC<Props> = ({ submitForm }) => {
   const router = useRouter()
   const { data, mutate } = useGetGame(router.query.gameId as string)
   const isStarted = data?.started
+
   return (
     <>
       <Paper
@@ -27,7 +28,10 @@ const Presenter: FC<Props> = ({ submitForm }) => {
           data && <InputGameFormCard game={data} submitForm={submitForm} refresh={mutate} />
         ) : (
           <div>
-            <RoundRecordBoard />
+            <RoundRecordBoard
+              belongingPlayers={data.belongingPlayers}
+              roundRecords={data.roundRecords}
+            />
           </div>
         )}
       </Paper>
