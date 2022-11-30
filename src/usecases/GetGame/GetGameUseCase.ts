@@ -1,5 +1,5 @@
-import { GetGameRequestDTO, GetGameResponseDTO } from './GetGameDto'
-import { GameInvalidDataError, GameNotFoundError } from '@/errors/error'
+import { GetGameRequestDTO } from './GetGameDto'
+import { GameNotFoundError } from '@/errors/error'
 import { GameRepo } from '@/repositories/gameRepo'
 import { Game } from '@/domains/entity/Game'
 
@@ -9,6 +9,8 @@ export default class GetGameUseCase {
     if (game == null) {
       throw new GameNotFoundError('game is not found.')
     }
+    const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms))
+    await sleep(3000)
     return game
   }
 }

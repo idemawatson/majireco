@@ -15,9 +15,9 @@ const Page: FC = () => {
   const router = useRouter()
   const { showLoading, hideLoading } = useLoading()
   const { showError } = useNotification()
-  const { data, mutate } = useGetGame(router.query.gameId as string)
 
   const submitForm = async (form: IUpdateGameForm) => {
+    const { data, mutate } = useGetGame(router.query.gameId as string)
     if (!data) return
     try {
       showLoading()

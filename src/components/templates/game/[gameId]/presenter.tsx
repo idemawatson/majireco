@@ -4,7 +4,6 @@ import { FC } from 'react'
 import InputGameFormCard from '@/components/organisms/game/InputGameFormCard'
 import { useGetGame } from '@/hooks/useGetGame'
 import { IUpdateGameForm } from '@/types/forms/UpdateGameForm'
-import RoundRecordBoard from '@/components/organisms/game/RoundRecordBoard'
 
 type Props = {
   submitForm: (data: IUpdateGameForm) => void
@@ -27,12 +26,7 @@ const Presenter: FC<Props> = ({ submitForm }) => {
         {!isStarted ? (
           data && <InputGameFormCard game={data} submitForm={submitForm} refresh={mutate} />
         ) : (
-          <div>
-            <RoundRecordBoard
-              belongingPlayers={data.belongingPlayers}
-              roundRecords={data.roundRecords}
-            />
-          </div>
+          <div>開始済みのゲームです。</div>
         )}
       </Paper>
     </>

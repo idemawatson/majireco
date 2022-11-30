@@ -2,14 +2,13 @@ import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 import { Grid, Paper, styled } from '@mui/material'
 import { FC } from 'react'
 
-const Header = () => {
-  const names = ['井手拓海', 'テスト太郎', 'テスト次郎', 'テスト三郎']
+const Header: FC<Pick<GetGameResponseDTO, 'belongingPlayers'>> = ({ belongingPlayers }) => {
   return (
     <>
-      {names.map((name) => (
-        <Grid item xs={3} key={name}>
+      {belongingPlayers.map((bp) => (
+        <Grid item xs={3} key={bp.playerId}>
           <Paper variant='outlined' square elevation={0} sx={{ textAlign: 'center' }}>
-            {name.length <= 3 ? name : `${name.slice(0, 3)}...`}
+            {bp.playerName.length <= 3 ? bp.playerName : `${bp.playerName.slice(0, 3)}...`}
           </Paper>
         </Grid>
       ))}
@@ -17,10 +16,7 @@ const Header = () => {
   )
 }
 
-type Props = Pick<GetGameResponseDTO, 'belongingPlayers' | 'roundRecords'>
-
 const Row: FC<{ records: { playerId: string; rank: Number; score: Number }[] }> = ({ records }) => {
-  // const points = ['+53', '+8', '-17', '-44']
   const PlusScore = styled('div')({ color: 'green' })
   const MinusScore = styled('div')({ color: 'red' })
   return (
@@ -40,11 +36,13 @@ const Row: FC<{ records: { playerId: string; rank: Number; score: Number }[] }> 
   )
 }
 
+type Props = Pick<GetGameResponseDTO, 'belongingPlayers' | 'roundRecords'>
+
 const RoundRecordBoard: FC<Props> = ({ belongingPlayers, roundRecords }) => {
   return (
     <>
       <Grid container>
-        <Header />
+        <Header belongingPlayers={belongingPlayers} />
         {Object.values(roundRecords).map((record) => (
           <Row records={record} />
         ))}

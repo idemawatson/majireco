@@ -39,10 +39,10 @@ const InputGameFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
   const formMethods = useForm<IUpdateGameForm>({
     mode: 'onChange',
     resolver: yupResolver(schema),
-    defaultValues: { rule: game.rule, rate: game.rate },
+    defaultValues: { rule: game?.rule, rate: game?.rate },
   })
 
-  const isEnoughMember = game.belongingPlayers?.length === 4
+  const isEnoughMember = game?.belongingPlayers?.length === 4
 
   return (
     <Card elevation={0}>

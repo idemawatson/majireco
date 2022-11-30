@@ -1,4 +1,4 @@
-import { GameRate, GameRule, PlayerOnGame } from '@prisma/client'
+import { GameRate, GameRule } from '@prisma/client'
 
 export type GetGameRequestDTO = {
   id: string
