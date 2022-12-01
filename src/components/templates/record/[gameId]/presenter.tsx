@@ -1,9 +1,11 @@
-import { Paper } from '@mui/material'
+import { Fab, Paper, styled } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import InputGameFormCard from '@/components/organisms/game/InputGameFormCard'
 import { useGetGame } from '@/hooks/useGetGame'
 import RoundRecordBoard from '@/components/organisms/game/RoundRecordBoard'
+import RecordCreateFormDrawer from '@/components/organisms/record/RecordCreateFormDrawer'
 
 type Props = {}
 
@@ -27,6 +29,7 @@ const Presenter: FC<Props> = () => {
           />
         )}
       </Paper>
+      <RecordCreateFormDrawer></RecordCreateFormDrawer>
     </>
   )
 }

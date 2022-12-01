@@ -9,8 +9,6 @@ export default class GetGameUseCase {
     if (game == null) {
       throw new GameNotFoundError('game is not found.')
     }
-    const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms))
-    await sleep(3000)
     return game
   }
 }

@@ -43,8 +43,8 @@ const RoundRecordBoard: FC<Props> = ({ belongingPlayers, roundRecords }) => {
     <>
       <Grid container>
         <Header belongingPlayers={belongingPlayers} />
-        {Object.values(roundRecords).map((record) => (
-          <Row records={record} />
+        {Object.values(roundRecords).map((record, index) => (
+          <Row records={record} key={index} />
         ))}
       </Grid>
     </>
