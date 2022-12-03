@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } from '@/libs/const'
 
-import { ICreateGameForm, schema } from '@/types/forms/CreateGameForm'
+import { ICreateGameForm, schema } from '@/types/forms/GameCreateForm'
 
 type Props = {
   submitForm: (data: ICreateGameForm) => void

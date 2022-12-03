@@ -1,5 +1,7 @@
 import {
+  FormControl,
   FormHelperText,
+  styled,
   TextField as MUITextField,
   // eslint-disable-next-line
   TextFieldProps as MUITextFieldProps,
@@ -11,7 +13,12 @@ export type TextFieldProps = {
   className?: string
   placeholder?: string
   label?: string
+  type: string
 }
+
+const StyledFormControl = styled(FormControl)({
+  width: '100%',
+})
 
 export const TextField = (
   props: TextFieldProps & {
@@ -23,15 +30,18 @@ export const TextField = (
 ) => {
   return (
     <>
-      <MUITextField
-        placeholder={props.placeholder}
-        label={props.label}
-        className={props.className}
-        inputRef={props.inputRef}
-        value={props.value}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
-      />
+      <StyledFormControl>
+        <MUITextField
+          placeholder={props.placeholder}
+          label={props.label}
+          className={props.className}
+          inputRef={props.inputRef}
+          value={props.value}
+          type={props.type}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
+        />
+      </StyledFormControl>
       {!!props.error && <FormHelperText error>{props.error}</FormHelperText>}
     </>
   )

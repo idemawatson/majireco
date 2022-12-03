@@ -9,7 +9,7 @@ const Page: FC = () => {
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<Loading />}>
-          <Presenter></Presenter>
+          <Presenter submitForm={(form) => console.log(form)}></Presenter>
         </Suspense>
       </ErrorBoundary>
     </>

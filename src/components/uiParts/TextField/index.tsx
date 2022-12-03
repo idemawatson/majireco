@@ -14,7 +14,7 @@ export type RhfTextFieldProps<T extends FieldValues> = TextFieldProps & UseContr
  * react-hook-formラッパー
  */
 export const RhfTextField = <T extends FieldValues>(props: RhfTextFieldProps<T>) => {
-  const { name, control, placeholder, className, label } = props
+  const { name, control, placeholder, className, type, label } = props
   const {
     field: { ref, ...rest },
     formState: { errors },
@@ -26,6 +26,7 @@ export const RhfTextField = <T extends FieldValues>(props: RhfTextFieldProps<T>)
       className={className}
       placeholder={placeholder}
       label={label}
+      type={type}
       {...rest}
       error={errors[name] && `${(errors[name] as DeepMap<FieldValues, FieldError>).message}`}
     />

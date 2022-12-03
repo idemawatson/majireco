@@ -17,7 +17,7 @@ import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { GAME_RATE_SELECTIONS, GAME_RULE_SELECTIONS } from '@/libs/const'
 
 import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
-import { IUpdateGameForm, schema } from '@/types/forms/UpdateGameForm'
+import { IUpdateGameForm, schema } from '@/types/forms/GameUpdateForm'
 
 type Props = {
   submitForm: (data: IUpdateGameForm) => void

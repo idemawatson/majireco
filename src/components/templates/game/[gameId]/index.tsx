@@ -1,7 +1,7 @@
 import { FC, Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { ErrorFallback } from '@/components/templates/game/[gameId]/errorBoundary'
-import { IUpdateGameForm } from '@/types/forms/UpdateGameForm'
+import { IUpdateGameForm } from '@/types/forms/GameUpdateForm'
 import { Loading } from './loading'
 import Presenter from './presenter'
 import restClient from '@/libs/restClient'

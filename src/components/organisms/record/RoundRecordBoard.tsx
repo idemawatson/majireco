@@ -7,7 +7,12 @@ const Header: FC<Pick<GetGameResponseDTO, 'belongingPlayers'>> = ({ belongingPla
     <>
       {belongingPlayers.map((bp) => (
         <Grid item xs={3} key={bp.playerId}>
-          <Paper variant='outlined' square elevation={0} sx={{ textAlign: 'center' }}>
+          <Paper
+            variant='outlined'
+            square
+            elevation={0}
+            sx={{ textAlign: 'center', py: 2, fontWeight: 'bold' }}
+          >
             {bp.playerName.length <= 3 ? bp.playerName : `${bp.playerName.slice(0, 3)}...`}
           </Paper>
         </Grid>
@@ -23,7 +28,12 @@ const Row: FC<{ records: { playerId: string; rank: Number; score: Number }[] }> 
     <>
       {records.map((record) => (
         <Grid item xs={3} key={record.playerId}>
-          <Paper variant='outlined' square elevation={0} sx={{ textAlign: 'center' }}>
+          <Paper
+            variant='outlined'
+            square
+            elevation={0}
+            sx={{ textAlign: 'center', py: 2, fontSize: '24px', fontWeight: 'bold' }}
+          >
             {record.score < 0 ? (
               <MinusScore>{`${record.score}`}</MinusScore>
             ) : (

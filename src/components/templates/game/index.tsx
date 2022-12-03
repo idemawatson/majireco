@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useCreateGame } from '@/hooks/useCreateGame'
-import { ICreateGameForm } from '@/types/forms/CreateGameForm'
+import { ICreateGameForm } from '@/types/forms/GameCreateForm'
 import Presenter from './presenter'
 
 const Page: FC = () => {

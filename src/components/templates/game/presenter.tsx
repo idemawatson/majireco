@@ -1,8 +1,8 @@
 import { Paper } from '@mui/material'
 
 import { FC } from 'react'
-import CreateGameFormCard from '@/components/organisms/game/CreateGameFormCard'
-import { ICreateGameForm } from '@/types/forms/CreateGameForm'
+import CreateGameFormCard from '@/components/organisms/game/GameCreateFormCard'
+import { ICreateGameForm } from '@/types/forms/GameCreateForm'
 
 type Props = {
   submitForm: (data: ICreateGameForm) => void

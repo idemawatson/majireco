@@ -1,9 +1,9 @@
 import { Paper } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import InputGameFormCard from '@/components/organisms/game/InputGameFormCard'
+import InputGameFormCard from '@/components/organisms/game/GameUpdateFormCard'
 import { useGetGame } from '@/hooks/useGetGame'
-import { IUpdateGameForm } from '@/types/forms/UpdateGameForm'
+import { IUpdateGameForm } from '@/types/forms/GameUpdateForm'
 
 type Props = {
   submitForm: (data: IUpdateGameForm) => void

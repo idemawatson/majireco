@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
 import restClient from '@/libs/restClient'
-import { ICreateGameForm } from '@/types/forms/CreateGameForm'
+import { ICreateGameForm } from '@/types/forms/GameCreateForm'
 import { CreateGameResponseDTO } from '@/usecases/CreateGame/CreateGameDto'
 
 export const useCreateGame = () => {
