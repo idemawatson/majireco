@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import { useRouter } from 'next/router'
-import { FC, useState } from 'react'
+import { FC, Suspense, useState } from 'react'
 import { useGetGame } from '@/hooks/useGetGame'
 import RoundRecordBoard from '@/components/organisms/record/RoundRecordBoard'
 import RecordPointForm from '@/components/organisms/record/RecordPointForm'
@@ -21,6 +21,7 @@ import { IRecordCreateForm, schema } from '@/types/forms/RecordCreateForm'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import calcRecordScores from '@/libs/calcRecordScores'
+import { Loading } from './loading'
 
 const FixedFab = styled(Fab)(() => ({
   margin: 0,
@@ -51,6 +52,10 @@ const Presenter: FC<Props> = ({ submitForm }) => {
     p2Score: 0,
     p3Score: 0,
     p4Score: 0,
+    player1: data?.belongingPlayers[0].playerId,
+    player2: data?.belongingPlayers[1].playerId,
+    player3: data?.belongingPlayers[2].playerId,
+    player4: data?.belongingPlayers[3].playerId,
   }
 
   const {
@@ -93,8 +98,13 @@ const Presenter: FC<Props> = ({ submitForm }) => {
       setDrawer(false)
     } else {
       if (data) {
-        const { score1, score2, score3, score4 } = calcRecordScores(
-          [getValues('p1Point'), getValues('p2Point'), getValues('p3Point'), getValues('p4Point')],
+        const [score1, score2, score3, score4] = calcRecordScores(
+          [
+            { playerId: data.belongingPlayers[0].playerId, point: getValues('p1Point') },
+            { playerId: data.belongingPlayers[1].playerId, point: getValues('p2Point') },
+            { playerId: data.belongingPlayers[2].playerId, point: getValues('p3Point') },
+            { playerId: data.belongingPlayers[3].playerId, point: getValues('p4Point') },
+          ],
           data.rule,
         )
         setValue('p1Score', score1)

@@ -21,8 +21,8 @@ export interface GetGameResponseDTO {
   roundRecords: {
     [gameId: string]: {
       playerId: string
-      rank: Number
-      score: Number
+      rank: number
+      score: number
     }[]
   }
 }

@@ -1,5 +1,3 @@
-import { Session } from '@auth0/nextjs-auth0'
-import { NextApiRequest } from 'next'
 import { ValidationError } from '@/errors/error'
 import { CreateGameRequestDTO, CreateGameResponseDTO } from '@/usecases/CreateGame/CreateGameDto'
 import CreateGameUseCase from '@/usecases/CreateGame/CreateGameUseCase'

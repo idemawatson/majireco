@@ -1,6 +1,10 @@
 import * as yup from 'yup'
 
 type RecordCreateModel = {
+  player1: string
+  player2: string
+  player3: string
+  player4: string
   p1Point: number
   p2Point: number
   p3Point: number
@@ -12,6 +16,10 @@ type RecordCreateModel = {
 }
 
 export const schema: yup.SchemaOf<RecordCreateModel> = yup.object().shape({
+  player1: yup.string().required(),
+  player2: yup.string().required(),
+  player3: yup.string().required(),
+  player4: yup.string().required(),
   p1Point: yup
     .number()
     .required('得点を入力してください')
