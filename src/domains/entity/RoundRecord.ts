@@ -5,6 +5,8 @@ import { ValidationError } from '@/errors/error'
 export type RoundRecordProps = {
   id: EntityId
   roundId: EntityId
+  playerOnGameGameId: EntityId
+  playerOnGamePlayerId: EntityId
   createdAt: DateValue
   rank: RoundRecordRankValue
   score: RoundRecordScoreValue
@@ -15,6 +17,8 @@ export class RoundRecord extends ValueObject<RoundRecordProps> {
     super({
       id: new EntityId(props.id.value),
       roundId: new EntityId(props.roundId.value),
+      playerOnGameGameId: new EntityId(props.playerOnGameGameId.value),
+      playerOnGamePlayerId: new EntityId(props.playerOnGamePlayerId.value),
       createdAt: new DateValue(props.createdAt.value, 'createdAt'),
       rank: new RoundRecordRankValue(props.rank.value),
       score: new RoundRecordScoreValue(props.score.value),
@@ -25,6 +29,12 @@ export class RoundRecord extends ValueObject<RoundRecordProps> {
   }
   get roundId() {
     return this._value.roundId._value
+  }
+  get playerOnGameGameId() {
+    return this._value.playerOnGameGameId._value
+  }
+  get playerOnGamePlayerId() {
+    return this._value.playerOnGamePlayerId._value
   }
   get createdAt() {
     return this._value.createdAt._value
