@@ -4,7 +4,7 @@ import { PlayerOnGame } from './PlayerOnGame'
 import { RoundRecord } from './RoundRecord'
 import { PrimitiveValueObject, ValueObject } from './valueObjects/BaseValueObjects'
 import { BoolValue, DateValue, EntityId } from './valueObjects/CommonValueObjects'
-import { ValidationError } from '@/errors/error'
+import { InvalidDataError, ValidationError } from '@/errors/error'
 
 export type GameProps = {
   id: EntityId
@@ -12,6 +12,7 @@ export type GameProps = {
   rule: GameRule
   rate: GameRate
   started: BoolValue
+  completed: BoolValue
   ownerId: EntityId
   owner?: Player
   belongingPlayers?: PlayerOnGame[]
@@ -23,12 +24,15 @@ export class Game extends ValueObject<GameProps> {
   constructor(props: GameProps) {
     if (props.belongingPlayers && props.belongingPlayers.length > 4)
       throw new ValidationError('belongingPlayers is invalid.')
+    if (props.started.value !== true && props.completed.value === true)
+      throw new InvalidDataError('started or completed is invalid.')
     super({
       id: new EntityId(props.id.value),
       playedAt: new DateValue(props.playedAt.value, 'playedAt'),
       rule: new GameRule(props.rule.value),
       rate: new GameRate(props.rate.value),
       started: new BoolValue(props.started.value),
+      completed: new BoolValue(props.completed.value),
       ownerId: new EntityId(props.ownerId.value),
       owner: props.owner,
       belongingPlayers: props.belongingPlayers,
@@ -48,6 +52,9 @@ export class Game extends ValueObject<GameProps> {
   }
   get started() {
     return this._value.started._value
+  }
+  get completed() {
+    return this._value.completed._value
   }
   get ownerId() {
     return this._value.ownerId._value

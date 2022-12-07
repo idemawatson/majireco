@@ -6,7 +6,12 @@ const Row = () => {
     <>
       {Array.from(Array(4).keys()).map((i) => (
         <Grid item xs={3} key={i}>
-          <Paper variant='outlined' square elevation={0} sx={{ textAlign: 'center' }}>
+          <Paper
+            variant='outlined'
+            square
+            elevation={0}
+            sx={{ textAlign: 'center', py: 2, fontSize: '24pxs' }}
+          >
             <Typography variant='body1' sx={{ px: 1 }}>
               <Skeleton variant='text' />
             </Typography>

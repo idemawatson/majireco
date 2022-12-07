@@ -13,6 +13,7 @@ export default class CreateGameUseCase {
       id: uuid(),
       playedAt: dayjs().toDate(),
       started: false,
+      completed: false,
       ownerId: req.owner,
       rule: req.rule,
       rate: req.rate,

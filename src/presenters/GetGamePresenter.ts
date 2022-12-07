@@ -32,6 +32,7 @@ export default class GetGamePresenter {
       rate: game.rate,
       rule: game.rule,
       started: game.started,
+      completed: game.completed,
       playedAt: game.playedAt.toISOString(),
       owner: {
         id: game.owner.id,

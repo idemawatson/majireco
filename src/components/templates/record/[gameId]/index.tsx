@@ -1,12 +1,12 @@
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
-import { useGetGame } from '@/hooks/useGetGame'
 import restClient from '@/libs/restClient'
 import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 import {
   CreateRoundRecordRequestDTO,
   CreateRoundRecordResponseDTO,
 } from '@/usecases/CreateRoundRecord/CreateRoundRecordDto'
+import { UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
 import { useRouter } from 'next/router'
 import { FC, Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -43,10 +43,28 @@ const Page: FC = () => {
       hideLoading()
     }
   }
+
+  const endGame = async () => {
+    try {
+      showLoading()
+      await restClient.post<{ gameId: string; completed: boolean }, UpdateGameResponseDto>(
+        '/game',
+        {
+          gameId,
+          completed: true,
+        },
+      )
+      mutate(`game?game_id=${gameId}`)
+    } catch (e) {
+      showError('ゲームの更新に失敗しました')
+    } finally {
+      hideLoading()
+    }
+  }
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Suspense fallback={<Loading />}>
-        <Presenter submitForm={submitForm}></Presenter>
+        <Presenter submitForm={submitForm} handleOnClickEndGame={endGame}></Presenter>
       </Suspense>
     </ErrorBoundary>
   )

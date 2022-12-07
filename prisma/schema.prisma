@@ -21,6 +21,7 @@ model Game {
   rule             GameRule
   rate             GameRate
   started          Boolean        @default(false)
+  completed        Boolean        @default(false)
   owner            Player         @relation(fields:[ownerId], references: [id])
   ownerId          String         
   belongingPlayers PlayerOnGame[]

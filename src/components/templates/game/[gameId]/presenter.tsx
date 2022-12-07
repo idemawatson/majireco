@@ -2,7 +2,7 @@ import { Paper } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import InputGameFormCard from '@/components/organisms/game/GameUpdateFormCard'
-import { useGetGame } from '@/hooks/useGetGame'
+import { useGame } from '@/hooks/useGame'
 import { IUpdateGameForm } from '@/types/forms/GameUpdateForm'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 const Presenter: FC<Props> = ({ submitForm }) => {
   const router = useRouter()
-  const { data, mutate } = useGetGame(router.query.gameId as string)
+  const { data, mutate } = useGame(router.query.gameId as string)
   const isStarted = data?.started
 
   return (

@@ -5,7 +5,7 @@ import { CreateGameController } from '@/controllers/CreateGameController'
 import { GetGameController } from '@/controllers/GetGameController'
 import { JoinPlayerToGameController } from '@/controllers/JoinPlayerToGameController'
 import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
-import { StartGameController } from '@/controllers/StartGameController'
+import { UpdateGameController } from '@/controllers/UpdateGameController'
 
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = getSession(req, res)
@@ -32,8 +32,8 @@ const patchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = getSession(req, res)
-  const controller = new StartGameController()
-  const dto = await controller.startGame({
+  const controller = new UpdateGameController()
+  const dto = await controller.updateGame({
     ...req.body,
     playerId: session?.user.sub,
   })
