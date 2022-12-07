@@ -8,7 +8,7 @@ import restClient from '@/libs/restClient'
 import { UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
-import { useGetGame } from '@/hooks/useGetGame'
+import { useGame } from '@/hooks/useGame'
 import { useRouter } from 'next/router'
 
 const Page: FC = () => {
@@ -17,13 +17,17 @@ const Page: FC = () => {
   const { showError } = useNotification()
 
   const submitForm = async (form: IUpdateGameForm) => {
-    const { data, mutate } = useGetGame(router.query.gameId as string)
+    const { data, mutate } = useGame(router.query.gameId as string)
     if (!data) return
     try {
       showLoading()
-      await restClient.post<IUpdateGameForm & { gameId: string }, UpdateGameResponseDto>('/game', {
+      await restClient.post<
+        IUpdateGameForm & { gameId: string; started: boolean },
+        UpdateGameResponseDto
+      >('/game', {
         ...form,
         gameId: router.query.gameId as string,
+        started: true,
       })
       mutate({ ...data, started: true }, false)
     } catch (e) {

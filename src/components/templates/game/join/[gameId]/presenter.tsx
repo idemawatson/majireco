@@ -1,10 +1,11 @@
 import { Button, Card, CardContent, CardHeader, Grid, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { useGetGame } from '@/hooks/useGetGame'
+import { useGame } from '@/hooks/useGame'
 import gameRule from '@/libs/gameRule'
 import gameRate from '@/libs/gameRate'
 import dayjs from 'dayjs'
+import { BaseButton } from '@/components/uiParts/BaseButton'
 
 type Props = {
   joinGame: () => {}
@@ -12,7 +13,7 @@ type Props = {
 
 const Presenter: FC<Props> = ({ joinGame }) => {
   const router = useRouter()
-  const { data } = useGetGame(router.query.gameId as string)
+  const { data } = useGame(router.query.gameId as string)
   const ruleText = data ? gameRule.getRuleText(data.rule) : ''
   const rateText = data ? gameRate.getRateText(data.rate) : ''
   const playedAtText = dayjs(data?.playedAt).format('YYYY/MM/DD HH:mm:ss')
@@ -45,15 +46,9 @@ const Presenter: FC<Props> = ({ joinGame }) => {
                 <Caption title='レート' value={rateText} />
               </Grid>
               <Grid xs={12} sx={{ mt: 2, textAlign: 'right' }} item>
-                <Button
-                  variant='contained'
-                  disableElevation
-                  color='secondary'
-                  type='submit'
-                  onClick={joinGame}
-                >
+                <BaseButton color='secondary' onClick={joinGame}>
                   ゲームに参加する
-                </Button>
+                </BaseButton>
               </Grid>
             </Grid>
           </CardContent>

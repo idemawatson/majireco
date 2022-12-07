@@ -1,4 +1,4 @@
-import { GameRate, GameRule, PlayerOnGame } from '@prisma/client'
+import { GameRate, GameRule } from '@prisma/client'
 import { Game } from '@/domains/entity/Game'
 import GameMapper from '@/domains/mapper/GameMapper'
 import prisma from '@/libs/prisma'
@@ -51,12 +51,15 @@ export class GameRepo {
     rule?: GameRule
     rate?: GameRate
     started?: boolean
+    completed?: boolean
   }) {
     const data = {
       rule: input.rule,
       rate: input.rate,
       started: input.started,
+      completed: input.completed,
     }
+    console.debug(`Call update game query. ${JSON.stringify(data)}`)
     const game = await prisma.game.update({
       where: {
         id: input.id,
