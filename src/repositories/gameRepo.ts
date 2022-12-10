@@ -38,6 +38,9 @@ export class GameRepo {
           },
         },
       },
+      orderBy: {
+        playedAt: 'desc',
+      },
     })
     return games.map((game) => GameMapper.toDomain(game))
   }

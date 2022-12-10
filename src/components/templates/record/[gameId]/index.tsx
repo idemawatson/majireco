@@ -54,6 +54,7 @@ const Page: FC = () => {
           completed: true,
         },
       )
+      showSuccess('ゲームを終了しました')
       mutate(`game?game_id=${gameId}`)
     } catch (e) {
       showError('ゲームの更新に失敗しました')

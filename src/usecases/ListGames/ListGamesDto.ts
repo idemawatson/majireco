@@ -8,5 +8,6 @@ export interface ListGamesResponseDTO {
     rate: GameRate
     rule: GameRule
     started: boolean
+    completed: boolean
   }[]
 }

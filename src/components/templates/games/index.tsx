@@ -6,7 +6,7 @@ const Page: FC = () => {
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Presenter></Presenter>
+        <Presenter />
       </Suspense>
     </>
   )
