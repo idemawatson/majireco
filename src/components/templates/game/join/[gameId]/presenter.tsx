@@ -1,9 +1,9 @@
-import { Button, Card, CardContent, CardHeader, Grid, Paper, Typography } from '@mui/material'
+import { Card, CardContent, CardHeader, Grid, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { useGame } from '@/hooks/useGame'
-import gameRule from '@/libs/gameRule'
-import gameRate from '@/libs/gameRate'
+import { getRuleText } from '@/libs/gameRule'
+import { getRateText } from '@/libs/gameRate'
 import dayjs from 'dayjs'
 import { BaseButton } from '@/components/uiParts/BaseButton'
 
@@ -14,8 +14,8 @@ type Props = {
 const Presenter: FC<Props> = ({ joinGame }) => {
   const router = useRouter()
   const { data } = useGame(router.query.gameId as string)
-  const ruleText = data ? gameRule.getRuleText(data.rule) : ''
-  const rateText = data ? gameRate.getRateText(data.rate) : ''
+  const ruleText = data ? getRuleText(data.rule) : ''
+  const rateText = data ? getRateText(data.rate) : ''
   const playedAtText = dayjs(data?.playedAt).format('YYYY/MM/DD HH:mm:ss')
 
   const Caption = ({ title, value }: { title: string; value: string | undefined }) => (

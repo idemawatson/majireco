@@ -12,6 +12,7 @@ export default class ListGamesUseCase {
         rate: game.rate,
         players: game.belongingPlayers?.map((bp) => bp.player?.name || '') || [],
         started: game.started,
+        completed: game.completed,
       })),
     }
   }
