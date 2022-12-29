@@ -33,7 +33,7 @@ model PlayerOnGame {
   game         Game          @relation(fields: [gameId], references: [id])
   gameId       String
   roundRecords RoundRecord[]
-
+  
   @@id([playerId, gameId])
 }
 

@@ -44,6 +44,7 @@ export class GameRepo {
     })
     return games.map((game) => GameMapper.toDomain(game))
   }
+
   static async createGame(game: Game) {
     const data = GameMapper.toPersistent(game)
     await prisma.game.create({ data: data })
