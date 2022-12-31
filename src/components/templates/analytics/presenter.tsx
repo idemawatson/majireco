@@ -2,7 +2,7 @@ import AnalyticsCards from '@/components/organisms/analytics/AnalyticsCards'
 import AnalyticsLoadingCards from '@/components/organisms/analytics/AnalyticsLoadingCards'
 import { SelectField } from '@/components/uiParts/SelectField/presenter'
 import { GAME_RATE_SELECTIONS } from '@/libs/const'
-import { Box, Grid, Paper, Typography } from '@mui/material'
+import { Box, Grid, Paper } from '@mui/material'
 import { FC, Suspense, useState } from 'react'
 
 const Presenter: FC = () => {
@@ -26,21 +26,6 @@ const Presenter: FC = () => {
         <Suspense fallback={<AnalyticsLoadingCards />}>
           <AnalyticsCards rate={rate}></AnalyticsCards>
         </Suspense>
-        <Grid container>
-          <Grid xs={6} item>
-            <Paper sx={{ mt: 2 }} elevation={0}>
-              <SelectField
-                label='レート'
-                name='rate'
-                selectPropsList={GAME_RATE_SELECTIONS}
-                selectedValue={GAME_RATE_SELECTIONS[0].value}
-              />
-            </Paper>
-          </Grid>
-          <Suspense fallback={<AnalyticsLoadingCards />}>
-            <AnalyticsCards rate={rate}></AnalyticsCards>
-          </Suspense>
-        </Grid>
       </Box>
     </>
   )

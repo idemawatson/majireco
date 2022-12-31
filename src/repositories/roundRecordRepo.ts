@@ -16,7 +16,7 @@ export class RoundRecordRepo {
   ) {
     const { from, to, rate, targetPlayerId } = query
 
-    const queryString = {
+    return await prisma.roundRecord.findMany({
       where: {
         playerOnGamePlayerId: { equals: playerId },
         playerOnGame: {
@@ -35,28 +35,15 @@ export class RoundRecordRepo {
       select: {
         rank: true,
         score: true,
-      },
-    }
-    console.log(JSON.stringify(queryString))
-    return await prisma.roundRecord.findMany({
-      where: {
-        playerOnGamePlayerId: playerId,
         playerOnGame: {
-          game: {
-            rate: rate || undefined,
-            completed: { equals: true },
-            playedAt: { gte: new Date(from), lte: new Date(to) },
-            belongingPlayers: targetPlayerId
-              ? {
-                  some: { playerId: targetPlayerId },
-                }
-              : undefined,
+          select: {
+            game: {
+              select: {
+                rate: true,
+              },
+            },
           },
         },
-      },
-      select: {
-        rank: true,
-        score: true,
       },
     })
   }

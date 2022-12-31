@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import restClient from '@/libs/restClient'
 import { GetAggregatedRecordsResponseDTO } from '@/usecases/GetAggregatedRecords.ts/GetAggregatedRecordsDto'
+import dayjs from 'dayjs'
 
 export const useAnalyzedRecords = (rate: string) => {
   const fetcher = async (url: string): Promise<GetAggregatedRecordsResponseDTO> => {
@@ -8,7 +9,9 @@ export const useAnalyzedRecords = (rate: string) => {
     return response.data as GetAggregatedRecordsResponseDTO
   }
   let query = `record`
-  if (rate) query = `${query}?rate=${rate}&from=${202211}&to=${202212}`
+  const from = dayjs().add(-1, 'year').format('YYYYMMDD')
+  const to = dayjs().format('YYYYMMDD')
+  if (rate) query = `${query}?rate=${rate}&from=${from}&to=${to}`
   const { data, mutate } = useSWR(query, fetcher, {
     suspense: true,
     revalidateOnFocus: false,
