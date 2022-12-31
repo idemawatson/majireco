@@ -1,4 +1,4 @@
-import { handleAuth, handleCallback, HandlerError, Session } from '@auth0/nextjs-auth0'
+import { handleAuth, handleCallback, Session } from '@auth0/nextjs-auth0'
 import jwt from 'jsonwebtoken'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -19,11 +19,8 @@ export default handleAuth({
     try {
       await handleCallback(req, res, { afterCallback })
     } catch (error) {
-      if (error instanceof HandlerError) {
-        res.status(error.status || 500).end(error.message)
-      } else {
-        res.status(500).end('エラーが発生しました')
-      }
+      console.error(error)
+      res.status(500).end('エラーが発生しました')
     }
   },
 })

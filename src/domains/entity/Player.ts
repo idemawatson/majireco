@@ -1,11 +1,12 @@
 import { PrimitiveValueObject, ValueObject } from './valueObjects/BaseValueObjects'
-import { EmailValue, EntityId } from './valueObjects/CommonValueObjects'
+import { EntityId } from './valueObjects/CommonValueObjects'
 import { ValidationError } from '@/errors/error'
+import { PLAYER_THEME_TYPE } from '@/libs/const'
 
 export type PlayerProps = {
   id: EntityId
   name: PlayerName
-  email: EmailValue
+  theme: PlayerTheme
 }
 
 export class Player extends ValueObject<PlayerProps> {
@@ -13,7 +14,7 @@ export class Player extends ValueObject<PlayerProps> {
     super({
       id: new EntityId(props.id.value),
       name: new PlayerName(props.name.value),
-      email: new EmailValue(props.email.value),
+      theme: new PlayerTheme(props.theme.value),
     })
   }
   get id() {
@@ -22,14 +23,20 @@ export class Player extends ValueObject<PlayerProps> {
   get name() {
     return this._value.name._value
   }
-  get email() {
-    return this._value.email._value
+  get theme() {
+    return this._value.theme._value
   }
 }
 
 export class PlayerName extends PrimitiveValueObject<string> {
   constructor(readonly _value: string) {
     if (_value.length > 100) throw new ValidationError('PlayerName is invalid.')
+    super(_value)
+  }
+}
+
+export class PlayerTheme extends PrimitiveValueObject<PLAYER_THEME_TYPE> {
+  constructor(readonly _value: PLAYER_THEME_TYPE) {
     super(_value)
   }
 }

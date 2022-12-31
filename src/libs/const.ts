@@ -13,3 +13,15 @@ export const GAME_RATE_SELECTIONS = [
   { text: '点3', value: 'PER_30' },
   { text: '点5', value: 'PER_50' },
 ]
+
+export const PLAYER_THEME = {
+  T1: 'T1',
+  T2: 'T2',
+  T3: 'T3',
+  T4: 'T4',
+  T5: 'T5',
+  T6: 'T6',
+  T7: 'T7',
+  T8: 'T8',
+} as const
+export type PLAYER_THEME_TYPE = typeof PLAYER_THEME[keyof typeof PLAYER_THEME]

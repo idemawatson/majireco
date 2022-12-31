@@ -12,7 +12,6 @@ type reqProps = CreateRoundRecordRequestDTO & {
 
 export default class CreateRoundRecordUseCase {
   async execute(req: reqProps): Promise<CreateRoundRecordResponseDTO> {
-    console.debug(`REQUEST BODY: ${JSON.stringify(req)}`)
     const game = await GameRepo.getGame(req.gameId)
 
     if (!game) throw new GameNotFoundError()

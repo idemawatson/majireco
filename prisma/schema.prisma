@@ -10,7 +10,7 @@ datasource db {
 model Player {
   id             String         @id @unique @default(uuid())
   name           String
-  email          String
+  theme          String         @default("t1")
   ownGames       Game[]
   attendingGames PlayerOnGame[]
 }
