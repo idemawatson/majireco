@@ -7,3 +7,5 @@ export class InvalidDataError extends BaseError {}
 export class GameValidationError extends ValidationError {}
 export class GameNotFoundError extends NotFoundError {}
 export class GameInvalidDataError extends InvalidDataError {}
+
+export class PlayerNotFoundError extends NotFoundError {}

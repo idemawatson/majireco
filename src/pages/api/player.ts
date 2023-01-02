@@ -2,6 +2,8 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 import { CreatePlayerController } from '@/controllers/CreatePlayerController'
+import { GetPlayerController } from '@/controllers/GetPlayerController'
+import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0'
 
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('Start create Player.')
@@ -14,6 +16,16 @@ const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiRespo
   console.log('End create Player.')
 }
 
+const getHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log('Start get Player.')
+  const session = getSession(req, res)
+  const controller = new GetPlayerController()
+  const player = await controller.getPlayer(session?.user.sub)
+  res.json(player)
+  console.log('End get Player.')
+}
+
 export default apiHandler({
   PUT: putHandler,
+  GET: withApiAuthRequired(getHandler),
 })

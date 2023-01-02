@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import { UserProvider } from '@auth0/nextjs-auth0'
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { FC, ReactNode } from 'react'
@@ -9,6 +9,9 @@ import { MainLayout } from '@/components/layout/MainLayout'
 import { ErrorFallback } from '@/components/uiParts/TheErrorBoundary'
 import { TheLoading } from '@/components/uiParts/TheLoading'
 import { TheNotificationToast } from '@/components/uiParts/TheNotificationToast'
+import { usePlayer } from '@/hooks/usePlayer'
+import getTheme from '@/libs/getTheme'
+import MyThemeProvider from '@/components/uiParts/MyThemeProvider'
 
 type NextPageWithLayout = NextPage & {
   layout?: typeof MainLayout
@@ -18,32 +21,13 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-const theme = createTheme({
-  typography: {
-    fontFamily: "'Noto Sans JP', 'sans-serif'",
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-  },
-  palette: {
-    primary: {
-      main: '#00171f',
-      contrastText: '#fff',
-    },
-    secondary: {
-      main: '#c6ae6f',
-      contrastText: '#fff',
-    },
-  },
-})
-
 const MyApp: FC<AppPropsWithLayout> = ({ Component, pageProps }: AppPropsWithLayout) => {
   const Layout = Component.layout || (({ children }: { children: ReactNode }) => <>{children}</>)
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <UserProvider>
         <CssBaseline>
-          <UserProvider>
+          <MyThemeProvider>
             <Layout>
               <TheLoading />
               <TheNotificationToast />
@@ -51,9 +35,9 @@ const MyApp: FC<AppPropsWithLayout> = ({ Component, pageProps }: AppPropsWithLay
                 <Component {...pageProps} />
               </ErrorBoundary>
             </Layout>
-          </UserProvider>
+          </MyThemeProvider>
         </CssBaseline>
-      </ThemeProvider>
+      </UserProvider>
     </>
   )
 }
