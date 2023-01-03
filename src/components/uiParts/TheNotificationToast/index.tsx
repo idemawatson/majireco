@@ -1,16 +1,19 @@
-import { Alert } from '@mui/material'
+import { Alert, Snackbar } from '@mui/material'
 import { FC } from 'react'
 import { useNotification } from './hooks'
 
 export const TheNotificationToast: FC = () => {
   const { notification } = useNotification()
-  if (notification.visible) {
-    return (
-      <>
+  return (
+    <>
+      <Snackbar
+        open={notification.visible}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
         <Alert variant='filled' severity={notification.severity}>
           {notification.message}
         </Alert>
-      </>
-    )
-  } else return <></>
+      </Snackbar>
+    </>
+  )
 }

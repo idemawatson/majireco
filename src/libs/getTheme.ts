@@ -1,13 +1,9 @@
 import { createTheme } from '@mui/material'
 import { PLAYER_THEME_TYPE } from './const'
 
-const THEME_PALLETES = {
+const THEME_PALETTE = {
   T1: {
     primary: {
-      main: '#00171f',
-      contrastText: '#fff',
-    },
-    secondary: {
       main: '#c6ae6f',
       contrastText: '#fff',
     },
@@ -17,21 +13,67 @@ const THEME_PALLETES = {
       main: '#0582c8',
       contrastText: '#fff',
     },
+  },
+  T3: {
+    primary: {
+      main: '#f895b5',
+      contrastText: '#000066',
+    },
     secondary: {
-      main: '#231815',
+      main: '#000066',
       contrastText: '#fff',
     },
   },
-  T3: {},
-  T4: {},
-  T5: {},
-  T6: {},
-  T7: {},
-  T8: {},
+  T4: {
+    primary: {
+      main: '#9cb832',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#b71a35',
+      contrastText: '#fff',
+    },
+  },
+  T5: {
+    primary: {
+      main: '#920101',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#1b885e',
+      contrastText: '#fff',
+    },
+  },
+  T6: {
+    primary: {
+      main: '#b74801',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#79bd36',
+      contrastText: '#fff',
+    },
+  },
+  T7: {
+    primary: {
+      main: '#000',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#e60012',
+      contrastText: '#fff',
+    },
+  },
+  T8: {
+    primary: {
+      main: '#dbb400',
+      contrastText: '#00171f',
+    },
+  },
 }
 
 export default (theme: string) => {
-  const palette = THEME_PALLETES[(theme as PLAYER_THEME_TYPE) || 'T1']
+  const palette = THEME_PALETTE[(theme as PLAYER_THEME_TYPE) || 'T1']
   return createTheme({
     typography: {
       fontFamily: "'Noto Sans JP', 'sans-serif'",
@@ -39,6 +81,12 @@ export default (theme: string) => {
       fontWeightRegular: 400,
       fontWeightMedium: 500,
     },
-    palette,
+    palette: {
+      secondary: {
+        main: '#00171f',
+        contrastText: '#fff',
+      },
+      ...palette,
+    },
   })
 }

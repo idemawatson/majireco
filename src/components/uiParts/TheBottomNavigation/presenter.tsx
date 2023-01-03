@@ -1,11 +1,8 @@
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
-import RestoreIcon from '@mui/icons-material/Restore'
 import { Paper } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import { useEffect, useState, FC } from 'react'
+import { AnalyticsOutlined, FormatListBulletedOutlined, Settings } from '@mui/icons-material'
 
 type Props = {
   value: string
@@ -19,9 +16,13 @@ const LabelBottomNavigation: FC<Props> = ({ value, handleChange }) => {
   return (
     <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={2}>
       <BottomNavigation sx={{ width: '100%' }} value={routeName} onChange={handleChange}>
-        <BottomNavigationAction label='ホーム' value='home' icon={<RestoreIcon />} />
-        <BottomNavigationAction label='ゲーム' value='game' icon={<FavoriteIcon />} />
-        <BottomNavigationAction label='そのほか' value='other' icon={<LocationOnIcon />} />
+        <BottomNavigationAction
+          label='対局一覧'
+          value='games'
+          icon={<FormatListBulletedOutlined />}
+        />
+        <BottomNavigationAction label='統計' value='analytics' icon={<AnalyticsOutlined />} />
+        <BottomNavigationAction label='設定' value='settings' icon={<Settings />} />
       </BottomNavigation>
     </Paper>
   )

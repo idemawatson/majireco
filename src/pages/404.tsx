@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 
 const Error404: React.FC = () => {
@@ -7,7 +7,7 @@ const Error404: React.FC = () => {
     router.push('/game')
   }
   return (
-    <Box
+    <Paper
       sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -17,10 +17,10 @@ const Error404: React.FC = () => {
         backgroundColor: 'primary.main',
       }}
     >
-      <Typography variant='h1' sx={{ my: 1, color: 'white' }}>
+      <Typography variant='h1' sx={{ my: 1, color: 'primary.contrastText' }}>
         404
       </Typography>
-      <Typography variant='h6' sx={{ my: 1, color: 'white' }}>
+      <Typography variant='h6' sx={{ my: 1, color: 'primary.contrastText' }}>
         ページが存在しません
       </Typography>
       <Button
@@ -32,7 +32,7 @@ const Error404: React.FC = () => {
       >
         ホームに戻る
       </Button>
-    </Box>
+    </Paper>
   )
 }
 

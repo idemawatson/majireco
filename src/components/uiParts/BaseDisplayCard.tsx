@@ -9,8 +9,8 @@ const BaseDisplayCard: FC<{ children: ReactNode }> = ({ children }) => {
         textAlign: 'center',
         lineHeight: '1.5',
         borderRadius: '16px',
-        backgroundColor: 'secondary.main',
-        color: 'primary.main',
+        backgroundColor: 'primary.main',
+        color: 'primary.contrastText',
       }}
       elevation={0}
     >

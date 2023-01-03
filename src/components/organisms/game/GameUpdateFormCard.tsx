@@ -9,6 +9,7 @@ import {
   Card,
   CardHeader,
   CardContent,
+  CardActions,
 } from '@mui/material'
 import ReplayIcon from '@mui/icons-material/Replay'
 import { FC } from 'react'
@@ -18,6 +19,8 @@ import { GAME_RATE_SELECTIONS, GAME_RULE_SELECTIONS } from '@/libs/const'
 
 import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 import { IUpdateGameForm, schema } from '@/types/forms/GameUpdateForm'
+import { ShareOutlined } from '@mui/icons-material'
+import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 
 type Props = {
   submitForm: (data: IUpdateGameForm) => void
@@ -25,7 +28,8 @@ type Props = {
   game: GetGameResponseDTO
 }
 
-const InputGameFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
+const GameUpdateFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
+  const { showInfo } = useNotification()
   const playerList = Array.from(Array(4).keys()).map((i) => {
     const pg =
       game?.belongingPlayers && game?.belongingPlayers[i] ? game?.belongingPlayers[i] : null
@@ -35,6 +39,17 @@ const InputGameFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
       </ListItem>
     )
   })
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(`${window.location.host}/game/join/${game.id}`).then(
+      () => {
+        showInfo('対局URLをコピーしました。参加者に共有してください。')
+      },
+      (err) => {
+        console.error('Async: Could not copy text: ', err)
+      },
+    )
+  }
 
   const formMethods = useForm<IUpdateGameForm>({
     mode: 'onChange',
@@ -49,9 +64,20 @@ const InputGameFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
       <CardHeader
         title='対局'
         action={
-          <Button variant='contained' disableElevation onClick={refresh}>
-            <ReplayIcon sx={{ color: 'white' }} />
-          </Button>
+          <Grid container>
+            <Button
+              variant='contained'
+              disableElevation
+              onClick={copyToClipboard}
+              color='secondary'
+              sx={{ mx: 1 }}
+            >
+              <ShareOutlined />
+            </Button>
+            <Button variant='contained' disableElevation onClick={refresh} color='secondary'>
+              <ReplayIcon sx={{ color: 'white' }} />
+            </Button>
+          </Grid>
         }
       />
       <CardContent>
@@ -108,4 +134,4 @@ const InputGameFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
   )
 }
 
-export default InputGameFormCard
+export default GameUpdateFormCard

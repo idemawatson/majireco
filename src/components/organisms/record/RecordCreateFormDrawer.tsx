@@ -19,17 +19,9 @@ import { GAME_RULES_TYPE } from '@/libs/const'
 import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 import RecordScoreForm from './RecordScoreForm'
 import RecordPointForm from './RecordPointForm'
+import FixedFab from '@/components/uiParts/BaseFixedFab'
 
 const steps = ['点数入力', 'スコア確認']
-
-const FixedFab = styled(Fab)(() => ({
-  margin: 0,
-  top: 'auto',
-  right: 20,
-  bottom: 80,
-  left: 'auto',
-  position: 'fixed',
-}))
 
 type Props = Pick<GetGameResponseDTO, 'belongingPlayers'> & {
   submitForm: (form: IRecordCreateForm) => void
