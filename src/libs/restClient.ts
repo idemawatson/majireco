@@ -22,6 +22,9 @@ class RestClient {
   async put<T, U>(path: string, body: T): Promise<AxiosResponse<U>> {
     return await this._client.put(path, body)
   }
+  async delete<T, U>(path: string): Promise<AxiosResponse<U>> {
+    return await this._client.delete(path)
+  }
 }
 
 const restClient = new RestClient()

@@ -17,7 +17,6 @@ export class GetPlayerController {
     return {
       id: player.id,
       name: player.name,
-      theme: player.theme,
     }
   }
 }

@@ -1,14 +1,4 @@
-import {
-  Box,
-  Button,
-  Fab,
-  Grid,
-  Step,
-  StepLabel,
-  Stepper,
-  styled,
-  SwipeableDrawer,
-} from '@mui/material'
+import { Box, Button, Grid, Step, StepLabel, Stepper, SwipeableDrawer } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -21,6 +11,7 @@ import RecordScoreForm from './RecordScoreForm'
 import RecordPointForm from './RecordPointForm'
 import FixedFab from '@/components/uiParts/BaseFixedFab'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
+import { BaseButton } from '@/components/uiParts/BaseButton'
 
 const steps = ['点数入力', 'スコア確認']
 
@@ -149,15 +140,9 @@ const RecordCreateFormDrawer: FC<Props> = ({
                 )}
               </Grid>
               <Grid item xs={6} sx={{ textAlign: 'right' }}>
-                <Button
-                  type='submit'
-                  variant='contained'
-                  disableElevation
-                  color='secondary'
-                  disabled={!isValid}
-                >
+                <BaseButton submit={true} color='secondary' disabled={!isValid}>
                   {activeStep === steps.length - 1 ? '保存' : '次へ'}
-                </Button>
+                </BaseButton>
               </Grid>
             </Grid>
           </form>

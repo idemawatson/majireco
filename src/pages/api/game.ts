@@ -6,6 +6,7 @@ import { GetGameController } from '@/controllers/GetGameController'
 import { JoinPlayerToGameController } from '@/controllers/JoinPlayerToGameController'
 import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 import { UpdateGameController } from '@/controllers/UpdateGameController'
+import { DeleteGameController } from '@/controllers/DeleteGameController'
 
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = getSession(req, res)
@@ -40,9 +41,16 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.json(dto)
 }
 
+const deleteHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const session = getSession(req, res)
+  await new DeleteGameController().deleteGame(req.query.game_id as string, session?.user.sub)
+  res.json({})
+}
+
 export default apiHandler({
   GET: withApiAuthRequired(getHandler),
   PUT: withApiAuthRequired(putHandler),
   PATCH: withApiAuthRequired(patchHandler),
   POST: withApiAuthRequired(postHandler),
+  DELETE: withApiAuthRequired(deleteHandler),
 })

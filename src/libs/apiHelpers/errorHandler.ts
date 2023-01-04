@@ -11,5 +11,7 @@ export const errorHandler = (error: any, res: NextApiResponse) => {
   }
 
   // その他予期してないエラーに対する処理
-  return res.status(500).json({ message: error.message, statusCode: 500, code: error.code })
+  return res
+    .status(500)
+    .json({ message: 'server error occurred.', statusCode: 500, code: error.code })
 }

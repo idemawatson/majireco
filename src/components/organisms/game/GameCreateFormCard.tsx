@@ -1,11 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Card, CardContent, Grid } from '@mui/material'
+import { Card, CardContent, Grid } from '@mui/material'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } from '@/libs/const'
 
 import { ICreateGameForm, schema } from '@/types/forms/GameCreateForm'
+import { BaseButton } from '@/components/uiParts/BaseButton'
+import { DeleteForever } from '@mui/icons-material'
 
 type Props = {
   submitForm: (data: ICreateGameForm) => void
@@ -42,9 +44,9 @@ const CreateGameFormCard: FC<Props> = ({ submitForm }) => {
                   />
                 </Grid>
                 <Grid justifyContent='flex-end' sx={{ my: 2 }} item>
-                  <Button variant='contained' disableElevation color='secondary' type='submit'>
+                  <BaseButton color='secondary' submit={true}>
                     対局を作成する
-                  </Button>
+                  </BaseButton>
                 </Grid>
               </Grid>
             </form>

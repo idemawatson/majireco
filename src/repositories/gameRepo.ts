@@ -73,10 +73,10 @@ export class GameRepo {
     return GameMapper.toDomain(game)
   }
 
-  static async deleteGame(input: { id: string }) {
+  static async deleteGame(input: { gameId: string }) {
     await prisma.game.delete({
       where: {
-        id: input.id,
+        id: input.gameId,
       },
     })
   }

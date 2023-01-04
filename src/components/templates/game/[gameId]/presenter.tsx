@@ -1,7 +1,7 @@
-import { Card, CardActions, CardContent, Paper, Typography } from '@mui/material'
+import { Card, CardActions, CardContent, Grid, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import InputGameFormCard from '@/components/organisms/game/GameUpdateFormCard'
+import GameUpdateFormCard from '@/components/organisms/game/GameUpdateFormCard'
 import { useGame } from '@/hooks/useGame'
 import { IUpdateGameForm } from '@/types/forms/GameUpdateForm'
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
@@ -9,13 +9,14 @@ import restClient from '@/libs/restClient'
 import { UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 import { BaseButton } from '@/components/uiParts/BaseButton'
+import { DeleteForever } from '@mui/icons-material'
 
 type Props = {}
 
 const Presenter: FC<Props> = () => {
   const router = useRouter()
   const { showLoading, hideLoading } = useLoading()
-  const { showError } = useNotification()
+  const { showSuccess, showError } = useNotification()
   const { data, mutate } = useGame(router.query.gameId as string)
 
   const submitForm = async (form: IUpdateGameForm) => {
@@ -38,6 +39,20 @@ const Presenter: FC<Props> = () => {
     }
   }
 
+  const deleteGame = async () => {
+    if (!data) return
+    try {
+      showLoading()
+      await restClient.delete(`/game?game_id=${data.id}`)
+      router.push('/games')
+      showSuccess('対局を削除しました')
+    } catch (e) {
+      showError('対局を削除できませんでした')
+    } finally {
+      hideLoading()
+    }
+  }
+
   const toRecordPage = () => {
     router.push(`/record/${data?.id}`)
   }
@@ -54,7 +69,14 @@ const Presenter: FC<Props> = () => {
         elevation={0}
       >
         {!isStarted ? (
-          data && <InputGameFormCard game={data} submitForm={submitForm} refresh={mutate} />
+          data && (
+            <GameUpdateFormCard
+              game={data}
+              submitForm={submitForm}
+              refresh={mutate}
+              deleteGame={deleteGame}
+            />
+          )
         ) : (
           <>
             <Card elevation={0}>

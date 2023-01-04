@@ -2,11 +2,12 @@ import { Button } from '@mui/material'
 import { FC, ReactNode } from 'react'
 
 type Props = {
-  onClick: () => void
+  onClick?: () => void
   submit?: boolean
-  color: 'primary' | 'secondary'
+  color: 'primary' | 'secondary' | 'error'
   disabled?: boolean
   size?: 'large' | 'medium' | 'small'
+  sx?: any
   children: ReactNode
 }
 
@@ -16,6 +17,7 @@ export const BaseButton: FC<Props> = ({
   color,
   disabled,
   size,
+  sx,
   children,
 }) => {
   return submit ? (
@@ -26,6 +28,7 @@ export const BaseButton: FC<Props> = ({
       color={color}
       disabled={disabled}
       size={size}
+      sx={sx}
       onClick={onClick}
     >
       {children}
@@ -37,6 +40,7 @@ export const BaseButton: FC<Props> = ({
       color={color}
       disabled={disabled}
       size={size}
+      sx={sx}
       onClick={onClick}
     >
       {children}

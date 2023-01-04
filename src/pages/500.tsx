@@ -1,4 +1,5 @@
-import { Button, Paper, Typography } from '@mui/material'
+import { BaseButton } from '@/components/uiParts/BaseButton'
+import { Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 
 const Error404: React.FC = () => {
@@ -23,15 +24,9 @@ const Error404: React.FC = () => {
       <Typography variant='h6' sx={{ my: 1, color: 'primary.contrastText' }}>
         サーバーエラーが発生しました
       </Typography>
-      <Button
-        variant='contained'
-        disableElevation
-        sx={{ my: 1 }}
-        color='secondary'
-        onClick={toHome}
-      >
+      <BaseButton sx={{ my: 1 }} color='secondary' onClick={toHome}>
         ホームに戻る
-      </Button>
+      </BaseButton>
     </Paper>
   )
 }

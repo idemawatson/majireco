@@ -10,7 +10,6 @@ datasource db {
 model Player {
   id             String         @id @unique @default(uuid())
   name           String
-  theme          String         @default("t1")
   ownGames       Game[]
   attendingGames PlayerOnGame[]
 }
@@ -30,7 +29,7 @@ model Game {
 model PlayerOnGame {
   player       Player        @relation(fields: [playerId], references: [id])
   playerId     String
-  game         Game          @relation(fields: [gameId], references: [id])
+  game         Game          @relation(fields: [gameId], references: [id], onDelete: Cascade)
   gameId       String
   roundRecords RoundRecord[]
   
@@ -41,7 +40,7 @@ model RoundRecord {
   id                   String       @id @unique @default(uuid())
   roundId              String
   createdAt            DateTime     @default(now())
-  playerOnGame         PlayerOnGame @relation(references: [playerId, gameId], fields: [playerOnGamePlayerId, playerOnGameGameId])
+  playerOnGame         PlayerOnGame @relation(references: [playerId, gameId], fields: [playerOnGamePlayerId, playerOnGameGameId], onDelete: Cascade)
   rank                 Int
   score                Int
   playerOnGamePlayerId String

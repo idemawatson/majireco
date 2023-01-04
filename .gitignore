@@ -39,4 +39,3 @@ next-env.d.ts
 public/sw.js
 public/sw.*.map
 public/workbox-*
-public/*.png

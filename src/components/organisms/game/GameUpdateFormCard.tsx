@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
-  Button,
   Grid,
   List,
   ListItem,
@@ -9,7 +8,6 @@ import {
   Card,
   CardHeader,
   CardContent,
-  CardActions,
 } from '@mui/material'
 import ReplayIcon from '@mui/icons-material/Replay'
 import { FC } from 'react'
@@ -22,14 +20,17 @@ import { IUpdateGameForm, schema } from '@/types/forms/GameUpdateForm'
 import { ShareOutlined } from '@mui/icons-material'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 import { useUser } from '@auth0/nextjs-auth0'
+import { BaseButton } from '@/components/uiParts/BaseButton'
+import GameDeleteConfirmationDialog from './GameDeleteConfirmationDialog'
 
 type Props = {
   submitForm: (data: IUpdateGameForm) => void
   refresh: () => void
+  deleteGame: () => Promise<void>
   game: GetGameResponseDTO
 }
 
-const GameUpdateFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
+const GameUpdateFormCard: FC<Props> = ({ submitForm, refresh, game, deleteGame }) => {
   const { showInfo } = useNotification()
   const { user } = useUser()
   const playerList = Array.from(Array(4).keys()).map((i) => {
@@ -59,7 +60,7 @@ const GameUpdateFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
     defaultValues: { rule: game?.rule, rate: game?.rate },
   })
 
-  const isOwner = game?.owner.id === user?.sub
+  const isOwner = game?.owner?.id === user?.sub
   const isEnoughMember = game?.belongingPlayers?.length === 4
 
   return (
@@ -67,22 +68,16 @@ const GameUpdateFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
       <CardHeader
         title='対局'
         action={
-          <Grid container>
+          <div>
             {isOwner && (
-              <Button
-                variant='contained'
-                disableElevation
-                onClick={copyToClipboard}
-                color='secondary'
-                sx={{ mx: 1 }}
-              >
+              <BaseButton onClick={copyToClipboard} color='secondary' sx={{ mx: 1 }}>
                 <ShareOutlined />
-              </Button>
+              </BaseButton>
             )}
-            <Button variant='contained' disableElevation onClick={refresh} color='secondary'>
+            <BaseButton onClick={refresh} color='secondary'>
               <ReplayIcon sx={{ color: 'white' }} />
-            </Button>
-          </Grid>
+            </BaseButton>
+          </div>
         }
       />
       <CardContent>
@@ -121,17 +116,16 @@ const GameUpdateFormCard: FC<Props> = ({ submitForm, refresh, game }) => {
                   )}
                   <List>{playerList}</List>
                 </Grid>
-                <Grid xs={12} sx={{ my: 2, textAlign: 'right' }} item>
+                <Grid xs={12} sx={{ mt: 2, textAlign: 'right' }} item>
                   {isOwner && (
-                    <Button
-                      variant='contained'
-                      disableElevation
-                      color='secondary'
-                      type='submit'
-                      disabled={!isEnoughMember}
-                    >
-                      対局を開始する
-                    </Button>
+                    <>
+                      <BaseButton color='secondary' submit={true} disabled={!isEnoughMember}>
+                        対局を開始する
+                      </BaseButton>
+                      <GameDeleteConfirmationDialog
+                        deleteGame={deleteGame}
+                      ></GameDeleteConfirmationDialog>
+                    </>
                   )}
                 </Grid>
               </Grid>

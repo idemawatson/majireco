@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { Box, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
@@ -7,7 +8,6 @@ import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 import { BaseButton } from '@/components/uiParts/BaseButton'
 import RecordCreateFormDrawer from '@/components/organisms/record/RecordCreateFormDrawer'
 import dayjs from 'dayjs'
-import { useUser } from '@auth0/nextjs-auth0'
 
 type Props = {
   submitForm: (form: IRecordCreateForm) => void
