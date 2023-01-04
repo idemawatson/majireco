@@ -5,16 +5,40 @@ type Props = {
   onClick: () => void
   submit?: boolean
   color: 'primary' | 'secondary'
+  disabled?: boolean
+  size?: 'large' | 'medium' | 'small'
   children: ReactNode
 }
 
-export const BaseButton: FC<Props> = ({ onClick, submit = false, color, children }) => {
+export const BaseButton: FC<Props> = ({
+  onClick,
+  submit = false,
+  color,
+  disabled,
+  size,
+  children,
+}) => {
   return submit ? (
-    <Button variant='contained' disableElevation color={color} type='submit' onClick={onClick}>
+    <Button
+      type='submit'
+      variant='contained'
+      disableElevation
+      color={color}
+      disabled={disabled}
+      size={size}
+      onClick={onClick}
+    >
       {children}
     </Button>
   ) : (
-    <Button variant='contained' disableElevation color={color} onClick={onClick}>
+    <Button
+      variant='contained'
+      disableElevation
+      color={color}
+      disabled={disabled}
+      size={size}
+      onClick={onClick}
+    >
       {children}
     </Button>
   )

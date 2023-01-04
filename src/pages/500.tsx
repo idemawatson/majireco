@@ -1,13 +1,13 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Button, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 
 const Error404: React.FC = () => {
   const router = useRouter()
   const toHome = () => {
-    router.push('/game')
+    router.push('/games')
   }
   return (
-    <Box
+    <Paper
       sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -17,10 +17,10 @@ const Error404: React.FC = () => {
         backgroundColor: 'primary.main',
       }}
     >
-      <Typography variant='h1' sx={{ my: 1, color: 'white' }}>
+      <Typography variant='h1' sx={{ my: 1, color: 'primary.contrastText' }}>
         500
       </Typography>
-      <Typography variant='h6' sx={{ my: 1, color: 'white' }}>
+      <Typography variant='h6' sx={{ my: 1, color: 'primary.contrastText' }}>
         サーバーエラーが発生しました
       </Typography>
       <Button
@@ -32,7 +32,7 @@ const Error404: React.FC = () => {
       >
         ホームに戻る
       </Button>
-    </Box>
+    </Paper>
   )
 }
 

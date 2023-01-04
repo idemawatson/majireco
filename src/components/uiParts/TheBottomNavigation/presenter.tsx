@@ -9,7 +9,7 @@ type Props = {
   handleChange: (event: React.SyntheticEvent, newValue: string) => void
 }
 const LabelBottomNavigation: FC<Props> = ({ value, handleChange }) => {
-  const [routeName, setRouteName] = useState('/home')
+  const [routeName, setRouteName] = useState('/games')
   useEffect(() => {
     setRouteName(value.split('/')[1])
   }, [value])

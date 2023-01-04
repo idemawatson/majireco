@@ -43,7 +43,7 @@ const CreateGameFormCard: FC<Props> = ({ submitForm }) => {
                 </Grid>
                 <Grid justifyContent='flex-end' sx={{ my: 2 }} item>
                   <Button variant='contained' disableElevation color='secondary' type='submit'>
-                    ゲームを作成する
+                    対局を作成する
                   </Button>
                 </Grid>
               </Grid>

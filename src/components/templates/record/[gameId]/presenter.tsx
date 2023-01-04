@@ -7,6 +7,7 @@ import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 import { BaseButton } from '@/components/uiParts/BaseButton'
 import RecordCreateFormDrawer from '@/components/organisms/record/RecordCreateFormDrawer'
 import dayjs from 'dayjs'
+import { useUser } from '@auth0/nextjs-auth0'
 
 type Props = {
   submitForm: (form: IRecordCreateForm) => void
@@ -15,8 +16,17 @@ type Props = {
 
 const Presenter: FC<Props> = ({ submitForm, handleOnClickEndGame }) => {
   const router = useRouter()
-  const { data } = useGame(router.query.gameId as string)
+  const { user } = useUser()
+  const { data, mutate } = useGame(router.query.gameId as string)
   if (!data) return <></>
+
+  const hasRecord = Object.keys(data.roundRecords).length > 0
+  const isOwner = data.owner.id === user?.sub
+  const checkIsCompleted = async () => {
+    await mutate()
+    return !!data.completed
+  }
+
   return (
     <>
       <Paper sx={{ mx: 2, my: 2, px: 1, py: 1 }} elevation={0}>
@@ -37,15 +47,18 @@ const Presenter: FC<Props> = ({ submitForm, handleOnClickEndGame }) => {
       </Paper>
       {!data.completed === true && (
         <>
-          <Box sx={{ mx: 2, textAlign: 'end' }}>
-            <BaseButton color='secondary' onClick={handleOnClickEndGame}>
-              ゲームを終了
-            </BaseButton>
+          <Box sx={{ mx: 2, textAlign: 'start' }}>
+            {isOwner && (
+              <BaseButton color='secondary' onClick={handleOnClickEndGame} disabled={!hasRecord}>
+                対局を終了
+              </BaseButton>
+            )}
           </Box>
           <RecordCreateFormDrawer
             belongingPlayers={data.belongingPlayers}
             submitForm={submitForm}
             gameRule={data.rule}
+            checkIsCompleted={checkIsCompleted}
           />
         </>
       )}

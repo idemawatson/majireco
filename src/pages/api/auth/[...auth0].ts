@@ -1,4 +1,4 @@
-import { handleAuth, handleCallback, Session } from '@auth0/nextjs-auth0'
+import { handleAuth, handleCallback, handleLogout, Session } from '@auth0/nextjs-auth0'
 import jwt from 'jsonwebtoken'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -18,6 +18,16 @@ export default handleAuth({
   async callback(req, res) {
     try {
       await handleCallback(req, res, { afterCallback })
+    } catch (error) {
+      console.error(error)
+      res.status(500).end('エラーが発生しました')
+    }
+  },
+  logout: async (req, res) => {
+    try {
+      await handleLogout(req, res, {
+        returnTo: '/games',
+      })
     } catch (error) {
       console.error(error)
       res.status(500).end('エラーが発生しました')

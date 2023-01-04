@@ -7,6 +7,7 @@ const FixedFab = styled(Fab)(() => ({
   bottom: 80,
   left: 'auto',
   position: 'fixed',
+  zIndex: 900,
 }))
 
 export default FixedFab

@@ -20,16 +20,24 @@ import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 import RecordScoreForm from './RecordScoreForm'
 import RecordPointForm from './RecordPointForm'
 import FixedFab from '@/components/uiParts/BaseFixedFab'
+import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 
 const steps = ['点数入力', 'スコア確認']
 
 type Props = Pick<GetGameResponseDTO, 'belongingPlayers'> & {
   submitForm: (form: IRecordCreateForm) => void
   gameRule: GAME_RULES_TYPE
+  checkIsCompleted: () => Promise<boolean>
 }
-const RecordCreateFormDrawer: FC<Props> = ({ belongingPlayers, submitForm, gameRule }) => {
+const RecordCreateFormDrawer: FC<Props> = ({
+  belongingPlayers,
+  submitForm,
+  gameRule,
+  checkIsCompleted,
+}) => {
   const [drawer, setDrawer] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
+  const { showError } = useNotification()
   const playerIds = belongingPlayers.map((bp) => bp.playerId)
   const defaultValues = {
     p1Point: 0,
@@ -46,12 +54,26 @@ const RecordCreateFormDrawer: FC<Props> = ({ belongingPlayers, submitForm, gameR
     player4: playerIds[3],
   }
 
+  const openDrawer = async () => {
+    if (await checkIsCompleted()) {
+      setDrawer(true)
+    } else {
+      showError('既に完了済みのゲームです')
+    }
+  }
+
   const renderStepContent = (step: number) => {
     switch (step) {
       case 0:
         return <RecordPointForm players={belongingPlayers} control={control}></RecordPointForm>
       case 1:
-        return <RecordScoreForm players={belongingPlayers} control={control}></RecordScoreForm>
+        return (
+          <RecordScoreForm
+            players={belongingPlayers}
+            control={control}
+            addScore={addScore}
+          ></RecordScoreForm>
+        )
       default:
         return <div>Not Found</div>
     }
@@ -89,13 +111,17 @@ const RecordCreateFormDrawer: FC<Props> = ({ belongingPlayers, submitForm, gameR
       setValue('p2Score', score2)
       setValue('p3Score', score3)
       setValue('p4Score', score4)
+      setActiveStep(activeStep + 1)
     }
-    setActiveStep(activeStep + 1)
+  }
+
+  const addScore = (key: 'p1Score' | 'p2Score' | 'p3Score' | 'p4Score', addition: number) => {
+    setValue(key, getValues(key) + addition)
   }
 
   return (
     <>
-      <FixedFab color='primary' aria-label='add' onClick={() => setDrawer(true)}>
+      <FixedFab color='primary' aria-label='add' onClick={openDrawer}>
         <AddIcon />
       </FixedFab>
       <SwipeableDrawer

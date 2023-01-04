@@ -16,31 +16,11 @@ const Page: FC = () => {
   const { showLoading, hideLoading } = useLoading()
   const { showError } = useNotification()
 
-  const submitForm = async (form: IUpdateGameForm) => {
-    const { data, mutate } = useGame(router.query.gameId as string)
-    if (!data) return
-    try {
-      showLoading()
-      await restClient.post<
-        IUpdateGameForm & { gameId: string; started: boolean },
-        UpdateGameResponseDto
-      >('/game', {
-        ...form,
-        gameId: router.query.gameId as string,
-        started: true,
-      })
-      mutate({ ...data, started: true }, false)
-    } catch (e) {
-      showError('ゲームを開始できませんでした')
-    } finally {
-      hideLoading()
-    }
-  }
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<Loading />}>
-          <Presenter submitForm={submitForm}></Presenter>
+          <Presenter></Presenter>
         </Suspense>
       </ErrorBoundary>
     </>

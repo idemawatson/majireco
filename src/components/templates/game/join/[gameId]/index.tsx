@@ -8,6 +8,7 @@ import restClient from '@/libs/restClient'
 import { JoinPlayerToGameResponseDto } from '@/usecases/JoinPlayerToGame/JoinPlayerToGameDto'
 import { useRouter } from 'next/router'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
+import errorCodes from '@/errors/errorCodes'
 
 type IJoinGameForm = {
   gameId: string
@@ -23,11 +24,13 @@ const Page: FC = () => {
       await restClient.patch<IJoinGameForm, JoinPlayerToGameResponseDto>('/game', {
         gameId: router.query.gameId as string,
       })
-      showSuccess('ゲームに参加しました！')
+      showSuccess('対局に参加しました！')
       router.push('/games')
-    } catch (err) {
+    } catch (err: any) {
       console.error(err)
-      showError('エラー: ゲーム参加に失敗しました')
+      if (err.response?.data?.code === errorCodes.JOIN_GAME_DUPLICATION)
+        showError('エラー: 既に参加済みです')
+      else showError('エラー: 対局参加に失敗しました')
     } finally {
       hideLoading()
     }

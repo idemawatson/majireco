@@ -1,16 +1,6 @@
-import { BaseButton } from '@/components/uiParts/BaseButton'
 import { getRateText } from '@/libs/gameRate'
 import { getRuleText } from '@/libs/gameRule'
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Grid,
-  Typography,
-} from '@mui/material'
+import { Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material'
 import { GameRate, GameRule } from '@prisma/client'
 import ChevronRight from '@mui/icons-material/ChevronRight'
 import dayjs from 'dayjs'
@@ -35,6 +25,13 @@ const GameListCard: FC<Props> = (props) => {
   const getToHref = (started: boolean, gameId: string) => {
     return started ? `/record/${gameId}` : `game/${gameId}`
   }
+  const playerNames = () => {
+    return props.players.map((player, index) => (
+      <Typography key={index} variant='body1'>
+        {player}
+      </Typography>
+    ))
+  }
 
   return (
     <Card key={props.gameId} elevation={0} sx={{ mb: 1 }}>
@@ -44,7 +41,7 @@ const GameListCard: FC<Props> = (props) => {
           subheader={getStatusText(props.started, props.completed)}
         ></CardHeader>
         <CardContent sx={{ pt: 0 }}>
-          <Typography variant='body1'>{props.players.join(',')}</Typography>
+          {playerNames()}
           <Typography variant='body1'>ルール: {getRuleText(props.rule)}</Typography>
           <Typography variant='body1'>レート: {getRateText(props.rate)}</Typography>
         </CardContent>

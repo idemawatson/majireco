@@ -15,9 +15,9 @@ const Presenter: FC<Props> = ({}) => {
   const toGameCreate = () => router.push('/game')
   const gameCards =
     data && data.games.length ? (
-      data.games.map((game) => <GameListCard {...game}></GameListCard>)
+      data.games.map((game) => <GameListCard {...game} key={game.gameId}></GameListCard>)
     ) : (
-      <div>ゲームがありません。</div>
+      <div>対局がありません。</div>
     )
   return (
     <>

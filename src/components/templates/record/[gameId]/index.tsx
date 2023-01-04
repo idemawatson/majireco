@@ -54,10 +54,10 @@ const Page: FC = () => {
           completed: true,
         },
       )
-      showSuccess('ゲームを終了しました')
+      showSuccess('対局を終了しました')
       mutate(`game?game_id=${gameId}`)
     } catch (e) {
-      showError('ゲームの更新に失敗しました')
+      showError('対局の更新に失敗しました')
     } finally {
       hideLoading()
     }

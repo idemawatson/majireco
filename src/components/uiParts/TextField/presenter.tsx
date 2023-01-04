@@ -1,12 +1,13 @@
 import {
   FormControl,
   FormHelperText,
+  InputAdornment,
   styled,
   TextField as MUITextField,
   // eslint-disable-next-line
   TextFieldProps as MUITextFieldProps,
 } from '@mui/material'
-import type { ChangeEventHandler, FocusEventHandler } from 'react'
+import type { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react'
 
 export type TextFieldProps = {
   error?: string
@@ -14,6 +15,7 @@ export type TextFieldProps = {
   placeholder?: string
   label?: string
   type: string
+  endAdornment?: ReactNode
 }
 
 const StyledFormControl = styled(FormControl)({
@@ -40,6 +42,9 @@ export const TextField = (
           type={props.type}
           onChange={props.onChange}
           onBlur={props.onBlur}
+          InputProps={{
+            endAdornment: props.endAdornment,
+          }}
         />
       </StyledFormControl>
       {!!props.error && <FormHelperText error>{props.error}</FormHelperText>}

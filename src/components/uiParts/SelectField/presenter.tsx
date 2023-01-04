@@ -23,13 +23,20 @@ export const SelectField: React.FC<SelectFieldProps> = ({
   selectPropsList,
   selectedValue,
   label,
+  readOnly,
   ...rest
 }) => {
   return (
     <div>
       <StyledFormControl>
         <InputLabel>{label}</InputLabel>
-        <Select ref={inputRef} value={selectedValue} label={label} {...rest}>
+        <Select
+          ref={inputRef}
+          value={selectedValue}
+          label={label}
+          {...rest}
+          inputProps={{ readOnly }}
+        >
           {selectPropsList.map((props) => (
             <MenuItem key={props.value} value={props.value}>
               {props.text}
