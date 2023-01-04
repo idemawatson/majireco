@@ -2,14 +2,19 @@ import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 import { Grid, Paper, styled } from '@mui/material'
 import { FC, ReactNode } from 'react'
 
-const Column: FC<{ children: ReactNode; fontSize: string }> = ({ children, fontSize }) => {
+const Column: FC<{
+  children: ReactNode
+  fontSize: string
+  backgroundColor?: string
+  color?: string
+}> = ({ children, fontSize, backgroundColor, color }) => {
   return (
     <Grid item xs={3}>
       <Paper
         variant='outlined'
         square
         elevation={0}
-        sx={{ textAlign: 'center', py: 2, fontSize, fontWeight: 'bold' }}
+        sx={{ textAlign: 'center', py: 2, fontSize, fontWeight: 'bold', backgroundColor, color }}
       >
         {children}
       </Paper>
@@ -21,7 +26,12 @@ const Header: FC<Pick<GetGameResponseDTO, 'belongingPlayers'>> = ({ belongingPla
   return (
     <>
       {belongingPlayers.map((bp) => (
-        <Column fontSize='14px' key={bp.playerId}>
+        <Column
+          fontSize='14px'
+          key={bp.playerId}
+          backgroundColor='primary.main'
+          color='primary.contrastText'
+        >
           {bp.playerName.length <= 5 ? bp.playerName : `${bp.playerName.slice(0, 5)}`}
         </Column>
       ))}
