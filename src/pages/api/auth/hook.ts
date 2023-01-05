@@ -1,5 +1,5 @@
-import { CreatePlayerController } from '@/controllers/CreatePlayerController'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { CreatePlayerController } from '@/controllers/CreatePlayerController'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { playerId, name, secret } = req.body

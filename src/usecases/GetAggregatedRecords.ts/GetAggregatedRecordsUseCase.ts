@@ -1,8 +1,8 @@
-import { GetAggregatedRecordsResponseDTO } from './GetAggregatedRecordsDto'
-import { RoundRecordRepo } from '@/repositories/roundRecordRepo'
 import { GameRate } from '@prisma/client'
-import { calcRate } from '@/libs/gameRate'
 import dayjs from 'dayjs'
+import { GetAggregatedRecordsResponseDTO } from './GetAggregatedRecordsDto'
+import { calcRate } from '@/libs/gameRate'
+import { RoundRecordRepo } from '@/repositories/roundRecordRepo'
 
 type Props = {
   playerId: string

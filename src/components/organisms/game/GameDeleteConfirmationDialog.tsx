@@ -1,8 +1,8 @@
-import { BaseButton } from '@/components/uiParts/BaseButton'
-import BaseConfirmationDialog from '@/components/uiParts/BaseConfirmationDialog'
 import { DeleteForever } from '@mui/icons-material'
 import { Typography } from '@mui/material'
 import { FC, useState } from 'react'
+import { BaseButton } from '@/components/uiParts/BaseButton'
+import BaseConfirmationDialog from '@/components/uiParts/BaseConfirmationDialog'
 
 type Props = {
   deleteGame: () => Promise<void>

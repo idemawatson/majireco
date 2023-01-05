@@ -1,9 +1,9 @@
+import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0'
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 import { CreatePlayerController } from '@/controllers/CreatePlayerController'
 import { GetPlayerController } from '@/controllers/GetPlayerController'
-import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0'
+import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('Start create Player.')

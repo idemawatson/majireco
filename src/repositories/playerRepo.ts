@@ -1,6 +1,6 @@
+import { Player } from '@/domains/entity/Player'
 import PlayerMapper from '@/domains/mapper/PlayerMapper'
 import prisma from '@/libs/prisma'
-import { Player } from '@/domains/entity/Player'
 
 export class PlayerRepo {
   static async getPlayer(playerId: string) {

@@ -1,8 +1,8 @@
+import { Box, Grid, Paper } from '@mui/material'
+import { FC } from 'react'
 import { SelectField } from '@/components/uiParts/SelectField/presenter'
 import { useTheme } from '@/hooks/useTheme'
 import { PLAYER_THEME } from '@/libs/const'
-import { Box, Grid, Paper } from '@mui/material'
-import { FC } from 'react'
 
 const SettingsPresenter: FC = () => {
   const { theme, setTheme } = useTheme()

@@ -1,6 +1,6 @@
-import { BaseButton } from '@/components/uiParts/BaseButton'
 import { Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
+import { BaseButton } from '@/components/uiParts/BaseButton'
 
 const Error404: React.FC = () => {
   const router = useRouter()

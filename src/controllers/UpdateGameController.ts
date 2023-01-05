@@ -1,7 +1,7 @@
 import { GameValidationError } from '@/errors/error'
-import UpdateGameUseCase from '@/usecases/UpdateGame/UpdateGameUseCase'
-import { UpdateGameRequestDto, UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
 import GetGameUseCase from '@/usecases/GetGame/GetGameUseCase'
+import { UpdateGameRequestDto, UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
+import UpdateGameUseCase from '@/usecases/UpdateGame/UpdateGameUseCase'
 
 export class UpdateGameController {
   private updateGameUseCase

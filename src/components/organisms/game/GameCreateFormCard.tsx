@@ -2,12 +2,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { BaseButton } from '@/components/uiParts/BaseButton'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
 import { GAME_RATES, GAME_RATE_SELECTIONS, GAME_RULES, GAME_RULE_SELECTIONS } from '@/libs/const'
 
 import { ICreateGameForm, schema } from '@/types/forms/GameCreateForm'
-import { BaseButton } from '@/components/uiParts/BaseButton'
-import { DeleteForever } from '@mui/icons-material'
 
 type Props = {
   submitForm: (data: ICreateGameForm) => void

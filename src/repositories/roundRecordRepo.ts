@@ -1,7 +1,7 @@
+import { GameRate } from '@prisma/client'
 import { RoundRecord } from '@/domains/entity/RoundRecord'
 import RoundRecordMapper from '@/domains/mapper/RoundRecordMapper'
 import prisma from '@/libs/prisma'
-import { GameRate } from '@prisma/client'
 
 export class RoundRecordRepo {
   static async createRoundRecords(entities: RoundRecord[]) {

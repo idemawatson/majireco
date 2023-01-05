@@ -1,7 +1,7 @@
+import dayjs from 'dayjs'
 import useSWR from 'swr'
 import restClient from '@/libs/restClient'
 import { GetAggregatedRecordsResponseDTO } from '@/usecases/GetAggregatedRecords.ts/GetAggregatedRecordsDto'
-import dayjs from 'dayjs'
 
 export const useAnalyzedRecords = (rate: string) => {
   const fetcher = async (url: string): Promise<GetAggregatedRecordsResponseDTO> => {

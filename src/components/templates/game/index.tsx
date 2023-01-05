@@ -1,9 +1,9 @@
+import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { ICreateGameForm } from '@/types/forms/GameCreateForm'
 import Presenter from './presenter'
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
-import { useRouter } from 'next/router'
 import restClient from '@/libs/restClient'
+import { ICreateGameForm } from '@/types/forms/GameCreateForm'
 import { CreateGameResponseDTO } from '@/usecases/CreateGame/CreateGameDto'
 
 const Page: FC = () => {

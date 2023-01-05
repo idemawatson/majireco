@@ -1,11 +1,11 @@
+import { Prisma } from '@prisma/client'
 import { GameInvalidOperationError, GameValidationError, ValidationError } from '@/errors/error'
-import JoinPlayerToGameUseCase from '@/usecases/JoinPlayerToGame/JoinPlayerToGameUseCase'
+import errorCodes from '@/errors/errorCodes'
 import {
   JoinPlayerToGameRequestDto,
   JoinPlayerToGameResponseDto,
 } from '@/usecases/JoinPlayerToGame/JoinPlayerToGameDto'
-import { Prisma } from '@prisma/client'
-import errorCodes from '@/errors/errorCodes'
+import JoinPlayerToGameUseCase from '@/usecases/JoinPlayerToGame/JoinPlayerToGameUseCase'
 
 export class JoinPlayerToGameController {
   private joinPlayerToGameUseCase

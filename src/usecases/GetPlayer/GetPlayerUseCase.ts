@@ -1,7 +1,7 @@
 import { GetPlayerRequestDTO } from './GetPlayerDto'
+import { Player } from '@/domains/entity/Player'
 import { PlayerNotFoundError } from '@/errors/error'
 import { PlayerRepo } from '@/repositories/playerRepo'
-import { Player } from '@/domains/entity/Player'
 
 export default class GetPlayerUseCase {
   async execute(input: GetPlayerRequestDTO): Promise<Player> {

@@ -1,12 +1,12 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { Card, CardContent, CardHeader, Grid, Paper, Typography } from '@mui/material'
+import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { useGame } from '@/hooks/useGame'
-import { getRuleText } from '@/libs/gameRule'
-import { getRateText } from '@/libs/gameRate'
-import dayjs from 'dayjs'
 import { BaseButton } from '@/components/uiParts/BaseButton'
-import { useUser } from '@auth0/nextjs-auth0'
+import { useGame } from '@/hooks/useGame'
+import { getRateText } from '@/libs/gameRate'
+import { getRuleText } from '@/libs/gameRule'
 
 type Props = {
   joinGame: () => {}

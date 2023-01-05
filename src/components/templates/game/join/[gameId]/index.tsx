@@ -1,14 +1,14 @@
+import { useRouter } from 'next/router'
 import { FC, Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import Presenter from '@/components/templates/game/join/[gameId]/presenter'
-import { ErrorFallback } from '@/components/templates/game/join/[gameId]/errorBoundary'
 import { Loading } from './loading'
+import { ErrorFallback } from '@/components/templates/game/join/[gameId]/errorBoundary'
+import Presenter from '@/components/templates/game/join/[gameId]/presenter'
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
-import restClient from '@/libs/restClient'
-import { JoinPlayerToGameResponseDto } from '@/usecases/JoinPlayerToGame/JoinPlayerToGameDto'
-import { useRouter } from 'next/router'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 import errorCodes from '@/errors/errorCodes'
+import restClient from '@/libs/restClient'
+import { JoinPlayerToGameResponseDto } from '@/usecases/JoinPlayerToGame/JoinPlayerToGameDto'
 
 type IJoinGameForm = {
   gameId: string

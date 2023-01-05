@@ -1,8 +1,8 @@
 import { Grid, InputAdornment } from '@mui/material'
 import { FC } from 'react'
-import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 import { Control } from 'react-hook-form'
 import { RhfTextField } from '@/components/uiParts/TextField'
+import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 
 type Props = {
   players: {

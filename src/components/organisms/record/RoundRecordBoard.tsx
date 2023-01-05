@@ -1,6 +1,6 @@
-import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 import { Grid, Paper, styled } from '@mui/material'
 import { FC, ReactNode } from 'react'
+import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 
 const Column: FC<{
   children: ReactNode

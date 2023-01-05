@@ -72,7 +72,7 @@ const THEME_PALETTE = {
   },
 }
 
-export default (theme: string) => {
+const getTheme = (theme: string) => {
   const palette = THEME_PALETTE[(theme as PLAYER_THEME_TYPE) || 'T1']
   return createTheme({
     typography: {
@@ -90,3 +90,5 @@ export default (theme: string) => {
     },
   })
 }
+
+export default getTheme

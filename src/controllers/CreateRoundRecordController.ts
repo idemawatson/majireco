@@ -1,6 +1,6 @@
 import { ValidationError } from '@/errors/error'
-import CreateRoundRecordUseCase from '@/usecases/CreateRoundRecord/CreateRoundRecordUseCase'
 import { CreateRoundRecordResponseDTO } from '@/usecases/CreateRoundRecord/CreateRoundRecordDto'
+import CreateRoundRecordUseCase from '@/usecases/CreateRoundRecord/CreateRoundRecordUseCase'
 
 export class CreateRoundRecordController {
   private createRoundRecordUseCase

@@ -2,11 +2,11 @@ import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0'
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { CreateGameController } from '@/controllers/CreateGameController'
+import { DeleteGameController } from '@/controllers/DeleteGameController'
 import { GetGameController } from '@/controllers/GetGameController'
 import { JoinPlayerToGameController } from '@/controllers/JoinPlayerToGameController'
-import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 import { UpdateGameController } from '@/controllers/UpdateGameController'
-import { DeleteGameController } from '@/controllers/DeleteGameController'
+import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = getSession(req, res)

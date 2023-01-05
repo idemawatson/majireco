@@ -1,7 +1,7 @@
-import BaseDisplayCard from '@/components/uiParts/BaseDisplayCard'
-import { useAnalyzedRecords } from '@/hooks/useAnalyzedRecords'
 import { Grid, Typography } from '@mui/material'
 import { FC } from 'react'
+import BaseDisplayCard from '@/components/uiParts/BaseDisplayCard'
+import { useAnalyzedRecords } from '@/hooks/useAnalyzedRecords'
 
 type Props = {
   rate: string

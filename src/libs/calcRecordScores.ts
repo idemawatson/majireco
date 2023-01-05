@@ -5,7 +5,10 @@ const RANKING_POINTS = {
   [GAME_RULES[1]]: { 1: 30, 2: 10, 3: -10, 4: -30 },
 }
 
-export default (players: { playerId: string; point: number }[], rule: GAME_RULES_TYPE) => {
+const calcRecordScores = (
+  players: { playerId: string; point: number }[],
+  rule: GAME_RULES_TYPE,
+) => {
   const ranks = [...players].sort((a, b) => b.point - a.point)
   const calcScore = (point: number, rankingPoint: number) =>
     point >= 0 ? Math.round((point - 301) / 10) + rankingPoint : -60
@@ -21,3 +24,5 @@ export default (players: { playerId: string; point: number }[], rule: GAME_RULES
     return [score1, score2, score3, score4][rank]
   })
 }
+
+export default calcRecordScores

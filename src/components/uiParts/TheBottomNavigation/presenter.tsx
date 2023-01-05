@@ -1,8 +1,8 @@
+import { AnalyticsOutlined, FormatListBulletedOutlined, Settings } from '@mui/icons-material'
 import { Paper } from '@mui/material'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import { useEffect, useState, FC } from 'react'
-import { AnalyticsOutlined, FormatListBulletedOutlined, Settings } from '@mui/icons-material'
 
 type Props = {
   value: string

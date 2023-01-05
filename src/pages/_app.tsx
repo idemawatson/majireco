@@ -6,12 +6,12 @@ import type { AppProps } from 'next/app'
 import { FC, ReactNode } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { MainLayout } from '@/components/layout/MainLayout'
+import MyThemeProvider from '@/components/uiParts/MyThemeProvider'
 import { ErrorFallback } from '@/components/uiParts/TheErrorBoundary'
 import { TheLoading } from '@/components/uiParts/TheLoading'
 import { TheNotificationToast } from '@/components/uiParts/TheNotificationToast'
 import { usePlayer } from '@/hooks/usePlayer'
 import getTheme from '@/libs/getTheme'
-import MyThemeProvider from '@/components/uiParts/MyThemeProvider'
 
 type NextPageWithLayout = NextPage & {
   layout?: typeof MainLayout

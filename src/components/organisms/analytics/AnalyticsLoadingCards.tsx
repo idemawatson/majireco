@@ -1,6 +1,6 @@
-import BaseDisplayCard from '@/components/uiParts/BaseDisplayCard'
 import { Grid, Skeleton, Typography } from '@mui/material'
 import { FC } from 'react'
+import BaseDisplayCard from '@/components/uiParts/BaseDisplayCard'
 
 const AnalyticsLoadingCards: FC = () => {
   return (

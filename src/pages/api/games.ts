@@ -1,8 +1,8 @@
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 import { ListGamesController } from '@/controllers/ListGamesController'
+import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = getSession(req, res)

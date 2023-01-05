@@ -1,7 +1,7 @@
-import { ValidationError } from '@/errors/error'
-import GetAggregatedRecordsUseCase from '@/usecases/GetAggregatedRecords.ts/GetAggregatedRecordsUseCase'
-import { GetAggregatedRecordsResponseDTO } from '@/usecases/GetAggregatedRecords.ts/GetAggregatedRecordsDto'
 import { GameRate } from '@prisma/client'
+import { ValidationError } from '@/errors/error'
+import { GetAggregatedRecordsResponseDTO } from '@/usecases/GetAggregatedRecords.ts/GetAggregatedRecordsDto'
+import GetAggregatedRecordsUseCase from '@/usecases/GetAggregatedRecords.ts/GetAggregatedRecordsUseCase'
 
 export class GetAggregatedRecordsController {
   private getAggregatedRecordsUseCase

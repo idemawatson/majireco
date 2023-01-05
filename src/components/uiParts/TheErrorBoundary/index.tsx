@@ -1,5 +1,5 @@
-// eslint-disable-next-line
 import { useRouter } from 'next/router'
+// eslint-disable-next-line
 import { FallbackProps } from 'react-error-boundary'
 
 export const ErrorFallback: React.FC<FallbackProps> = ({}) => {

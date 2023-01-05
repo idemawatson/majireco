@@ -1,4 +1,5 @@
-import { AlertColor } from '@mui/material'
+// eslint-disable-next-line
+import { AlertColor } from '@mui/material/Alert'
 import useSWR from 'swr'
 
 type Props = {

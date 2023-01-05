@@ -1,4 +1,7 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { ShareOutlined } from '@mui/icons-material'
+import ReplayIcon from '@mui/icons-material/Replay'
 import {
   Grid,
   List,
@@ -9,19 +12,16 @@ import {
   CardHeader,
   CardContent,
 } from '@mui/material'
-import ReplayIcon from '@mui/icons-material/Replay'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import GameDeleteConfirmationDialog from './GameDeleteConfirmationDialog'
+import { BaseButton } from '@/components/uiParts/BaseButton'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
+import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 import { GAME_RATE_SELECTIONS, GAME_RULE_SELECTIONS } from '@/libs/const'
 
-import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 import { IUpdateGameForm, schema } from '@/types/forms/GameUpdateForm'
-import { ShareOutlined } from '@mui/icons-material'
-import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
-import { useUser } from '@auth0/nextjs-auth0'
-import { BaseButton } from '@/components/uiParts/BaseButton'
-import GameDeleteConfirmationDialog from './GameDeleteConfirmationDialog'
+import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 
 type Props = {
   submitForm: (data: IUpdateGameForm) => void

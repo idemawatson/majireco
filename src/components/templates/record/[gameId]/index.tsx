@@ -1,3 +1,10 @@
+import { useRouter } from 'next/router'
+import { FC, Suspense } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
+import { useSWRConfig } from 'swr'
+import { ErrorFallback } from './errorBoundary'
+import { Loading } from './loading'
+import Presenter from './presenter'
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 import restClient from '@/libs/restClient'
@@ -7,13 +14,6 @@ import {
   CreateRoundRecordResponseDTO,
 } from '@/usecases/CreateRoundRecord/CreateRoundRecordDto'
 import { UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
-import { useRouter } from 'next/router'
-import { FC, Suspense } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
-import { useSWRConfig } from 'swr'
-import { ErrorFallback } from './errorBoundary'
-import { Loading } from './loading'
-import Presenter from './presenter'
 
 const Page: FC = () => {
   const { showLoading, hideLoading } = useLoading()
