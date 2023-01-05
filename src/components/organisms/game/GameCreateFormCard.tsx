@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Card, CardContent, Grid } from '@mui/material'
+import { Card, CardContent, CardHeader, Grid } from '@mui/material'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { RhfSelectField } from '@/components/uiParts/SelectField'
@@ -22,6 +22,7 @@ const CreateGameFormCard: FC<Props> = ({ submitForm }) => {
 
   return (
     <Card elevation={0}>
+      <CardHeader title='対局作成'></CardHeader>
       <CardContent>
         <Grid container justifyContent='flex-end'>
           <Grid item xs={12}>
@@ -43,7 +44,7 @@ const CreateGameFormCard: FC<Props> = ({ submitForm }) => {
                     selectPropsList={GAME_RATE_SELECTIONS}
                   />
                 </Grid>
-                <Grid justifyContent='flex-end' sx={{ my: 2 }} item>
+                <Grid xs={12} sx={{ mt: 2, textAlign: 'end' }} item>
                   <BaseButton color='secondary' submit={true}>
                     対局を作成する
                   </BaseButton>

@@ -5,7 +5,7 @@ const THEME_PALETTE = {
   T1: {
     primary: {
       main: '#c6ae6f',
-      contrastText: '#fff',
+      contrastText: '#00171f',
     },
   },
   T2: {
@@ -27,7 +27,7 @@ const THEME_PALETTE = {
   T4: {
     primary: {
       main: '#9cb832',
-      contrastText: '#fff',
+      contrastText: '#00171f',
     },
     secondary: {
       main: '#b71a35',

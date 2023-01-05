@@ -10,7 +10,7 @@ export const useGames = () => {
   const { data, mutate } = useSWR(`games`, fetcher, {
     suspense: true,
     revalidateOnFocus: false,
-    revalidateIfStale: false,
+    revalidateOnMount: true,
   })
 
   return {
