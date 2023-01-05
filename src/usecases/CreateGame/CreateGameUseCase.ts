@@ -26,7 +26,7 @@ export default class CreateGameUseCase {
         roundRecords: [],
       }),
     ).catch(async (err) => {
-      await GameRepo.deleteGame({ id: game.id })
+      await GameRepo.deleteGame({ gameId: game.id })
       throw err
     })
     return { id: game.id }
