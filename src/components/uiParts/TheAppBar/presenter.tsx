@@ -8,7 +8,7 @@ import { FC } from 'react'
 const Presenter: FC<{ handleLogout: () => void }> = ({ handleLogout }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static' sx={{ backgroundColor: 'primary' }}>
+      <AppBar position='fixed' sx={{ backgroundColor: 'primary' }}>
         <Toolbar variant='dense'>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             Majireco
