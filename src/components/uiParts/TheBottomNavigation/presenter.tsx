@@ -14,7 +14,7 @@ const LabelBottomNavigation: FC<Props> = ({ value, handleChange }) => {
     setRouteName(value.split('/')[1])
   }, [value])
   return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={2}>
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}>
       <BottomNavigation sx={{ width: '100%' }} value={routeName} onChange={handleChange}>
         <BottomNavigationAction
           label='対局一覧'
