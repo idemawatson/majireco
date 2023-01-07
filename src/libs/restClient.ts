@@ -4,7 +4,7 @@ class RestClient {
   _client: AxiosInstance
   constructor() {
     this._client = axios.create({
-      baseURL: 'http://localhost:3000/api',
+      baseURL: `${process.env['API_BASE_URL']}/api`,
       headers: {
         'Content-type': 'application/json',
       },
