@@ -45,9 +45,20 @@ export class GameRepo {
     return games.map((game) => GameMapper.toDomain(game))
   }
 
-  static async createGame(game: Game) {
+  static async createGame(game: Game, createdBy: string) {
     const data = GameMapper.toPersistent(game)
-    await prisma.game.create({ data: data })
+    await prisma.game.create({
+      data: {
+        ...data,
+        belongingPlayers: {
+          create: [
+            {
+              playerId: createdBy,
+            },
+          ],
+        },
+      },
+    })
   }
 
   static async updateGame(input: {
