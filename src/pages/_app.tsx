@@ -10,8 +10,6 @@ import MyThemeProvider from '@/components/uiParts/MyThemeProvider'
 import { ErrorFallback } from '@/components/uiParts/TheErrorBoundary'
 import { TheLoading } from '@/components/uiParts/TheLoading'
 import { TheNotificationToast } from '@/components/uiParts/TheNotificationToast'
-import { usePlayer } from '@/hooks/usePlayer'
-import getTheme from '@/libs/getTheme'
 
 type NextPageWithLayout = NextPage & {
   layout?: typeof MainLayout

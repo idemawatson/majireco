@@ -8,6 +8,7 @@ export const usePlayer = () => {
     return response.data as GetPlayerResponseDTO
   }
   const { data, mutate } = useSWR(`player`, fetcher, {
+    suspense: true,
     revalidateOnFocus: false,
     revalidateIfStale: false,
   })

@@ -3,6 +3,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { CreatePlayerController } from '@/controllers/CreatePlayerController'
 import { GetPlayerController } from '@/controllers/GetPlayerController'
+import { UpdatePlayerController } from '@/controllers/UpdatePlayerController'
 import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
 
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -25,7 +26,17 @@ const getHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiRespo
   console.log('End get Player.')
 }
 
+const postHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log('Start update Player.')
+  const session = getSession(req, res)
+  const controller = new UpdatePlayerController()
+  const player = await controller.updatePlayer({ playerId: session?.user.sub, name: req.body.name })
+  res.json(player)
+  console.log('End update Player.')
+}
+
 export default apiHandler({
   PUT: putHandler,
   GET: withApiAuthRequired(getHandler),
+  POST: withApiAuthRequired(postHandler),
 })
