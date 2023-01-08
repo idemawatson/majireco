@@ -44,7 +44,7 @@ const GameUpdateFormCard: FC<Props> = ({ submitForm, refresh, game, deleteGame }
   })
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`${window.location.host}/game/join/${game.id}`).then(
+    navigator.clipboard.writeText(`https://${window.location.host}/game/join/${game.id}`).then(
       () => {
         showInfo('対局URLをコピーしました。参加者に共有してください。')
       },
