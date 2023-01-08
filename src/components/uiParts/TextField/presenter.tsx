@@ -14,7 +14,7 @@ export type TextFieldProps = {
   className?: string
   placeholder?: string
   label?: string
-  type: string
+  type?: string
   endAdornment?: ReactNode
 }
 
