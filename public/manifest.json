@@ -1,12 +1,12 @@
 {
-  "theme_color": "#f69435",
-  "background_color": "#f69435",
+  "theme_color": "#eee",
+  "background_color": "#eee",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "/games",
   "name": "majireco",
-  "short_name": "mjreco",
-  "description": "Mahjong record for smartphone",
+  "short_name": "majireco",
+  "description": "Mahjong record",
   "icons": [
     {
       "src": "/icon-192x192.png",

@@ -47,9 +47,9 @@ const RecordCreateFormDrawer: FC<Props> = ({
 
   const openDrawer = async () => {
     if (await checkIsCompleted()) {
-      setDrawer(true)
-    } else {
       showError('既に完了済みのゲームです')
+    } else {
+      setDrawer(true)
     }
   }
 
