@@ -14,6 +14,7 @@ import {
   CreateRoundRecordResponseDTO,
 } from '@/usecases/CreateRoundRecord/CreateRoundRecordDto'
 import { UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
+import errorCodes from '@/errors/errorCodes'
 
 const Page: FC = () => {
   const { showLoading, hideLoading } = useLoading()
@@ -37,8 +38,14 @@ const Page: FC = () => {
       })
       showSuccess('半荘データを作成しました')
       mutate(`game?game_id=${gameId}`)
-    } catch (e) {
-      showError('データ作成に失敗しました')
+    } catch (err: any) {
+      console.error(err)
+      const errorCode = err.response?.data?.code
+      if (errorCode === errorCodes.CREATE_RECORD_GAME_NOT_EXIST)
+        showError('対局が既に存在しないか、まだ開始されていません')
+      if (errorCode === errorCodes.CREATE_RECORD_GAME_COMPLETED)
+        showError('対局が既に終了しています。ページを再度読み込んでください')
+      else showError('データ作成に失敗しました')
     } finally {
       hideLoading()
     }

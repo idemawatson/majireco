@@ -7,7 +7,6 @@ import RecordPointForm from './RecordPointForm'
 import RecordScoreForm from './RecordScoreForm'
 import { BaseButton } from '@/components/uiParts/BaseButton'
 import FixedFab from '@/components/uiParts/BaseFixedFab'
-import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 import calcRecordScores from '@/libs/calcRecordScores'
 import { GAME_RULES_TYPE } from '@/libs/const'
 import { IRecordCreateForm, schema } from '@/types/forms/RecordCreateForm'
@@ -18,17 +17,10 @@ const steps = ['点数入力', 'スコア確認']
 type Props = Pick<GetGameResponseDTO, 'belongingPlayers'> & {
   submitForm: (form: IRecordCreateForm) => void
   gameRule: GAME_RULES_TYPE
-  checkIsCompleted: () => Promise<boolean>
 }
-const RecordCreateFormDrawer: FC<Props> = ({
-  belongingPlayers,
-  submitForm,
-  gameRule,
-  checkIsCompleted,
-}) => {
+const RecordCreateFormDrawer: FC<Props> = ({ belongingPlayers, submitForm, gameRule }) => {
   const [drawer, setDrawer] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
-  const { showError } = useNotification()
   const playerIds = belongingPlayers.map((bp) => bp.playerId)
   const defaultValues = {
     p1Point: 0,
@@ -43,14 +35,6 @@ const RecordCreateFormDrawer: FC<Props> = ({
     player2: playerIds[1],
     player3: playerIds[2],
     player4: playerIds[3],
-  }
-
-  const openDrawer = async () => {
-    if (await checkIsCompleted()) {
-      showError('既に完了済みのゲームです')
-    } else {
-      setDrawer(true)
-    }
   }
 
   const renderStepContent = (step: number) => {
@@ -112,7 +96,7 @@ const RecordCreateFormDrawer: FC<Props> = ({
 
   return (
     <>
-      <FixedFab color='primary' aria-label='add' onClick={openDrawer}>
+      <FixedFab color='primary' aria-label='add' onClick={() => setDrawer(true)}>
         <AddIcon />
       </FixedFab>
       <SwipeableDrawer

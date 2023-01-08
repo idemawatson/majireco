@@ -2,9 +2,15 @@ import dayjs from 'dayjs'
 import { uuid } from 'uuidv4'
 import { CreateRoundRecordRequestDTO, CreateRoundRecordResponseDTO } from './CreateRoundRecordDto'
 import RoundRecordMapper from '@/domains/mapper/RoundRecordMapper'
-import { GameInvalidDataError, GameNotFoundError, GameValidationError } from '@/errors/error'
+import {
+  GameInvalidDataError,
+  GameInvalidOperationError,
+  GameNotFoundError,
+  GameValidationError,
+} from '@/errors/error'
 import { GameRepo } from '@/repositories/gameRepo'
 import { RoundRecordRepo } from '@/repositories/roundRecordRepo'
+import errorCodes from '@/errors/errorCodes'
 
 type reqProps = CreateRoundRecordRequestDTO & {
   owner: string
@@ -15,7 +21,16 @@ export default class CreateRoundRecordUseCase {
     const game = await GameRepo.getGame(req.gameId)
 
     if (!game) throw new GameNotFoundError()
-    if (!game.started || !game.belongingPlayers) throw new GameInvalidDataError()
+    if (!game.started || !game.belongingPlayers)
+      throw new GameInvalidDataError(
+        'game is not started.',
+        errorCodes.CREATE_RECORD_GAME_NOT_EXIST,
+      )
+    if (game.completed)
+      throw new GameInvalidOperationError(
+        'game is completed.',
+        errorCodes.CREATE_RECORD_GAME_COMPLETED,
+      )
 
     const roundId = uuid()
     const createdAt = dayjs().toDate()
