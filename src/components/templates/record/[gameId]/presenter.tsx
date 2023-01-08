@@ -17,15 +17,11 @@ type Props = {
 const Presenter: FC<Props> = ({ submitForm, handleOnClickEndGame }) => {
   const router = useRouter()
   const { user } = useUser()
-  const { data, mutate } = useGame(router.query.gameId as string)
+  const { data } = useGame(router.query.gameId as string)
   if (!data) return <></>
 
   const hasRecord = Object.keys(data.roundRecords).length > 0
   const isOwner = data.owner.id === user?.sub
-  const checkIsCompleted = async () => {
-    await mutate()
-    return !!data.completed
-  }
 
   return (
     <>
@@ -58,7 +54,6 @@ const Presenter: FC<Props> = ({ submitForm, handleOnClickEndGame }) => {
             belongingPlayers={data.belongingPlayers}
             submitForm={submitForm}
             gameRule={data.rule}
-            checkIsCompleted={checkIsCompleted}
           />
         </>
       )}
