@@ -8,9 +8,9 @@ import {
   GameNotFoundError,
   GameValidationError,
 } from '@/errors/error'
+import errorCodes from '@/errors/errorCodes'
 import { GameRepo } from '@/repositories/gameRepo'
 import { RoundRecordRepo } from '@/repositories/roundRecordRepo'
-import errorCodes from '@/errors/errorCodes'
 
 type reqProps = CreateRoundRecordRequestDTO & {
   owner: string
