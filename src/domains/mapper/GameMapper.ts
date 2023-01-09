@@ -10,7 +10,7 @@ type GameRawProps = {
   playedAt: Date
   rate: PrismaGameRate
   rule: PrismaGameRule
-  memo?: string
+  memo?: string | null
   started: boolean
   completed: boolean
   ownerId: string

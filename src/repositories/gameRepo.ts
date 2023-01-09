@@ -1,5 +1,5 @@
 import { GameRate, GameRule } from '@prisma/client'
-import { Game, GameMemo } from '@/domains/entity/Game'
+import { Game } from '@/domains/entity/Game'
 import GameMapper from '@/domains/mapper/GameMapper'
 import prisma from '@/libs/prisma'
 
