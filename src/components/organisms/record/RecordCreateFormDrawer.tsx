@@ -1,14 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, Grid, Step, StepLabel, Stepper, SwipeableDrawer } from '@mui/material'
+import { useRouter } from 'next/router'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import RecordPointForm from './RecordPointForm'
 import RecordScoreForm from './RecordScoreForm'
 import { BaseButton } from '@/components/uiParts/BaseButton'
+import { useGame } from '@/hooks/useGame'
 import calcRecordScores from '@/libs/calcRecordScores'
 import { IRecordCreateForm, schema } from '@/types/forms/RecordCreateForm'
-import { useGame } from '@/hooks/useGame'
-import { useRouter } from 'next/router'
 
 const steps = ['点数入力', 'スコア確認']
 
@@ -22,9 +22,7 @@ const RecordCreateFormDrawer: FC<Props> = ({ submitForm, drawer, setDrawer }) =>
   const router = useRouter()
   const { data } = useGame(router.query.gameId as string)
 
-  if (!data) return <></>
-
-  const playerIds = data.belongingPlayers.map((bp) => bp.playerId)
+  const playerIds = data?.belongingPlayers.map((bp) => bp.playerId) || []
   const defaultValues = {
     p1Point: 0,
     p2Point: 0,
@@ -40,23 +38,6 @@ const RecordCreateFormDrawer: FC<Props> = ({ submitForm, drawer, setDrawer }) =>
     player4: playerIds[3],
   }
 
-  const renderStepContent = (step: number) => {
-    switch (step) {
-      case 0:
-        return <RecordPointForm players={data.belongingPlayers} control={control}></RecordPointForm>
-      case 1:
-        return (
-          <RecordScoreForm
-            players={data.belongingPlayers}
-            control={control}
-            addScore={addScore}
-          ></RecordScoreForm>
-        )
-      default:
-        return <div>Not Found</div>
-    }
-  }
-
   const {
     handleSubmit,
     control,
@@ -69,6 +50,31 @@ const RecordCreateFormDrawer: FC<Props> = ({ submitForm, drawer, setDrawer }) =>
     resolver: yupResolver(schema),
     defaultValues,
   })
+
+  if (!data) return <></>
+
+  const renderStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return (
+          <RecordPointForm
+            players={data.belongingPlayers || []}
+            control={control}
+          ></RecordPointForm>
+        )
+      case 1:
+        return (
+          <RecordScoreForm
+            players={data.belongingPlayers || []}
+            control={control}
+            addScore={addScore}
+          ></RecordScoreForm>
+        )
+      default:
+        return <div>Not Found</div>
+    }
+  }
+
   const _handleSubmit = (form: IRecordCreateForm) => {
     if (activeStep === steps.length - 1) {
       submitForm(form)

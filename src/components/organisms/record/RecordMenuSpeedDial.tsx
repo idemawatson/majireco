@@ -1,7 +1,3 @@
-import BaseSpeedDial from '@/components/uiParts/BaseSpeedDial'
-import { useGame } from '@/hooks/useGame'
-import { IGameMemoForm } from '@/types/forms/GameMemoForm'
-import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 import { useUser } from '@auth0/nextjs-auth0'
 import { Add, CheckCircle, SpeakerNotes } from '@mui/icons-material'
 import { useRouter } from 'next/router'
@@ -9,6 +5,10 @@ import { FC, useState } from 'react'
 import GameEndConfirmationDialog from './GameEndConfirmationDialog'
 import RecordCreateFormDrawer from './RecordCreateFormDrawer'
 import RecordMemoFormDrawer from './RecordMemoFormDrawer'
+import BaseSpeedDial from '@/components/uiParts/BaseSpeedDial'
+import { useGame } from '@/hooks/useGame'
+import { IGameMemoForm } from '@/types/forms/GameMemoForm'
+import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 
 type Props = {
   createRecord: (data: IRecordCreateForm) => void

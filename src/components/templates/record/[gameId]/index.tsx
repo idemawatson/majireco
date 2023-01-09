@@ -9,13 +9,13 @@ import { useLoading } from '@/components/uiParts/TheLoading/hooks'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 import errorCodes from '@/errors/errorCodes'
 import restClient from '@/libs/restClient'
+import { IGameMemoForm } from '@/types/forms/GameMemoForm'
 import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 import {
   CreateRoundRecordRequestDTO,
   CreateRoundRecordResponseDTO,
 } from '@/usecases/CreateRoundRecord/CreateRoundRecordDto'
 import { UpdateGameRequestDto, UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
-import { IGameMemoForm } from '@/types/forms/GameMemoForm'
 
 const Page: FC = () => {
   const { showLoading, hideLoading } = useLoading()

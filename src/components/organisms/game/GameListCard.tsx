@@ -1,10 +1,7 @@
-import ChevronRight from '@mui/icons-material/ChevronRight'
 import { Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material'
 import { GameRate, GameRule } from '@prisma/client'
 import dayjs from 'dayjs'
 import { FC } from 'react'
-import { getRateText } from '@/libs/gameRate'
-import { getRuleText } from '@/libs/gameRule'
 
 type Props = {
   gameId: string

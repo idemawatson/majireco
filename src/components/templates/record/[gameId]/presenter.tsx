@@ -1,14 +1,12 @@
-import { useUser } from '@auth0/nextjs-auth0'
-import { Box, Card, CardContent, CardHeader, Paper, Typography } from '@mui/material'
+import { Card, CardContent, CardHeader, Paper, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import RoundRecordBoard from '@/components/organisms/record/RoundRecordBoard'
-import { BaseButton } from '@/components/uiParts/BaseButton'
-import { useGame } from '@/hooks/useGame'
-import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 import RecordMenuSpeedDial from '@/components/organisms/record/RecordMenuSpeedDial'
+import RoundRecordBoard from '@/components/organisms/record/RoundRecordBoard'
+import { useGame } from '@/hooks/useGame'
 import { IGameMemoForm } from '@/types/forms/GameMemoForm'
+import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 
 type Props = {
   createRecord: (form: IRecordCreateForm) => void
