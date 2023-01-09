@@ -1,27 +1,28 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import AddIcon from '@mui/icons-material/Add'
 import { Box, Button, Grid, Step, StepLabel, Stepper, SwipeableDrawer } from '@mui/material'
+import { useRouter } from 'next/router'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import RecordPointForm from './RecordPointForm'
 import RecordScoreForm from './RecordScoreForm'
 import { BaseButton } from '@/components/uiParts/BaseButton'
-import FixedFab from '@/components/uiParts/BaseFixedFab'
+import { useGame } from '@/hooks/useGame'
 import calcRecordScores from '@/libs/calcRecordScores'
-import { GAME_RULES_TYPE } from '@/libs/const'
 import { IRecordCreateForm, schema } from '@/types/forms/RecordCreateForm'
-import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 
 const steps = ['点数入力', 'スコア確認']
 
-type Props = Pick<GetGameResponseDTO, 'belongingPlayers'> & {
+type Props = {
   submitForm: (form: IRecordCreateForm) => void
-  gameRule: GAME_RULES_TYPE
+  drawer: boolean
+  setDrawer: (drawer: boolean) => void
 }
-const RecordCreateFormDrawer: FC<Props> = ({ belongingPlayers, submitForm, gameRule }) => {
-  const [drawer, setDrawer] = useState(false)
+const RecordCreateFormDrawer: FC<Props> = ({ submitForm, drawer, setDrawer }) => {
   const [activeStep, setActiveStep] = useState(0)
-  const playerIds = belongingPlayers.map((bp) => bp.playerId)
+  const router = useRouter()
+  const { data } = useGame(router.query.gameId as string)
+
+  const playerIds = data?.belongingPlayers.map((bp) => bp.playerId) || []
   const defaultValues = {
     p1Point: 0,
     p2Point: 0,
@@ -37,23 +38,6 @@ const RecordCreateFormDrawer: FC<Props> = ({ belongingPlayers, submitForm, gameR
     player4: playerIds[3],
   }
 
-  const renderStepContent = (step: number) => {
-    switch (step) {
-      case 0:
-        return <RecordPointForm players={belongingPlayers} control={control}></RecordPointForm>
-      case 1:
-        return (
-          <RecordScoreForm
-            players={belongingPlayers}
-            control={control}
-            addScore={addScore}
-          ></RecordScoreForm>
-        )
-      default:
-        return <div>Not Found</div>
-    }
-  }
-
   const {
     handleSubmit,
     control,
@@ -66,6 +50,31 @@ const RecordCreateFormDrawer: FC<Props> = ({ belongingPlayers, submitForm, gameR
     resolver: yupResolver(schema),
     defaultValues,
   })
+
+  if (!data) return <></>
+
+  const renderStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return (
+          <RecordPointForm
+            players={data.belongingPlayers || []}
+            control={control}
+          ></RecordPointForm>
+        )
+      case 1:
+        return (
+          <RecordScoreForm
+            players={data.belongingPlayers || []}
+            control={control}
+            addScore={addScore}
+          ></RecordScoreForm>
+        )
+      default:
+        return <div>Not Found</div>
+    }
+  }
+
   const _handleSubmit = (form: IRecordCreateForm) => {
     if (activeStep === steps.length - 1) {
       submitForm(form)
@@ -80,7 +89,7 @@ const RecordCreateFormDrawer: FC<Props> = ({ belongingPlayers, submitForm, gameR
           { playerId: playerIds[2], point: getValues('p3Point') },
           { playerId: playerIds[3], point: getValues('p4Point') },
         ],
-        gameRule,
+        data.rule,
       )
       setValue('p1Score', score1)
       setValue('p2Score', score2)
@@ -96,9 +105,6 @@ const RecordCreateFormDrawer: FC<Props> = ({ belongingPlayers, submitForm, gameR
 
   return (
     <>
-      <FixedFab color='primary' aria-label='add' onClick={() => setDrawer(true)}>
-        <AddIcon />
-      </FixedFab>
       <SwipeableDrawer
         anchor='bottom'
         open={drawer}

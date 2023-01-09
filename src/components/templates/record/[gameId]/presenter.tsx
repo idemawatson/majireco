@@ -1,27 +1,23 @@
-import { useUser } from '@auth0/nextjs-auth0'
-import { Box, Paper, Typography } from '@mui/material'
+import { Card, CardContent, CardHeader, Paper, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import RecordCreateFormDrawer from '@/components/organisms/record/RecordCreateFormDrawer'
+import RecordMenuSpeedDial from '@/components/organisms/record/RecordMenuSpeedDial'
 import RoundRecordBoard from '@/components/organisms/record/RoundRecordBoard'
-import { BaseButton } from '@/components/uiParts/BaseButton'
 import { useGame } from '@/hooks/useGame'
+import { IGameMemoForm } from '@/types/forms/GameMemoForm'
 import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 
 type Props = {
-  submitForm: (form: IRecordCreateForm) => void
-  handleOnClickEndGame: () => void
+  createRecord: (form: IRecordCreateForm) => void
+  updateMemo: (form: IGameMemoForm) => void
+  endGame: () => void
 }
 
-const Presenter: FC<Props> = ({ submitForm, handleOnClickEndGame }) => {
+const Presenter: FC<Props> = ({ createRecord, updateMemo, endGame }) => {
   const router = useRouter()
-  const { user } = useUser()
   const { data } = useGame(router.query.gameId as string)
   if (!data) return <></>
-
-  const hasRecord = Object.keys(data.roundRecords).length > 0
-  const isOwner = data.owner.id === user?.sub
 
   return (
     <>
@@ -41,22 +37,13 @@ const Presenter: FC<Props> = ({ submitForm, handleOnClickEndGame }) => {
           roundRecords={data.roundRecords}
         />
       </Paper>
-      {!data.completed === true && (
-        <>
-          <Box sx={{ mx: 2, textAlign: 'start' }}>
-            {isOwner && (
-              <BaseButton color='secondary' onClick={handleOnClickEndGame} disabled={!hasRecord}>
-                対局を終了
-              </BaseButton>
-            )}
-          </Box>
-          <RecordCreateFormDrawer
-            belongingPlayers={data.belongingPlayers}
-            submitForm={submitForm}
-            gameRule={data.rule}
-          />
-        </>
-      )}
+      <Card sx={{ my: 2, mx: 2 }} elevation={0}>
+        <CardHeader title='対局メモ'></CardHeader>
+        <CardContent>
+          <Typography>{data.memo}</Typography>
+        </CardContent>
+      </Card>
+      <RecordMenuSpeedDial createRecord={createRecord} updateMemo={updateMemo} endGame={endGame} />
     </>
   )
 }

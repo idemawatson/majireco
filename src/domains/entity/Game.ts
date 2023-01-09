@@ -11,6 +11,7 @@ export type GameProps = {
   playedAt: DateValue
   rule: GameRule
   rate: GameRate
+  memo?: GameMemo
   started: BoolValue
   completed: BoolValue
   ownerId: EntityId
@@ -31,6 +32,7 @@ export class Game extends ValueObject<GameProps> {
       playedAt: new DateValue(props.playedAt.value, 'playedAt'),
       rule: new GameRule(props.rule.value),
       rate: new GameRate(props.rate.value),
+      memo: props.memo ? new GameMemo(props.memo.value) : undefined,
       started: new BoolValue(props.started.value),
       completed: new BoolValue(props.completed.value),
       ownerId: new EntityId(props.ownerId.value),
@@ -49,6 +51,9 @@ export class Game extends ValueObject<GameProps> {
   }
   get rate() {
     return this._value.rate._value
+  }
+  get memo() {
+    return this._value.memo?._value
   }
   get started() {
     return this._value.started._value
@@ -82,6 +87,13 @@ export class GameRate extends PrimitiveValueObject<PrismaGameRate> {
   constructor(readonly _value: PrismaGameRate) {
     if (!(Object.values(PrismaGameRate) as string[]).includes(_value))
       throw new ValidationError('GameRate is invalid.')
+    super(_value)
+  }
+}
+
+export class GameMemo extends PrimitiveValueObject<string> {
+  constructor(readonly _value: string) {
+    if (_value && _value.length > 1000) throw new ValidationError('GameMemo is invalid.')
     super(_value)
   }
 }

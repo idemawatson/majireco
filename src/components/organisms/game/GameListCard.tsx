@@ -1,10 +1,7 @@
-import ChevronRight from '@mui/icons-material/ChevronRight'
 import { Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material'
 import { GameRate, GameRule } from '@prisma/client'
 import dayjs from 'dayjs'
 import { FC } from 'react'
-import { getRateText } from '@/libs/gameRate'
-import { getRuleText } from '@/libs/gameRule'
 
 type Props = {
   gameId: string
@@ -40,11 +37,7 @@ const GameListCard: FC<Props> = (props) => {
           title={dayjs(props.playedAt).format('YYYY年MM月DD日 HH:mm')}
           subheader={getStatusText(props.started, props.completed)}
         ></CardHeader>
-        <CardContent sx={{ pt: 0 }}>
-          {playerNames()}
-          <Typography variant='body1'>ルール: {getRuleText(props.rule)}</Typography>
-          <Typography variant='body1'>レート: {getRateText(props.rate)}</Typography>
-        </CardContent>
+        <CardContent sx={{ pt: 0 }}>{playerNames()}</CardContent>
       </CardActionArea>
     </Card>
   )

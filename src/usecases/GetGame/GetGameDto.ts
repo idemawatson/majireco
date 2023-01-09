@@ -8,6 +8,7 @@ export interface GetGameResponseDTO {
   id: string
   rule: GameRule
   rate: GameRate
+  memo?: string
   started: boolean
   completed: boolean
   playedAt: string

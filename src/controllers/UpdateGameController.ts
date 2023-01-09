@@ -12,7 +12,7 @@ export class UpdateGameController {
   }
 
   async updateGame(body: any): Promise<UpdateGameResponseDto> {
-    const { gameId, playerId, rule, rate, started, completed } = body
+    const { gameId, playerId, rule, rate, memo, started, completed } = body
     if (gameId == null || playerId == null) {
       throw new GameValidationError('parameter not found.')
     }
@@ -20,7 +20,15 @@ export class UpdateGameController {
     if (started === true && game.belongingPlayers?.length != 4) {
       throw new GameValidationError('belongingPlayers is less than 4.')
     }
-    const reqDTO = { gameId, playerId, rate, rule, started, completed } as UpdateGameRequestDto
+    const reqDTO = {
+      gameId,
+      playerId,
+      rule,
+      rate,
+      memo,
+      started,
+      completed,
+    } as UpdateGameRequestDto
     return await this.updateGameUseCase.execute(reqDTO)
   }
 }
