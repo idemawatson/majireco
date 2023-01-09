@@ -98,9 +98,11 @@ const RoundRecordBoard: FC<Props> = ({ belongingPlayers, roundRecords }) => {
     <>
       <Grid container>
         <Header belongingPlayers={belongingPlayers} />
-        {Object.values(roundRecords).map((record, index) => (
-          <Row records={record} key={index} />
-        ))}
+        <Grid container sx={{ overflowY: 'auto', maxHeight: '40vh' }}>
+          {Object.values(roundRecords).map((record, index) => (
+            <Row records={record} key={index} />
+          ))}
+        </Grid>
       </Grid>
       <Grid container sx={{ borderTop: 'solid' }}>
         <Result roundRecords={roundRecords} />

@@ -1,6 +1,6 @@
 import { GameRate as PrismaGameRate, GameRule as PrismaGameRule } from '@prisma/client'
 import dayjs from 'dayjs'
-import { Game, GameRate, GameRule } from '../entity/Game'
+import { Game, GameMemo, GameRate, GameRule } from '../entity/Game'
 import { BoolValue, DateValue, EntityId } from '../entity/valueObjects/CommonValueObjects'
 import PlayerMapper, { PlayerRawProps } from './PlayerMapper'
 import PlayerOnGameMapper, { PlayerOnGameRawProps } from './PlayerOnGameMapper'
@@ -10,6 +10,7 @@ type GameRawProps = {
   playedAt: Date
   rate: PrismaGameRate
   rule: PrismaGameRule
+  memo?: string
   started: boolean
   completed: boolean
   ownerId: string
@@ -19,13 +20,14 @@ type GameRawProps = {
 
 export default class GameMapper {
   static toDomain(values: GameRawProps): Game {
-    const { id, playedAt, rate, rule, started, completed, ownerId, owner, belongingPlayers } =
+    const { id, playedAt, rate, rule, memo, started, completed, ownerId, owner, belongingPlayers } =
       values
     return new Game({
       id: new EntityId(id),
+      playedAt: new DateValue(dayjs(playedAt).toDate(), 'playedAt'),
       rule: new GameRule(rule),
       rate: new GameRate(rate),
-      playedAt: new DateValue(dayjs(playedAt).toDate(), 'playedAt'),
+      memo: memo ? new GameMemo(memo) : undefined,
       started: new BoolValue(started),
       completed: new BoolValue(completed),
       ownerId: new EntityId(ownerId),
@@ -39,6 +41,7 @@ export default class GameMapper {
       id: game.id,
       rate: game.rate,
       rule: game.rule,
+      memo: game.memo,
       playedAt: game.playedAt,
       started: game.started,
       completed: game.completed,

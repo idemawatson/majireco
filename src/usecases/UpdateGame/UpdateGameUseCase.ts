@@ -7,6 +7,7 @@ export default class UpdateGameUseCase {
       id: req.gameId,
       rule: req.rule,
       rate: req.rate,
+      memo: req.memo,
       started: req.started,
       completed: req.completed,
     })

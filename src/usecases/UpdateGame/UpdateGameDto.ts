@@ -5,6 +5,7 @@ export type UpdateGameRequestDto = {
   playerId: string
   rate?: GameRate
   rule?: GameRule
+  memo?: string
   started?: boolean
   completed?: boolean
 }

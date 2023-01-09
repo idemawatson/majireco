@@ -31,6 +31,7 @@ export default class GetGamePresenter {
       id: game.id,
       rate: game.rate,
       rule: game.rule,
+      memo: game.memo,
       started: game.started,
       completed: game.completed,
       playedAt: game.playedAt.toISOString(),

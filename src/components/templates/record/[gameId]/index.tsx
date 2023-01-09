@@ -14,7 +14,8 @@ import {
   CreateRoundRecordRequestDTO,
   CreateRoundRecordResponseDTO,
 } from '@/usecases/CreateRoundRecord/CreateRoundRecordDto'
-import { UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
+import { UpdateGameRequestDto, UpdateGameResponseDto } from '@/usecases/UpdateGame/UpdateGameDto'
+import { IGameMemoForm } from '@/types/forms/GameMemoForm'
 
 const Page: FC = () => {
   const { showLoading, hideLoading } = useLoading()
@@ -23,7 +24,7 @@ const Page: FC = () => {
   const gameId = router.query.gameId as string
   const { mutate } = useSWRConfig()
 
-  const submitForm = async (form: IRecordCreateForm) => {
+  const createRecord = async (form: IRecordCreateForm) => {
     const scores = [
       { playerId: form.player1, score: form.p1Score },
       { playerId: form.player2, score: form.p2Score },
@@ -51,6 +52,26 @@ const Page: FC = () => {
     }
   }
 
+  const updateMemo = async (form: IGameMemoForm) => {
+    try {
+      showLoading()
+      await restClient.post<Omit<UpdateGameRequestDto, 'playerId'>, UpdateGameResponseDto>(
+        '/game',
+        {
+          memo: form.memo,
+          gameId,
+        },
+      )
+      showSuccess('メモを更新しました')
+      mutate(`game?game_id=${gameId}`)
+    } catch (err: any) {
+      console.error(err)
+      showError('更新に失敗しました')
+    } finally {
+      hideLoading()
+    }
+  }
+
   const endGame = async () => {
     try {
       showLoading()
@@ -72,7 +93,11 @@ const Page: FC = () => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Suspense fallback={<Loading />}>
-        <Presenter submitForm={submitForm} handleOnClickEndGame={endGame}></Presenter>
+        <Presenter
+          createRecord={createRecord}
+          updateMemo={updateMemo}
+          endGame={endGame}
+        ></Presenter>
       </Suspense>
     </ErrorBoundary>
   )

@@ -7,7 +7,7 @@ type PlayerUpdateModel = {
 export const schema: yup.SchemaOf<PlayerUpdateModel> = yup.object().shape({
   name: yup
     .string()
-    .required('配点ルールを選択してください')
+    .required('プレイヤー名を入力してください')
     .max(50, '50文字以内で入力してください'),
 })
 

@@ -40,11 +40,7 @@ const GameListCard: FC<Props> = (props) => {
           title={dayjs(props.playedAt).format('YYYY年MM月DD日 HH:mm')}
           subheader={getStatusText(props.started, props.completed)}
         ></CardHeader>
-        <CardContent sx={{ pt: 0 }}>
-          {playerNames()}
-          <Typography variant='body1'>ルール: {getRuleText(props.rule)}</Typography>
-          <Typography variant='body1'>レート: {getRateText(props.rate)}</Typography>
-        </CardContent>
+        <CardContent sx={{ pt: 0 }}>{playerNames()}</CardContent>
       </CardActionArea>
     </Card>
   )

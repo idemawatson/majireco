@@ -21,8 +21,9 @@ model Game {
   rate             GameRate
   started          Boolean        @default(false)
   completed        Boolean        @default(false)
+  memo             String?
   owner            Player         @relation(fields:[ownerId], references: [id])
-  ownerId          String         
+  ownerId          String      
   belongingPlayers PlayerOnGame[]
 }
 
