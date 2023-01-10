@@ -1,14 +1,14 @@
 import { Grid, Typography } from '@mui/material'
 import { FC } from 'react'
 import BaseDisplayCard from '@/components/uiParts/BaseDisplayCard'
-import { useAnalyzedRecords } from '@/hooks/useAnalyzedRecords'
+import { useAggregatedRecords } from '@/hooks/useAggregatedRecords'
 
 type Props = {
   rate: string
 }
 
 const AnalyticsCards: FC<Props> = ({ rate }) => {
-  const { data } = useAnalyzedRecords(rate)
+  const { data } = useAggregatedRecords(rate)
   const displayNumber = (num: number | undefined) => (num && num >= 0 ? `+${num}` : `${num}`)
   return (
     <Grid container>

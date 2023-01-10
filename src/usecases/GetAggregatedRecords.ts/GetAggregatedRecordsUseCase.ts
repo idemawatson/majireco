@@ -26,29 +26,31 @@ export default class GetAggregatedRecordsUseCase {
       rate,
       targetPlayerId,
     })
-    console.log(JSON.stringify(records))
     if (!records.length)
       return {
         avgRank: 0,
         avgScore: 0,
         roundNum: 0,
         totalCost: 0,
+        ranks: [0, 0, 0, 0],
       }
-    const { totalRank, totalScore, roundNum, totalCost } = records.reduce(
+    const { totalRank, totalScore, roundNum, totalCost, ranks } = records.reduce(
       (previous, current) => {
         previous.totalRank += current.rank
         previous.totalScore += current.score
         previous.roundNum += 1
         previous.totalCost += calcRate(current.score, current.playerOnGame.game.rate)
+        previous.ranks[current.rank - 1] += 1
         return previous
       },
-      { totalRank: 0, totalScore: 0, roundNum: 0, totalCost: 0 },
+      { totalRank: 0, totalScore: 0, roundNum: 0, totalCost: 0, ranks: [0, 0, 0, 0] },
     )
     return {
       avgRank: Math.round((totalRank / roundNum) * 100) / 100,
       avgScore: Math.round((totalScore / roundNum) * 100) / 100,
       roundNum,
       totalCost,
+      ranks: ranks.map((rank) => rank / roundNum),
     }
   }
 }

@@ -3,4 +3,5 @@ export interface GetAggregatedRecordsResponseDTO {
   avgScore: number
   roundNum: number
   totalCost: number
+  ranks: number[]
 }

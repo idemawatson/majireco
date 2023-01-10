@@ -1,9 +1,10 @@
-import { Box, Grid, Paper } from '@mui/material'
+import { Box, Card, CardContent, Grid, Paper } from '@mui/material'
 import { FC, Suspense, useState } from 'react'
 import AnalyticsCards from '@/components/organisms/analytics/AnalyticsCards'
 import AnalyticsLoadingCards from '@/components/organisms/analytics/AnalyticsLoadingCards'
 import { SelectField } from '@/components/uiParts/SelectField/presenter'
 import { GAME_RATE_SELECTIONS } from '@/libs/const'
+import AnalyticsRankChart from '@/components/organisms/analytics/AnalyticsRankChart'
 
 const Presenter: FC = () => {
   const [rate, setRate] = useState(GAME_RATE_SELECTIONS[2].value)
@@ -25,6 +26,7 @@ const Presenter: FC = () => {
         </Grid>
         <Suspense fallback={<AnalyticsLoadingCards />}>
           <AnalyticsCards rate={rate}></AnalyticsCards>
+          <AnalyticsRankChart rate={rate} />
         </Suspense>
       </Box>
     </>

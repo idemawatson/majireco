@@ -29,6 +29,7 @@
     "react-dom": "18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-hook-form": "^7.37.0",
+    "recharts": "^2.2.0",
     "shallow-equal-object": "^1.1.1",
     "swr": "^1.2.2",
     "uuidv4": "^6.2.13",
