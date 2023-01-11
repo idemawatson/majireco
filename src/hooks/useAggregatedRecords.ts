@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import restClient from '@/libs/restClient'
 import { GetAggregatedRecordsResponseDTO } from '@/usecases/GetAggregatedRecords.ts/GetAggregatedRecordsDto'
 
-export const useAnalyzedRecords = (rate: string) => {
+export const useAggregatedRecords = (rate: string) => {
   const fetcher = async (url: string): Promise<GetAggregatedRecordsResponseDTO> => {
     const response = await restClient.get(url)
     return response.data as GetAggregatedRecordsResponseDTO
