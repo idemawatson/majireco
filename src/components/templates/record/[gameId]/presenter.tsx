@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { Card, CardContent, CardHeader, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
@@ -16,8 +17,15 @@ type Props = {
 
 const Presenter: FC<Props> = ({ createRecord, updateMemo, endGame }) => {
   const router = useRouter()
+  const { user } = useUser()
   const { data } = useGame(router.query.gameId as string)
   if (!data) return <></>
+  const isJoined = data.belongingPlayers.some((player) => player.playerId === user?.sub)
+  const isPublic = router.query.public === 'true'
+  if (!isPublic && !isJoined) {
+    router.push('/404')
+    return <></>
+  }
 
   return (
     <>
@@ -52,7 +60,13 @@ const Presenter: FC<Props> = ({ createRecord, updateMemo, endGame }) => {
           <RecordTransitionChart></RecordTransitionChart>
         </CardContent>
       </Card>
-      <RecordMenuSpeedDial createRecord={createRecord} updateMemo={updateMemo} endGame={endGame} />
+      {!isPublic && (
+        <RecordMenuSpeedDial
+          createRecord={createRecord}
+          updateMemo={updateMemo}
+          endGame={endGame}
+        />
+      )}
     </>
   )
 }

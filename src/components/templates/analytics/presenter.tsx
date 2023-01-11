@@ -6,7 +6,7 @@ import AnalyticsRankChart from '@/components/organisms/analytics/AnalyticsRankCh
 import { SelectField } from '@/components/uiParts/SelectField/presenter'
 import { GAME_RATE_SELECTIONS } from '@/libs/const'
 
-const Presenter: FC = () => {
+const AnalyticsPresenter: FC = () => {
   const [rate, setRate] = useState(GAME_RATE_SELECTIONS[2].value)
   return (
     <>
@@ -33,4 +33,4 @@ const Presenter: FC = () => {
   )
 }
 
-export default Presenter
+export default AnalyticsPresenter
