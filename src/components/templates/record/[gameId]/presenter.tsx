@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { Card, CardContent, CardHeader, Paper, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
@@ -7,7 +8,6 @@ import RoundRecordBoard from '@/components/organisms/record/RoundRecordBoard'
 import { useGame } from '@/hooks/useGame'
 import { IGameMemoForm } from '@/types/forms/GameMemoForm'
 import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
-import { useUser } from '@auth0/nextjs-auth0'
 
 type Props = {
   createRecord: (form: IRecordCreateForm) => void

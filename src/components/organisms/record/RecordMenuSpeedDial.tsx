@@ -9,7 +9,6 @@ import BaseSpeedDial from '@/components/uiParts/BaseSpeedDial'
 import { useGame } from '@/hooks/useGame'
 import { IGameMemoForm } from '@/types/forms/GameMemoForm'
 import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
-import { mutate } from 'swr'
 
 type Props = {
   createRecord: (data: IRecordCreateForm) => void
