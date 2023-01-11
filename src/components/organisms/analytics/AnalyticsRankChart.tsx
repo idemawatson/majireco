@@ -1,11 +1,11 @@
-import { useAggregatedRecords } from '@/hooks/useAggregatedRecords'
 import { Card, CardContent, CardHeader, Grid } from '@mui/material'
-import { GameRate } from '@prisma/client'
 import { FC } from 'react'
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, PieLabelRenderProps } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts'
+import { PieLabelRenderProps } from 'recharts/types'
+import { useAggregatedRecords } from '@/hooks/useAggregatedRecords'
 
 type Props = {
-  rate: GameRate
+  rate: string
 }
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
 
@@ -15,8 +15,6 @@ const AnalyticsRankChart: FC<Props> = ({ rate }) => {
   const rankData = data?.ranks.map((rank, index) => {
     return { name: `${index + 1}位`, value: rank * 100 }
   })
-
-  //   const renderCustomizedLabel = ({ value }: { value: number }) => `${value}%`
 
   const RADIAN = Math.PI / 180
   const renderCustomizedLabel = (props: PieLabelRenderProps) => {
