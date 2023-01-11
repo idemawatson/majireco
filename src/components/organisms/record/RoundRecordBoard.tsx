@@ -1,5 +1,6 @@
 import { Grid, Paper, styled } from '@mui/material'
 import { FC, ReactNode } from 'react'
+import sliceText from '@/libs/sliceText'
 import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
 
 const Column: FC<{
@@ -32,7 +33,7 @@ const Header: FC<Pick<GetGameResponseDTO, 'belongingPlayers'>> = ({ belongingPla
           backgroundColor='primary.main'
           color='primary.contrastText'
         >
-          {bp.playerName.length <= 5 ? bp.playerName : `${bp.playerName.slice(0, 5)}`}
+          {sliceText(bp.playerName, 5)}
         </Column>
       ))}
     </>
