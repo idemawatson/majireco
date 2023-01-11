@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, Paper, Typography } from '@mui/material'
-import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import RecordMenuSpeedDial from '@/components/organisms/record/RecordMenuSpeedDial'
+import RecordTransitionChart from '@/components/organisms/record/RecordTransitionChart'
 import RoundRecordBoard from '@/components/organisms/record/RoundRecordBoard'
 import { useGame } from '@/hooks/useGame'
 import { IGameMemoForm } from '@/types/forms/GameMemoForm'
@@ -21,10 +21,6 @@ const Presenter: FC<Props> = ({ createRecord, updateMemo, endGame }) => {
 
   return (
     <>
-      <Paper sx={{ mx: 2, my: 2, px: 1, py: 1 }} elevation={0}>
-        <Typography>プレイ日: {dayjs(data.playedAt).format('YYYY-MM-DD')}</Typography>
-        <Typography>作成者: {data.owner.name}</Typography>
-      </Paper>
       <Paper
         sx={{
           my: 2,
@@ -41,6 +37,19 @@ const Presenter: FC<Props> = ({ createRecord, updateMemo, endGame }) => {
         <CardHeader title='対局メモ'></CardHeader>
         <CardContent>
           <Typography>{data.memo}</Typography>
+        </CardContent>
+      </Card>
+      <Card
+        sx={{
+          mx: 2,
+          my: 2,
+          mb: 10,
+        }}
+        elevation={0}
+      >
+        <CardHeader title='成績推移'></CardHeader>
+        <CardContent>
+          <RecordTransitionChart></RecordTransitionChart>
         </CardContent>
       </Card>
       <RecordMenuSpeedDial createRecord={createRecord} updateMemo={updateMemo} endGame={endGame} />

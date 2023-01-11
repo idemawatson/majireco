@@ -25,7 +25,11 @@ const AnalyticsRankChart: FC<Props> = ({ rate }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5
     const x = (cx as number) + radius * Math.cos(-props.midAngle * RADIAN)
     const y = (cy as number) + radius * Math.sin(-props.midAngle * RADIAN)
+    const percent = props.percent as number
 
+    if (percent == 0) {
+      return <></>
+    }
     return (
       <text
         x={x}
@@ -35,7 +39,7 @@ const AnalyticsRankChart: FC<Props> = ({ rate }) => {
         dominantBaseline='central'
         fontSize={'20px'}
       >
-        {`${((props.percent as number) * 100).toFixed(1)}%`}
+        {`${(percent * 100).toFixed(1)}%`}
       </text>
     )
   }
