@@ -5,12 +5,12 @@ import { FC } from 'react'
 import RecordMenuSpeedDial from '@/components/organisms/record/RecordMenuSpeedDial'
 import RecordTransitionChart from '@/components/organisms/record/RecordTransitionChart'
 import RoundRecordBoard from '@/components/organisms/record/RoundRecordBoard'
-import { useGame } from '@/hooks/useGame'
-import { IGameMemoForm } from '@/types/forms/GameMemoForm'
-import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
-import restClient from '@/libs/restClient'
 import { useLoading } from '@/components/uiParts/TheLoading/hooks'
 import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
+import { useGame } from '@/hooks/useGame'
+import restClient from '@/libs/restClient'
+import { IGameMemoForm } from '@/types/forms/GameMemoForm'
+import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
 
 type Props = {
   createRecord: (form: IRecordCreateForm) => void

@@ -2,9 +2,9 @@ import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0'
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { CreateRoundRecordController } from '@/controllers/CreateRoundRecordController'
+import { DeleteRoundRecordController } from '@/controllers/DeleteRoundRecordController'
 import { GetAggregatedRecordsController } from '@/controllers/GetAggregatedRecordsController'
 import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
-import { DeleteRoundRecordController } from '@/controllers/DeleteRoundRecordController'
 
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('Start create RoundRecord.')

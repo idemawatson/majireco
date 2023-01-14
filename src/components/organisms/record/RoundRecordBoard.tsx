@@ -1,12 +1,12 @@
+import { useUser } from '@auth0/nextjs-auth0'
+import { Clear } from '@mui/icons-material'
 import { Grid, Paper, Stack, styled } from '@mui/material'
+import { useRouter } from 'next/router'
 import { FC, ReactNode, useState } from 'react'
+import RecordDeleteConfirmationDialog from './RecordDeleteConfirmationDialog'
+import { useGame } from '@/hooks/useGame'
 import sliceText from '@/libs/sliceText'
 import { GetGameResponseDTO } from '@/usecases/GetGame/GetGameDto'
-import { Clear } from '@mui/icons-material'
-import { useRouter } from 'next/router'
-import { useUser } from '@auth0/nextjs-auth0'
-import { useGame } from '@/hooks/useGame'
-import RecordDeleteConfirmationDialog from './RecordDeleteConfirmationDialog'
 
 const FixedClear = styled(Clear)(({ theme }) => ({
   margin: 0,
