@@ -4,6 +4,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import { CreateRoundRecordController } from '@/controllers/CreateRoundRecordController'
 import { GetAggregatedRecordsController } from '@/controllers/GetAggregatedRecordsController'
 import { apiHandler } from '@/libs/apiHelpers/apiRoutes'
+import { DeleteRoundRecordController } from '@/controllers/DeleteRoundRecordController'
 
 const putHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('Start create RoundRecord.')
@@ -29,7 +30,17 @@ const getHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiRespo
   console.log('End get aggregated records.')
 }
 
+const deleteHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log('Start delete records.')
+  const session = getSession(req, res)
+  const controller = new DeleteRoundRecordController()
+  await controller.execute(req.query.roundId as string, session?.user.sub)
+  console.log('End delete records.')
+  res.end()
+}
+
 export default apiHandler({
   PUT: withApiAuthRequired(putHandler),
   GET: withApiAuthRequired(getHandler),
+  DELETE: withApiAuthRequired(deleteHandler),
 })

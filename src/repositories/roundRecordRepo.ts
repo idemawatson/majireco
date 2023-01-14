@@ -47,4 +47,19 @@ export class RoundRecordRepo {
       },
     })
   }
+
+  static async deleteRoundRecord(roundId: string, operatorId: string) {
+    await prisma.roundRecord.deleteMany({
+      where: {
+        roundId,
+        playerOnGame: {
+          game: {
+            owner: {
+              id: operatorId,
+            },
+          },
+        },
+      },
+    })
+  }
 }

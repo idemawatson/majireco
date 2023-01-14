@@ -8,6 +8,9 @@ import RoundRecordBoard from '@/components/organisms/record/RoundRecordBoard'
 import { useGame } from '@/hooks/useGame'
 import { IGameMemoForm } from '@/types/forms/GameMemoForm'
 import { IRecordCreateForm } from '@/types/forms/RecordCreateForm'
+import restClient from '@/libs/restClient'
+import { useLoading } from '@/components/uiParts/TheLoading/hooks'
+import { useNotification } from '@/components/uiParts/TheNotificationToast/hooks'
 
 type Props = {
   createRecord: (form: IRecordCreateForm) => void
@@ -18,13 +21,30 @@ type Props = {
 const Presenter: FC<Props> = ({ createRecord, updateMemo, endGame }) => {
   const router = useRouter()
   const { user } = useUser()
-  const { data } = useGame(router.query.gameId as string)
+  const { data, mutate } = useGame(router.query.gameId as string)
+  const { showLoading, hideLoading } = useLoading()
+  const { showSuccess, showError } = useNotification()
+
   if (!data) return <></>
   const isJoined = data.belongingPlayers.some((player) => player.playerId === user?.sub)
   const isPublic = router.query.public === 'true'
   if (!isPublic && !isJoined) {
     router.push('/404')
     return <></>
+  }
+
+  const deleteRecord = async (roundId: string) => {
+    try {
+      showLoading()
+      await restClient.delete(`/record?roundId=${roundId}`)
+      showSuccess('削除しました')
+      mutate()
+    } catch (err) {
+      console.error(err)
+      showError('削除できませんでした')
+    } finally {
+      hideLoading()
+    }
   }
 
   return (
@@ -36,10 +56,7 @@ const Presenter: FC<Props> = ({ createRecord, updateMemo, endGame }) => {
         }}
         elevation={0}
       >
-        <RoundRecordBoard
-          belongingPlayers={data.belongingPlayers}
-          roundRecords={data.roundRecords}
-        />
+        <RoundRecordBoard deleteRecord={deleteRecord} />
       </Paper>
       <Card sx={{ my: 2, mx: 2 }} elevation={0}>
         <CardHeader title='対局メモ'></CardHeader>
