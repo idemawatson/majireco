@@ -14,6 +14,19 @@ type IJoinGameForm = {
   gameId: string
 }
 
+const getJoinErrorMsg = (code: string) => {
+  switch (code) {
+    case errorCodes.JOIN_GAME_OVER_4:
+      return 'エラー: ４人参加済みです'
+    case errorCodes.JOIN_GAME_STARTED:
+      return 'エラー: 開始済みのゲームです'
+    case errorCodes.JOIN_GAME_DUPLICATION:
+      return 'エラー: 既に参加済みです'
+    default:
+      return 'エラー: 対局参加に失敗しました'
+  }
+}
+
 const Page: FC = () => {
   const { showLoading, hideLoading } = useLoading()
   const { showError, showSuccess } = useNotification()
@@ -28,9 +41,7 @@ const Page: FC = () => {
       router.push('/games')
     } catch (err: any) {
       console.error(err)
-      if (err.response?.data?.code === errorCodes.JOIN_GAME_DUPLICATION)
-        showError('エラー: 既に参加済みです')
-      else showError('エラー: 対局参加に失敗しました')
+      showError(getJoinErrorMsg(err.response?.data?.code))
     } finally {
       hideLoading()
     }

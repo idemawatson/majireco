@@ -6,11 +6,14 @@ import {
   JoinPlayerToGameResponseDto,
 } from '@/usecases/JoinPlayerToGame/JoinPlayerToGameDto'
 import JoinPlayerToGameUseCase from '@/usecases/JoinPlayerToGame/JoinPlayerToGameUseCase'
+import GetGameUseCase from '@/usecases/GetGame/GetGameUseCase'
 
 export class JoinPlayerToGameController {
   private joinPlayerToGameUseCase
+  private getGameUseCase
   constructor() {
     this.joinPlayerToGameUseCase = new JoinPlayerToGameUseCase()
+    this.getGameUseCase = new GetGameUseCase()
   }
 
   async joinPlayerToGame(body: any): Promise<JoinPlayerToGameResponseDto | void> {
@@ -18,6 +21,12 @@ export class JoinPlayerToGameController {
     if (!gameId || !playerId) {
       throw new ValidationError()
     }
+    const game = await this.getGameUseCase.execute({ id: gameId })
+    if (game.started === true)
+      throw new GameInvalidOperationError('game is already started.', errorCodes.JOIN_GAME_STARTED)
+    if (game.belongingPlayers && game.belongingPlayers.length === 4)
+      throw new GameInvalidOperationError('game is full.', errorCodes.JOIN_GAME_OVER_4)
+
     const reqDTO = { gameId, playerId } as JoinPlayerToGameRequestDto
     try {
       return await this.joinPlayerToGameUseCase.execute(reqDTO)
